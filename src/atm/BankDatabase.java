@@ -20,10 +20,13 @@ public class BankDatabase
 //      accounts[ 0 ] = new Account( 12345, 54321, 1000.0, 1200.0 );
 //      accounts[ 1 ] = new Account( 98765, 56789, 200.0, 200.0 );
 	   	
-	   initializeAccounts(AccountDAO.getAccounts());
+	   initializeAccounts();
    } // end no-argument BankDatabase constructor
    
-   private void initializeAccounts(List<Account> accs) {
+   private void initializeAccounts() {
+	   AccountDAO accountDao = new AccountDAO();
+	   List<Account> accs = accountDao.getAccounts();
+	   
 	   accounts = new Account[accs.size()];
 	   Iterator<Account> iterator = accs.iterator();
 	   

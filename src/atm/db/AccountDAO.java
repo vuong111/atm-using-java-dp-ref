@@ -11,7 +11,7 @@ import atm.Account;
 public class AccountDAO {
 	private static Connection connection = DBConnection.getInstance();
 	
-	public static ArrayList<Account> getAccounts() {			
+	public ArrayList<Account> getAccounts() {			
 		ArrayList<Account> accounts = new ArrayList<Account>();
 		
 		String sql = "SELECT * FROM Account";
@@ -34,7 +34,7 @@ public class AccountDAO {
 		return accounts;
 	}
 	
-	public static void updateAccount(Account account) {
+	public void updateAccount(Account account) {
 		String sql = "UPDATE Account SET availableBalance = " + account.getAvailableBalance() +
 			", totalBalance = " + account.getTotalBalance() + 
 			" WHERE accountNumber = " + account.getAccountNumber();
