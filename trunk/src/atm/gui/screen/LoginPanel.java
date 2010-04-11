@@ -76,9 +76,6 @@ public class LoginPanel extends JPanel implements ActionListener {
 			atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
 			
 		}
-		else {
-
-		}
 		System.out.println(command);
 	}
 }
