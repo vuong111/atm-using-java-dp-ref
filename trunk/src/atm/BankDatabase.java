@@ -3,7 +3,7 @@ package atm;
 import java.util.Iterator;
 import java.util.List;
 
-import atm.db.AccountDB;
+import atm.db.AccountDAO;
 
 
 // BankDatabase.java
@@ -20,7 +20,7 @@ public class BankDatabase
 //      accounts[ 0 ] = new Account( 12345, 54321, 1000.0, 1200.0 );
 //      accounts[ 1 ] = new Account( 98765, 56789, 200.0, 200.0 );
 	   	
-	   initializeAccounts(AccountDB.getAccounts());
+	   initializeAccounts(AccountDAO.getAccounts());
    } // end no-argument BankDatabase constructor
    
    private void initializeAccounts(List<Account> accs) {
