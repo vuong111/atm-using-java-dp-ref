@@ -12,23 +12,30 @@ public class DBConnection {
         private static final String username = "";
         private static final String password = "";
         
-        private Connection connection;
-        private static DBConnection instance;        
+        private static Connection connection;        
         
         private DBConnection() {
-        	loadDriver();
         	connection = newConnection();
         }
         
-        public static synchronized DBConnection getInstance() {
-        	if (instance == null) {
-        		instance = new DBConnection();
+        public static synchronized Connection getInstance() {
+        	if (connection == null) {
+        		new DBConnection();
         	}
-            return instance;
+            return connection;
         }
         
-        public Connection getConnection() {
-        	return connection;
+        private Connection newConnection() {
+        	Connection con = null;
+        	loadDriver();
+        	
+            try {
+            	con = DriverManager.getConnection(url, username, password);
+            }
+            catch (SQLException e) {                
+                e.printStackTrace();
+            }
+            return con;
         }
         
         private void loadDriver()
@@ -38,16 +45,5 @@ public class DBConnection {
             } catch(ClassNotFoundException cnfe) {
             	cnfe.printStackTrace();
             }
-        }        
-        
-        private Connection newConnection() {
-        	Connection con = null;
-            try {
-            	con = DriverManager.getConnection(url, username, password);
-            }
-            catch (SQLException e) {                
-                e.printStackTrace();
-            }
-            return con;
         }
 }
