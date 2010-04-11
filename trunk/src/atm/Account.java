@@ -1,6 +1,6 @@
 package atm;
 
-import atm.db.AccountDB;
+import atm.db.AccountDAO;
 
 // Account.java
 // Represents a bank account
@@ -54,7 +54,7 @@ public class Account
    {
       availableBalance -= amount; // subtract from available balance
       totalBalance -= amount; // subtract from total balance
-      AccountDB.updateAccount(this);
+      AccountDAO.updateAccount(this);
    } // end method debit
 
    // returns account number
