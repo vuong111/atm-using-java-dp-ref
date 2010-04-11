@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import atm.Account;
 
 public class AccountDB {
-	private static Connection connection = DBConnection.getInstance().getConnection();
+	private static Connection connection = DBConnection.getInstance();
 	
 	public static ArrayList<Account> getAccounts() {			
 		ArrayList<Account> accounts = new ArrayList<Account>();
