@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import atm.Account;
 
-public class AccountDB {
+public class AccountDAO {
 	private static Connection connection = DBConnection.getInstance();
 	
 	public static ArrayList<Account> getAccounts() {			
