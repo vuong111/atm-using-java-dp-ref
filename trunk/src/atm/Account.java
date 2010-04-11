@@ -54,7 +54,10 @@ public class Account
    {
       availableBalance -= amount; // subtract from available balance
       totalBalance -= amount; // subtract from total balance
-      AccountDAO.updateAccount(this);
+      
+      //update db
+      AccountDAO accountDAO = new AccountDAO();
+      accountDAO.updateAccount(this);
    } // end method debit
 
    // returns account number
