@@ -61,7 +61,7 @@ public class ATMWindow extends JFrame {
 	}
 	
 	private void initComponents() {
-		
+
 		/**
 		 * add components to the frame
 		 */
