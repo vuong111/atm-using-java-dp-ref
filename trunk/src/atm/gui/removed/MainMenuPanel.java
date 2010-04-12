@@ -1,4 +1,4 @@
-package atm.gui.screen;
+package atm.gui.removed;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -77,11 +77,11 @@ public class MainMenuPanel extends JPanel implements ActionListener {
 		String command = e.getActionCommand();
 		
 		if (command.equals(VIEW_BALANCE)) {
-			atm.getScreenPanel().displayPanel(ScreenPanel.VIEW_BALANCE);
+			//atm.getScreenPanel().displayPanel(ScreenPanel.VIEW_BALANCE);
 			
 		}
 		else if (command.equals(WITHDRAW)) {
-			atm.getScreenPanel().displayPanel(ScreenPanel.WITHDRAW_MENU);
+			//atm.getScreenPanel().displayPanel(ScreenPanel.WITHDRAW_MENU);
 			
 		}
 		else if (command.equals(DEPOSIT)) {
@@ -94,7 +94,7 @@ public class MainMenuPanel extends JPanel implements ActionListener {
 			
 		}
 		else if (command.equals(EXIT)) {
-			atm.getScreenPanel().displayPanel(ScreenPanel.LOGIN_MENU);
+			//atm.getScreenPanel().displayPanel(ScreenPanel.LOGIN_MENU);
 			
 		}
 		System.out.println(command);

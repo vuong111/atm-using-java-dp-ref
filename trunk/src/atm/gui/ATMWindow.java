@@ -2,59 +2,56 @@ package atm.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
-import javax.swing.Box;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import atm.gui.input.CardSlot;
 import atm.gui.input.CashDispenser;
 import atm.gui.input.DepositSlot;
-import atm.gui.input.KeypadPanel;
-import atm.gui.screen.ScreenPanel;
+import atm.gui.input.Keypad;
+import atm.gui.observer.Observable;
+import atm.gui.observer.Observer;
+import atm.gui.removed.ScreenPanel;
+import atm.gui.screen.LoginScreen;
+import atm.gui.screen.Screen;
 import atm.gui.welcome.WelcomePanel;
+import atm.utils.ATMUtils;
 
 public class ATMWindow extends JFrame {
 
-	/**
-	 * screenPanel
-	 */	
-	private ScreenPanel screenPanel = new ScreenPanel(this);
-	
 	/**
 	 * welcomePanel
 	 */	
 	private WelcomePanel welcomePanel = new WelcomePanel(this);
 	
-	/**
-	 * keypadPanel
-	 */
-	private KeypadPanel keypadPanel = new KeypadPanel(this);
+	/** screen **/
+	private Screen screen = new Screen();
 	
-	/**
-	 * cashDispenser
-	 */
+	/** keypad **/
+	private Keypad keypad = new Keypad();
+	
+	/** cardSlot **/ 
+	private CardSlot cardSlot = new CardSlot();
+	
+	/** cashDispenser **/
 	private CashDispenser cashDispenser = new CashDispenser();
 	
-	/**
-	 * depositSlot
-	 */
+	/** depositSlot **/
 	private DepositSlot depositSlot = new DepositSlot();
 	
-	/**
-	 * Database
-	 */
+	/** Database **/
 	
-	/**
-	 * whether user is authenticated
-	 */
+	/** whether user is authenticated **/
 	private boolean userAuthenticated;
 	
-	/**
-	 * current user's account number
-	 */
+	/** current user's account number **/
 	private int currentAccountNumber;
 	
+	/** constructor **/
 	public ATMWindow() {
 		super("ATM");
 		userAuthenticated = false;
@@ -68,20 +65,23 @@ public class ATMWindow extends JFrame {
 		/**
 		 * add components to the frame
 		 */
-		add(welcomePanel, BorderLayout.NORTH);
-		add(screenPanel, BorderLayout.CENTER);
+		JPanel vPanel = new JPanel(new GridLayout(0, 1));		
+		vPanel.add(cardSlot);			//cardSlot
+		cardSlot.addObserver(new CardSlotListener());		
+		vPanel.add(cashDispenser);		//cashDispenser
+		vPanel.add(depositSlot);		//depositSlot
+		vPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 		
-		Box vBox = Box.createVerticalBox();
-		vBox.add(cashDispenser);
-			cashDispenser.setAlignmentX(CENTER_ALIGNMENT);
-		vBox.add(depositSlot);
-			depositSlot.setAlignmentX(CENTER_ALIGNMENT);
-			
-		JPanel ioPanel = new JPanel();
-		ioPanel.add(keypadPanel);
-		ioPanel.add(vBox);
+		JPanel ioPanel = new JPanel();		
+		ioPanel.add(keypad.getNumberKeypad());				//keypad - number keypad		
+		ioPanel.add(keypad.getOperationKeypad()); 			//keypad - operation keypad		
+		ioPanel.add(vPanel);
 		ioPanel.setBackground(new Color(51, 153, 204));
 		
+		add(welcomePanel, BorderLayout.NORTH);				//welcome
+		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
+		add(keypad.getRightKeypad(), BorderLayout.EAST); 	//keypad - right side		
+		add(screen, BorderLayout.CENTER); 				//screen		
 		add(ioPanel, BorderLayout.SOUTH);
 		
 		/**
@@ -92,19 +92,67 @@ public class ATMWindow extends JFrame {
 	}
 	
 	public void run() {
-		getScreenPanel().displayPanel(ScreenPanel.LOGIN_MENU);
-	}	
+		authenticateUser();
+	}
+	
+	private void authenticateUser() {
+		/** test cái coi :) **/
+		final LoginScreen login = (LoginScreen) getScreen().getScreen(ScreenPanel.LOGIN_MENU);
+		getKeypad().addObserver(new Observer() {
+			private String accountNumber = "";
+			private String pin = "";
+			private int flag = 0;
+			@Override
+			public void update(Observable observable) {
+				String key = getKeypad().getKeyPressed();
+				if (ATMUtils.isNumberKey(key)) {
+					if (flag == 0) {
+						pin += key;
+						login.updateAccountNumberField(key);
+					}
+					else {
+						accountNumber += key;
+						login.updatePINField(key);
+					}
+				}
+				else if (key.equals(Keypad.ENTER) || key.equals(Keypad.RIGHT_KEY3)) {
+					System.out.println("Account Number: " + accountNumber);
+					System.out.println("PIN: " + pin);					
+				}
+				else if (key.equals(Keypad.CLEAR)) {
+					if (flag == 0) {
+						pin = "";
+						login.updateAccountNumberField("");
+					}
+					else {
+						accountNumber = "";
+						login.updatePINField("");
+					}
+				}
+				else if (key.equals(Keypad.RIGHT_KEY1)) {
+					flag = 0;
+				}
+				else if (key.equals(Keypad.RIGHT_KEY2)) {
+					flag = 1;
+				}
+				System.out.println(key);
+			}
+
+		});
+	}
+	
+
 	
 	public WelcomePanel getWelcomePanel() {
 		return welcomePanel;
 	}
 	
-	public ScreenPanel getScreenPanel() {
-		return screenPanel;
+	public Screen getScreen() {
+		return screen;
 	}
 	
-	public KeypadPanel getKeypadPanel() {
-		return keypadPanel;
+	public Keypad getKeypad() {
+		return keypad;
 	}
 	
 	public CashDispenser getCashDispenser() {
@@ -127,6 +175,14 @@ public class ATMWindow extends JFrame {
 		return currentAccountNumber;
 	}
 	
+	public void setUserAuthenticated(Boolean authenticated) {
+		userAuthenticated = authenticated;
+	}
+	
+	public void setCurrentAccountNumber(int accountNumber) {
+		currentAccountNumber = accountNumber;
+	}
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -135,5 +191,14 @@ public class ATMWindow extends JFrame {
                	atm.run();
             }
         });
+	}
+	
+	class CardSlotListener implements Observer {
+		@Override
+		public void update(Observable observable) {
+			CardSlot cardSlot = (CardSlot) observable;
+			System.out.println(cardSlot.isInserted());
+			
+		}
 	}
 }

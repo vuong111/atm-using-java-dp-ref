@@ -1,4 +1,4 @@
-package atm.gui.screen;
+package atm.gui.removed;
 
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
@@ -135,7 +135,7 @@ public class WithdrawPanel extends JPanel implements ActionListener {
 		String command = e.getActionCommand();
 		
 		if (command.equals(EXIT)) {
-			atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
+			//atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
 			
 		}
 		else if (command.equals(SWITCH_TO_PANEL1) || command.equals(SWITCH_TO_PANEL2)) {

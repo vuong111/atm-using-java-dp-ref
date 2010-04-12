@@ -8,15 +8,17 @@ import atm.db.AccountDAO;
 public class Account 
 {
    private int accountNumber; // account number
+   private String fullName;
    private int pin; // PIN for authentication
    private double availableBalance; // funds available for withdrawal
    private double totalBalance; // funds available + pending deposits
 
    // Account constructor initializes attributes
-   public Account( int theAccountNumber, int thePIN, 
+   public Account( int theAccountNumber, String theFullName, int thePIN,
       double theAvailableBalance, double theTotalBalance )
    {
       accountNumber = theAccountNumber;
+      fullName = theFullName;
       pin = thePIN;
       availableBalance = theAvailableBalance;
       totalBalance = theTotalBalance;
@@ -65,6 +67,14 @@ public class Account
    {
       return accountNumber;  
    } // end method getAccountNumber
+   
+   public int getPIN() {
+	   return pin;
+   }
+   
+   public void setPIN(int newPIN) {
+	   pin = newPIN;
+   }
 } // end class Account
 
 
