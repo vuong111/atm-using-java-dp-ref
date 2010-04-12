@@ -1,4 +1,4 @@
-package atm.gui.screen;
+package atm.gui.removed;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -73,11 +73,8 @@ public class LoginPanel extends JPanel implements ActionListener {
 		String command = e.getActionCommand();
 		
 		if (command.equals(LOGIN)) {
-			atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
+			//atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
 			
-		}
-		else {
-
 		}
 		System.out.println(command);
 	}

@@ -1,4 +1,4 @@
-package atm.gui.input;
+package atm.gui.removed;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import atm.gui.ATMWindow;
-import atm.gui.screen.ScreenPanel;
 
 public class KeypadPanel extends JPanel implements ActionListener {
 	
@@ -101,11 +100,11 @@ public class KeypadPanel extends JPanel implements ActionListener {
 			System.out.println(command);
 		}
 		else if (command.equals(CANCEL)) {
-			atm.getScreenPanel().displayPanel(ScreenPanel.LOGIN_MENU);
+			//atm.getScreenPanel().displayPanel(ScreenPanel.LOGIN_MENU);
 			System.out.println(command);
 		}
 		else if (command.equals(CLEAR)) {
-			
+			System.out.println(command);
 		}
 		else {
 			System.out.println(command);

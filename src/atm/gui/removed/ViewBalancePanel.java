@@ -1,4 +1,4 @@
-package atm.gui.screen;
+package atm.gui.removed;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -45,7 +45,7 @@ public class ViewBalancePanel extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
+		//atm.getScreenPanel().displayPanel(ScreenPanel.MAIN_MENU);
 		System.out.println(e.getActionCommand());
 	}
 }

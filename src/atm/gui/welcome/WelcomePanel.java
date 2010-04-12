@@ -9,16 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import atm.gui.ATMWindow;
+import atm.gui.screen.Screen;
 
 /**
  * I - welcomePanel
  */
 public class WelcomePanel extends JPanel {
-	public static final String LOGIN_MENU = "Login Menu";
-	public static final String MAIN_MENU = "Main Menu";
-	public static final String WITHDRAW_MENU = "Withdraw Menu";
-	public static final String VIEW_BALANCE = "View Balance";
-	
 	private JComboBox cb;
 		
 //	private static ATMWindow atm = ATMWindow.getInstance();
@@ -37,12 +33,17 @@ public class WelcomePanel extends JPanel {
 
 		add(new JLabel("Welcome to my ATM"));
 		
-		String[] cbItems = new String[] {LOGIN_MENU, MAIN_MENU, WITHDRAW_MENU, VIEW_BALANCE};
+		String[] cbItems = new String[] {Screen.LOGIN_MENU, 
+										Screen.MAIN_MENU, 
+										Screen.WITHDRAW_MENU, 
+										Screen.VIEW_BALANCE,
+										Screen.TRANSFER,
+										Screen.CHANGE_PIN};
 		setCb(new JComboBox(cbItems));
 		getCb().addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				atm.getScreenPanel().displayPanel((String) e.getItem());
+				atm.getScreen().displayScreen((String) e.getItem());
 			}
 		});
 		

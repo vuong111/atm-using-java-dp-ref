@@ -1,4 +1,4 @@
-package atm.gui.screen;
+package atm.gui.removed;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -36,7 +36,7 @@ public class ScreenPanel extends JPanel {
 	private ViewBalancePanel viewBalancePanel;
 
 	public ScreenPanel(ATMWindow atm) {
-		loginPanel = new LoginPanel(atm);
+		loginPanel = new LoginPanel();
 		mainMenuPanel = new MainMenuPanel(atm);
 		withdrawPanel = new WithdrawPanel(atm);
 		viewBalancePanel = new ViewBalancePanel(atm);
