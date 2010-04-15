@@ -11,13 +11,13 @@ import javax.swing.JTextField;
 
 import atm.utils.ATMUtils;
 
-public class ViewBalanceScreen extends JPanel {
+public class BalanceInquiryScreen extends JPanel {
 	private JTextField accountNumberFld = new JTextField("123456");
 	private JTextField fullNameFld = new JTextField("Vietcombank");
 	private JTextField balanceFld = new JTextField("15.000.000 VND");
 	private Image bgImage;
 	
-	public ViewBalanceScreen() {
+	public BalanceInquiryScreen() {
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/viewbalance.png", "View balance").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
@@ -49,6 +49,26 @@ public class ViewBalanceScreen extends JPanel {
 		balanceFld.setForeground(Color.red);
 		balanceFld.setEditable(false);
 
+	}
+	
+	/*
+	 * displayMessage(int index, String msg) 
+	 * => Replace Parameter with Explicit Methods
+	 */
+	
+	/** display account number **/
+	public void displayMessage1(String msg) {
+		accountNumberFld.setText(msg);
+	}
+	
+	/** display account's full name **/
+	public void displayMessage2(String msg) {
+		fullNameFld.setText(msg);
+	}
+
+	/** display account balance **/
+	public void displayMessage3(String msg) {
+		balanceFld.setText(msg);
 	}
 	
 	@Override
