@@ -60,7 +60,7 @@ public class Transfer extends Transaction {
 				} // end switch (keyCode)
 				
 				System.out.println(String.valueOf("[transfer] key pressed: " + keyCode));
-			}
-		});
-	}
+			} // end update()
+		}); // end addObserver()
+	} // end execute()
 }

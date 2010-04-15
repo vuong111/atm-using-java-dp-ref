@@ -60,8 +60,8 @@ public class Withdrawal extends Transaction {
 					}
 					else
 						System.out.println("Not enough money. Pls choose a smaller amount.");
-				}
-			}
+				} //end switch
+			} // end update()
 	    	
 	    	private double getAmount(int type) {
 	    		double amount;
@@ -89,7 +89,7 @@ public class Withdrawal extends Transaction {
 					break;
 				}
 	    		return amount;
-	    	}
-	    });
-	}
+	    	} // end private getAmount() - extract method
+	    }); // end addObserver()
+	} // end execute()
 }
