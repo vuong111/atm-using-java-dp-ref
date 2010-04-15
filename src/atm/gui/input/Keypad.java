@@ -14,20 +14,21 @@ import javax.swing.JPanel;
 
 import atm.gui.observer.Observable;
 import atm.gui.observer.Observer;
+import atm.utils.ATMUtils;
 
 public class Keypad implements ActionListener, Observable {
 	
-	public static final String ENTER = "Enter";
-	public static final String CANCEL = "Cancel";
-	public static final String CLEAR = "Clear";
-	public static final String LEFT_KEY1 ="LEFT_KEY1";
-	public static final String LEFT_KEY2 ="LEFT_KEY2";
-	public static final String LEFT_KEY3 ="LEFT_KEY3";
-	public static final String LEFT_KEY4 ="LEFT_KEY4";
-	public static final String RIGHT_KEY1 ="RIGHT_KEY1";
-	public static final String RIGHT_KEY2 ="RIGHT_KEY2";
-	public static final String RIGHT_KEY3 ="RIGHT_KEY3";
-	public static final String RIGHT_KEY4 ="RIGHT_KEY4";
+	public static final int LEFT_KEY1 = 10;
+	public static final int LEFT_KEY2 = 11;
+	public static final int LEFT_KEY3 = 12;
+	public static final int LEFT_KEY4 = 13;
+	public static final int RIGHT_KEY1 = 14;
+	public static final int RIGHT_KEY2 = 15;
+	public static final int RIGHT_KEY3 = 16;
+	public static final int RIGHT_KEY4 = 17;
+	public static final int ENTER = 18;
+	public static final int CANCEL = 19;
+	public static final int CLEAR = 20;
 	
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
@@ -35,7 +36,8 @@ public class Keypad implements ActionListener, Observable {
 	private JPanel operationKeypad;
 	
 	private ArrayList<Observer> observerList = new ArrayList<Observer>(); 
-	private String keyPressed = "";
+	
+	private int pressedKeyCode;
 	
 	public Keypad() {
 		initLeftKeypad();
@@ -67,12 +69,12 @@ public class Keypad implements ActionListener, Observable {
 	    leftKeypad.add(Box.createGlue());
 	    leftKeypad.add(Box.createGlue());
 	    leftKeypad.add(Box.createGlue());
-	    for (int i = 1; i <= 4; i++) {
+	    for (int i = LEFT_KEY1; i <= LEFT_KEY4; i++) {
 	    	leftKeypad.add(Box.createGlue());
 	    	JButton btn = new JButton("      ");
-	    	btn.setActionCommand("LEFT_KEY" + i);
+	    	btn.setActionCommand(String.valueOf(i));
 	    	btn.addActionListener(this);
-	    	leftKeypad.add(btn);	    	
+	    	leftKeypad.add(btn);
 	    }
 	    leftKeypad.add(Box.createGlue());
 	    leftKeypad.setBackground(Color.red);
@@ -86,12 +88,12 @@ public class Keypad implements ActionListener, Observable {
 		rightKeypad.add(Box.createGlue());
 		rightKeypad.add(Box.createGlue());
 		rightKeypad.add(Box.createGlue());
-	    for (int i = 1; i <= 4; i++) {
+	    for (int i = RIGHT_KEY1; i <= RIGHT_KEY4; i++) {
 	    	rightKeypad.add(Box.createGlue());
 	    	JButton btn = new JButton("      ");
-	    	btn.setActionCommand("RIGHT_KEY" + i);
+	    	btn.setActionCommand(String.valueOf(i));
 	    	btn.addActionListener(this);
-	    	rightKeypad.add(btn);	    	
+	    	rightKeypad.add(btn);
 	    }
 	    rightKeypad.add(Box.createGlue());
 	    rightKeypad.setBackground(Color.red);
@@ -102,7 +104,7 @@ public class Keypad implements ActionListener, Observable {
 		numberKeypad = new JPanel(new GridLayout(0, 3));
 		//key 1->9
 	    for (int i = 1; i <= 9; i++) {
-	    	JButton keyBtn = new JButton(i + "");	    	
+	    	JButton keyBtn = new JButton(String.valueOf(i));    	
 	    	keyBtn.addActionListener(this);
 	    	numberKeypad.add(keyBtn);
 	    }
@@ -110,7 +112,7 @@ public class Keypad implements ActionListener, Observable {
 	    numberKeypad.add(new JButton(""));
 	    
 	    //key 0
-	    JButton keyBtn = new JButton("0");
+	    JButton keyBtn = new JButton(String.valueOf(0));
 	    keyBtn.addActionListener(this);
 	    numberKeypad.add(keyBtn);
 	    
@@ -123,16 +125,19 @@ public class Keypad implements ActionListener, Observable {
 		
 		//cancel key
 		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.setActionCommand(String.valueOf(CANCEL));
 		cancelBtn.addActionListener(this);
 		operationKeypad.add(cancelBtn);
 		
 		//clear key
 		JButton clearBtn = new JButton("Clear");
+		clearBtn.setActionCommand(String.valueOf(CLEAR));
 		clearBtn.addActionListener(this);
 		operationKeypad.add(clearBtn);
 		
 		//button key
 		JButton enterBtn = new JButton("Enter");
+		enterBtn.setActionCommand(String.valueOf(ENTER));
 		enterBtn.addActionListener(this);
 		operationKeypad.add(enterBtn);
 		
@@ -140,8 +145,8 @@ public class Keypad implements ActionListener, Observable {
 		operationKeypad.add(new JButton(""));
 	}
 	
-	public String getKeyPressed() {
-		return keyPressed;
+	public int getPressedKeyCode() {
+		return pressedKeyCode;
 	}
 	
 	/**
@@ -149,7 +154,7 @@ public class Keypad implements ActionListener, Observable {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		keyPressed = e.getActionCommand();
+		pressedKeyCode = ATMUtils.parseInt(e.getActionCommand());
 		notifyObservers();
 	}
 	
@@ -158,6 +163,7 @@ public class Keypad implements ActionListener, Observable {
 	 */
 	@Override
 	public void addObserver(Observer o) {
+//		deleteObservers();
 		observerList.add(o);
 		
 	}
@@ -176,9 +182,9 @@ public class Keypad implements ActionListener, Observable {
 	
 	@Override
 	public void notifyObservers() {
-		for (Observer o : observerList) {
-			o.update(this);
-		}
-		
+//		for (Observer o : observerList) {
+//			o.update(this);
+//		}
+		observerList.get(observerList.size() - 1).update(this);		
 	}
 }

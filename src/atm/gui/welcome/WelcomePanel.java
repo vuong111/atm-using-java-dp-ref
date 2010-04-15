@@ -43,7 +43,7 @@ public class WelcomePanel extends JPanel {
 		getCb().addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				atm.getScreen().displayScreen((String) e.getItem());
+				atm.getScreen().show((String) e.getItem());
 			}
 		});
 		

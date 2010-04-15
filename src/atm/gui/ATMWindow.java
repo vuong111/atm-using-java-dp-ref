@@ -3,26 +3,36 @@ package atm.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import atm.gui.BalanceInquiry;
+import atm.gui.Transaction;
 import atm.gui.input.CardSlot;
 import atm.gui.input.CashDispenser;
+import atm.gui.input.ChangePIN;
 import atm.gui.input.DepositSlot;
 import atm.gui.input.Keypad;
+import atm.gui.observer.ExitObserver;
 import atm.gui.observer.Observable;
 import atm.gui.observer.Observer;
-import atm.gui.removed.ScreenPanel;
-import atm.gui.screen.LoginScreen;
 import atm.gui.screen.Screen;
 import atm.gui.welcome.WelcomePanel;
-import atm.utils.ATMUtils;
 
 public class ATMWindow extends JFrame {
 
+	private static final int WITHDRAW = 10;
+	private static final int BALANCE_INQUIRY = 11;
+	private static final int CHANGE_PIN = 12;
+	//13 14
+	private static final int TRANSFER = 15;
+	//16
+	private static final int EXIT = 17;
+	   
 	/**
 	 * welcomePanel
 	 */	
@@ -44,6 +54,7 @@ public class ATMWindow extends JFrame {
 	private DepositSlot depositSlot = new DepositSlot();
 	
 	/** Database **/
+	private BankDatabase bankDatabase = new BankDatabase();
 	
 	/** whether user is authenticated **/
 	private boolean userAuthenticated;
@@ -78,10 +89,10 @@ public class ATMWindow extends JFrame {
 		ioPanel.add(vPanel);
 		ioPanel.setBackground(new Color(51, 153, 204));
 		
-		add(welcomePanel, BorderLayout.NORTH);				//welcome
+		//add(welcomePanel, BorderLayout.NORTH);				//welcome
 		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
 		add(keypad.getRightKeypad(), BorderLayout.EAST); 	//keypad - right side		
-		add(screen, BorderLayout.CENTER); 				//screen		
+		add(screen, BorderLayout.CENTER); 				  	//screen		
 		add(ioPanel, BorderLayout.SOUTH);
 		
 		/**
@@ -93,55 +104,145 @@ public class ATMWindow extends JFrame {
 	
 	public void run() {
 		authenticateUser();
+		new Thread() {
+			@Override
+			public void run() {
+				while (!userAuthenticated) {
+					System.out.println(".");
+					try {
+						TimeUnit.SECONDS.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				performTransactions();
+			}
+		}.start();
 	}
 	
 	private void authenticateUser() {
-		/** test cái coi :) **/
-		final LoginScreen login = (LoginScreen) getScreen().getScreen(ScreenPanel.LOGIN_MENU);
-		getKeypad().addObserver(new Observer() {
-			private String accountNumber = "";
-			private String pin = "";
-			private int flag = 0;
+		screen.show(Screen.LOGIN_MENU);
+		
+		keypad.addObserver(new Observer() {
+			private static final int ACCOUNT_FIELD_SELECTED = 0;
+			private static final int PIN_FIELD_SELECTED = 1;
+			
+			private int accountNumber = 12345;
+			private int pin = 54321;
+			private int flag = ACCOUNT_FIELD_SELECTED;
 			@Override
 			public void update(Observable observable) {
-				String key = getKeypad().getKeyPressed();
-				if (ATMUtils.isNumberKey(key)) {
-					if (flag == 0) {
-						pin += key;
-						login.updateAccountNumberField(key);
+				int keyCode = getKeypad().getPressedKeyCode();
+				
+				switch (keyCode) {
+							
+				case Keypad.ENTER:
+				case Keypad.RIGHT_KEY3:
+					System.out.println("Account number: " + accountNumber);
+					System.out.println("PIN: " + pin);
+					userAuthenticated = bankDatabase.authenticateUser(accountNumber, pin);				      
+
+				    if ( userAuthenticated ) {
+				        currentAccountNumber = accountNumber;
+				        userAuthenticated = true;
+				    }
+				    else
+				    	System.out.println("Invalid account number or PIN. Please try again.");
+					break;
+					
+				case Keypad.CLEAR:
+					if (flag == ACCOUNT_FIELD_SELECTED) {
+						accountNumber = 0;
+						screen.getLoginScreen().showMessage1(String.valueOf(accountNumber));
 					}
 					else {
-						accountNumber += key;
-						login.updatePINField(key);
+						pin = 0;
+						screen.getLoginScreen().showMessage2(String.valueOf(pin));
 					}
-				}
-				else if (key.equals(Keypad.ENTER) || key.equals(Keypad.RIGHT_KEY3)) {
-					System.out.println("Account Number: " + accountNumber);
-					System.out.println("PIN: " + pin);					
-				}
-				else if (key.equals(Keypad.CLEAR)) {
-					if (flag == 0) {
-						pin = "";
-						login.updateAccountNumberField("");
+					break;
+					
+				case Keypad.RIGHT_KEY1:
+					flag = ACCOUNT_FIELD_SELECTED;
+					break;
+					
+				case Keypad.RIGHT_KEY2:
+					flag = PIN_FIELD_SELECTED;
+					break;
+				
+				default: 
+					if (0 <= keyCode && keyCode <= 9) {				
+						if (flag == ACCOUNT_FIELD_SELECTED) {
+							accountNumber = accountNumber * 10 + keyCode;
+							screen.getLoginScreen().showMessage1(String.valueOf(accountNumber));
+						}
+						else {
+							pin = pin * 10 + keyCode;
+							screen.getLoginScreen().showMessage2(String.valueOf(pin));
+						}
 					}
-					else {
-						accountNumber = "";
-						login.updatePINField("");
-					}
+					break;
 				}
-				else if (key.equals(Keypad.RIGHT_KEY1)) {
-					flag = 0;
-				}
-				else if (key.equals(Keypad.RIGHT_KEY2)) {
-					flag = 1;
-				}
-				System.out.println(key);
+				
+				System.out.println(String.valueOf("authen key: " + keyCode));
 			}
 
 		});
 	}
 	
+	private void performTransactions() {
+		screen.show(Screen.MAIN_MENU);
+		keypad.addObserver(new Observer() {
+			@Override
+			public void update(Observable observable) {	
+				int keyCode = keypad.getPressedKeyCode();
+				switch (keyCode) {
+				case WITHDRAW:
+				case BALANCE_INQUIRY:
+				case CHANGE_PIN:
+				case TRANSFER:
+					Transaction transaction = createTransaction(keyCode);
+					if (transaction != null) {
+						transaction.execute();
+						transaction.addObserver(new ExitObserver() {
+							@Override
+							public void update(Observable observable) {
+								performTransactions();	
+							}
+						});
+					}
+					break;
+				case EXIT:
+					System.out.println("exit..");
+					userAuthenticated = false;
+					run();
+				default:
+					break;
+				}
+			}
+		});
+	}
+	
+	private Transaction createTransaction( int type ) {
+		Transaction transaction = null;
+	      
+	     // determine which type of Transaction to create
+	    switch (type) {
+	    case WITHDRAW: //Keypad.LEFT_KEY1:
+	    	transaction = new Withdrawal(currentAccountNumber, screen, bankDatabase, keypad, cashDispenser);
+	    	break;
+	    case BALANCE_INQUIRY: //Keypad.LEFT_KEY2:
+	    	transaction = new BalanceInquiry(currentAccountNumber, screen, bankDatabase, keypad);
+            break;
+	    case CHANGE_PIN: //Keypad.LEFT_KEY3:
+	    	transaction = new ChangePIN(currentAccountNumber, screen, bankDatabase, keypad);
+	    	break;
+	    case TRANSFER: //Keypad.RIGHT_KEY2:
+	    	transaction = new Transfer(currentAccountNumber, screen, bankDatabase, keypad);
+	    	break;
+	    }
 
+	    return transaction;
+   }
 	
 	public WelcomePanel getWelcomePanel() {
 		return welcomePanel;
@@ -163,8 +264,8 @@ public class ATMWindow extends JFrame {
 		return depositSlot;
 	}
 	
-	public void getDatabase() {
-		//
+	public BankDatabase getDatabase() {
+		return bankDatabase;
 	}
 	
 	public boolean getUserAuthenticated() {
@@ -197,8 +298,7 @@ public class ATMWindow extends JFrame {
 		@Override
 		public void update(Observable observable) {
 			CardSlot cardSlot = (CardSlot) observable;
-			System.out.println(cardSlot.isInserted());
-			
+			System.out.println(cardSlot.isInserted());			
 		}
 	}
 }

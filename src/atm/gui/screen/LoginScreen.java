@@ -11,8 +11,8 @@ import javax.swing.JTextField;
 import atm.utils.ATMUtils;
 
 public class LoginScreen extends JPanel {
-	private JTextField accountNumberFld = new JTextField(11);
-	private JTextField pinFld = new JTextField(11);
+	private JTextField accountNumberFld = new JTextField("12345", 11);
+	private JTextField pinFld = new JTextField("54321", 11);
 	
 	private Image bgImage;
 	
@@ -34,29 +34,25 @@ public class LoginScreen extends JPanel {
 		accountNumberFld.setBackground(Color.green);
 		accountNumberFld.setBounds(165, 131, 140, 26);
 		accountNumberFld.setForeground(Color.red);
-		//accountNumberFld.setEditable(false);
+		accountNumberFld.setEditable(false);
 		
 		//pin field
 		add(pinFld);
 		pinFld.setBackground(Color.green);
 		pinFld.setBounds(165, 165, 140, 26);
 		pinFld.setForeground(Color.red);
-		//pinFld.setEditable(false);
+		pinFld.setEditable(false);
 	}
 	
-	public void updateAccountNumberField(String s) {
-		if (s == null || s.equals(""))
-			accountNumberFld.setText("");
-		else
-			accountNumberFld.setText(accountNumberFld.getText() + s);
+	/** display account number **/
+	public void showMessage1(String s) {
+		accountNumberFld.setText(s);
 	}
 	
-	public void updatePINField(String s) {
-		if (s == null || s.equals(""))
-			pinFld.setText("");
-		else
-			pinFld.setText(pinFld.getText() + s);
-	}	
+	/** display PIN code **/
+	public void showMessage2(String s) {
+		pinFld.setText(s);
+	}
 	
 	@Override
 	public void paintComponent(Graphics g) {

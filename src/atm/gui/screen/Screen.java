@@ -1,6 +1,9 @@
 package atm.gui.screen;
 
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -17,17 +20,20 @@ public class Screen extends JPanel {
 	public static final String TRANSFER = "Transfer";
 	public static final String CHANGE_PIN = "Change Pin";
 	
+	/** map - store child components **/
+	HashMap<String, Component> map = new HashMap<String, Component>();
+	
 	/** loginScreen - screen cho màn hình đăng nhập **/
 	private LoginScreen loginScreen = new LoginScreen();
 	
 	/** mainMenuScreen - screen chứa danh sách các thao tác ATM **/
-	private MainMenuScreen mainMenuScreen = new MainMenuScreen();;
+	private MainMenuScreen mainMenuScreen = new MainMenuScreen();
 	
 	/** withdrawScreen - screen chứa danh sách các mức tiền rút	**/
 	private WithdrawScreen withdrawScreen = new WithdrawScreen();
 	
 	/** viewBalanceScreen - screen của số dư tài khoản **/
-	private ViewBalanceScreen viewBalanceScreen = new ViewBalanceScreen();
+	private BalanceInquiryScreen viewBalanceScreen = new BalanceInquiryScreen();
 	
 	/** transferScreen - screen chuyển khoản **/
 	private TransferScreen transferScreen = new TransferScreen();
@@ -37,7 +43,8 @@ public class Screen extends JPanel {
 	
 	/** constructor **/
 	public Screen() {
-		super(new CardLayout());
+		//super(new CardLayout());
+		setLayout(new CardLayout());
 		initComponents();
 	}
 	
@@ -51,15 +58,46 @@ public class Screen extends JPanel {
 	}
 	
 	/** Hiển thị screen **/
-	public void displayScreen(String name) {
+	public void show(String name) {
 		CardLayout layout = (CardLayout) getLayout();
 		layout.show(this, name);
 	}
 	
+	/** getters **/
+	public LoginScreen getLoginScreen() {
+		return loginScreen;
+	}
+
+	public MainMenuScreen getMainMenuScreen() {
+		return mainMenuScreen;
+	}
+
+	public WithdrawScreen getWithdrawScreen() {
+		return withdrawScreen;
+	}
+
+	public BalanceInquiryScreen getViewBalanceScreen() {
+		return viewBalanceScreen;
+	}
+
+	public TransferScreen getTransferScreen() {
+		return transferScreen;
+	}
+
+	public ChangePINScreen getChangePINScreen() {
+		return changePINScreen;
+	}
+	
 	//
-	public JPanel getScreen(String name) {
-		displayScreen(name);
-		return (JPanel) getComponent(0);
-	}	
+	
+	@Override
+	public void add(Component comp, Object constraints) {
+		map.put((String) constraints, comp);
+		super.add(comp, constraints);		
+	}
+	
+	public Component getComponent(String name) {
+		return map.get(name);
+	}
 	
 }
