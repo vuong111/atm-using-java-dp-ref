@@ -89,7 +89,7 @@ public class ATMWindow extends JFrame {
 		ioPanel.add(vPanel);
 		ioPanel.setBackground(new Color(51, 153, 204));
 		
-		//add(welcomePanel, BorderLayout.NORTH);				//welcome
+		add(welcomePanel, BorderLayout.NORTH);				//welcome
 		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
 		add(keypad.getRightKeypad(), BorderLayout.EAST); 	//keypad - right side		
 		add(screen, BorderLayout.CENTER); 				  	//screen		

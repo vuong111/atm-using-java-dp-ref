@@ -33,21 +33,22 @@ public class WelcomePanel extends JPanel {
 
 		add(new JLabel("Welcome to my ATM"));
 		
-		String[] cbItems = new String[] {Screen.LOGIN_MENU, 
-										Screen.MAIN_MENU, 
-										Screen.WITHDRAW_MENU, 
-										Screen.VIEW_BALANCE,
-										Screen.TRANSFER,
-										Screen.CHANGE_PIN};
-		setCb(new JComboBox(cbItems));
-		getCb().addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				atm.getScreen().show((String) e.getItem());
-			}
-		});
+//		String[] cbItems = new String[] {Screen.LOGIN_MENU, 
+//										Screen.MAIN_MENU, 
+//										Screen.WITHDRAW_MENU, 
+//										Screen.VIEW_BALANCE,
+//										Screen.TRANSFER,
+//										Screen.CHANGE_PIN};
+//		setCb(new JComboBox(cbItems));
+//		getCb().addItemListener(new ItemListener() {
+//			@Override
+//			public void itemStateChanged(ItemEvent e) {
+//				atm.getScreen().show((String) e.getItem());
+//			}
+//		});
+//		
+//		add(getCb());
 		
-		add(getCb());
 		setBackground(new Color(0, 204, 51));
 	}
 	
