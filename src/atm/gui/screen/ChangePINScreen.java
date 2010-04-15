@@ -34,16 +34,33 @@ public class ChangePINScreen extends JPanel {
 		pinFld.setBackground(Color.green);
 		pinFld.setBounds(165, 131, 140, 26);
 		pinFld.setForeground(Color.red);
-		//pinFld.setEditable(false);
+		pinFld.setEditable(false);
 		
 		//PIN field 2
 		add(pinConfirmFld);
 		pinConfirmFld.setBackground(Color.green);
 		pinConfirmFld.setBounds(165, 165, 140, 26);
 		pinConfirmFld.setForeground(Color.red);
-		//pinConfirmFld.setEditable(false);
+		pinConfirmFld.setEditable(false);
 	}
 	
+	/** display new PIN code **/
+	public void showMessage1(String s) {
+		pinFld.setText(s);
+	}
+	
+	/** display new PIN Confirm code **/
+	public void showMessage2(String s) {
+		pinConfirmFld.setText(s);
+	}
+	
+	/** clear all fields **/	
+	public void clearAllMessages() {
+		showMessage1("");
+		showMessage2("");
+	}
+	
+	@Override
 	public void paintComponent(Graphics g) {
 	    g.drawImage(bgImage, 0, 0, null);
 	}

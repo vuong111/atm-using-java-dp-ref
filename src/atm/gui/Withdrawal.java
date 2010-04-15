@@ -55,11 +55,11 @@ public class Withdrawal extends Transaction {
 					
 					if (amount <= availableBalance) {
 						bankDatabase.debit(getAccountNumber(), amount);
-						System.out.println("Please take your cash now: " + amount);
+						System.out.println("Withdrew: " + amount);
 						exitTransaction();
 					}
 					else
-						System.out.println("Please choose a smaller amount.");
+						System.out.println("Not enough money. Pls choose a smaller amount.");
 				}
 			}
 	    	

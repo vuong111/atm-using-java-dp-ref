@@ -32,7 +32,9 @@ public class BalanceInquiry extends Transaction
 		getKeypad().addObserver(new Observer() {
 			@Override
 			public void update(Observable observable) {
-				if (getKeypad().getPressedKeyCode() == Keypad.RIGHT_KEY4) {
+				if ((getKeypad().getPressedKeyCode() == Keypad.RIGHT_KEY4) ||
+						(getKeypad().getPressedKeyCode() == Keypad.CANCEL)) {
+					
 					exitTransaction();
 				}
 			}

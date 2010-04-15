@@ -14,7 +14,6 @@ import atm.gui.BalanceInquiry;
 import atm.gui.Transaction;
 import atm.gui.input.CardSlot;
 import atm.gui.input.CashDispenser;
-import atm.gui.input.ChangePIN;
 import atm.gui.input.DepositSlot;
 import atm.gui.input.Keypad;
 import atm.gui.observer.ExitObserver;
@@ -124,12 +123,12 @@ public class ATMWindow extends JFrame {
 		screen.show(Screen.LOGIN_MENU);
 		
 		keypad.addObserver(new Observer() {
-			private static final int ACCOUNT_FIELD_SELECTED = 0;
-			private static final int PIN_FIELD_SELECTED = 1;
+			static final int ACCOUNT_FIELD_SELECTED = 0;
+			static final int PIN_FIELD_SELECTED = 1;
 			
-			private int accountNumber = 12345;
-			private int pin = 54321;
-			private int flag = ACCOUNT_FIELD_SELECTED;
+			int accountNumber = 12345;
+			int pin = 54321;
+			int flag = ACCOUNT_FIELD_SELECTED;
 			@Override
 			public void update(Observable observable) {
 				int keyCode = getKeypad().getPressedKeyCode();
@@ -142,9 +141,11 @@ public class ATMWindow extends JFrame {
 					System.out.println("PIN: " + pin);
 					userAuthenticated = bankDatabase.authenticateUser(accountNumber, pin);				      
 
-				    if ( userAuthenticated ) {
+				    if (userAuthenticated) {
 				        currentAccountNumber = accountNumber;
 				        userAuthenticated = true;
+				        
+				        //screen.getLoginScreen().clearAllMessages();
 				    }
 				    else
 				    	System.out.println("Invalid account number or PIN. Please try again.");
@@ -183,7 +184,7 @@ public class ATMWindow extends JFrame {
 					break;
 				}
 				
-				System.out.println(String.valueOf("authen key: " + keyCode));
+				System.out.println(String.valueOf("[authenticateUser] key pressed: " + keyCode));
 			}
 
 		});
@@ -212,7 +213,8 @@ public class ATMWindow extends JFrame {
 					}
 					break;
 				case EXIT:
-					System.out.println("exit..");
+					System.out.println("[performTransactions]exit.. restart()");
+					
 					userAuthenticated = false;
 					run();
 				default:
