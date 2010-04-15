@@ -35,6 +35,22 @@ public class TransferScreen extends JPanel {
 		//pinFld.setEditable(false);
 	}
 	
+	/** display new PIN code **/
+	public void showMessage1(String s) {
+		accountNumberFld.setText(s);
+	}
+	
+	/** display new PIN Confirm code **/
+	public void showMessage2(String s) {
+		//
+	}
+	
+	/** clear all fields **/	
+	public void clearAllMessages() {
+		showMessage1("");
+		showMessage2("");
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 	    g.drawImage(bgImage, 0, 0, null);

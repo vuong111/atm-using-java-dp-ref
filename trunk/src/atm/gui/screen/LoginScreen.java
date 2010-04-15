@@ -54,6 +54,12 @@ public class LoginScreen extends JPanel {
 		pinFld.setText(s);
 	}
 	
+	/** clear all fields **/	
+	public void clearAllMessages() {
+		showMessage1("");
+		showMessage2("");
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 	    g.drawImage(bgImage, 0, 0, null);

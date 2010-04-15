@@ -12,61 +12,62 @@ public class Account
 
    /** Account constructor initializes attributes **/
    public Account( int theAccountNumber, String theFullName, int thePIN,
-      double theAvailableBalance, double theTotalBalance )
-   {
-      accountNumber = theAccountNumber;
-      fullName = theFullName;
-      pin = thePIN;
-      availableBalance = theAvailableBalance;
-      totalBalance = theTotalBalance;
+		   			double theAvailableBalance, double theTotalBalance ) {
+	   accountNumber = theAccountNumber;
+	   fullName = theFullName;
+	   pin = thePIN;
+	   availableBalance = theAvailableBalance;
+	   totalBalance = theTotalBalance;
    }
 
    /** determines whether a user-specified PIN matches PIN in Account **/
-   public boolean validatePIN( int userPIN )
-   {
-      if ( userPIN == pin )
-         return true;
-      else
-         return false;
+   public boolean validatePIN(int userPIN) {
+	   if ( userPIN == pin )
+		   return true;
+	   else
+		   return false;
    }
    
+   /** change PIN code **/
+   public void changePIN(int newPIN) {
+	   pin = newPIN;
+	   
+	   //test - update db
+	   AccountDAO accountDAO = new AccountDAO();
+	   accountDAO.changePIN(accountNumber, newPIN);
+   }
    /** returns available balance **/
-   public double getAvailableBalance()
-   {
-      return availableBalance;
+   public double getAvailableBalance() {
+	   return availableBalance;
    }
 
    /** returns the total balance **/
-   public double getTotalBalance()
-   {
-      return totalBalance;
+   public double getTotalBalance() {
+	   return totalBalance;
    }
 
    /** credits an amount to the account **/
-   public void credit( double amount )
-   {
-      totalBalance += amount;
+   public void credit(double amount) {
+	   totalBalance += amount;
    }
 
-   public void debit( double amount )
-   {
-      availableBalance -= amount;
-      totalBalance -= amount;
+   public void debit(double amount) {
+	   availableBalance -= amount;
+	   totalBalance -= amount;
       
-      /** update db **/
-      AccountDAO accountDAO = new AccountDAO();
-      accountDAO.updateAccount(this);
+	   //test - update db
+	   AccountDAO accountDAO = new AccountDAO();
+	   accountDAO.updateAccount(this);
    }
 
    /** returns account number **/
-   public int getAccountNumber()
-   {
-      return accountNumber;  
+   public int getAccountNumber() {
+      	return accountNumber;  
    }   
    
    /** return user full name **/
    public String getFullName() {
-	   return fullName;
+	   	return fullName;
    }
    
 }
