@@ -26,4 +26,14 @@ public class ATMUtils {
 			return false;
 		}
 	}
+	
+	/** parse a string to an integer **/
+	public static int parseInt(String i) {
+		try {
+			return Integer.parseInt(i);
+		}
+		catch (NumberFormatException nfe) {
+			return 0;
+		}
+	}
 }
