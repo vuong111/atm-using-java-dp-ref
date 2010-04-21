@@ -61,7 +61,7 @@ public class CardSlot extends JPanel implements ActionListener {
 		//notifyObservers();
 	}
 	
-	public void ejetCard() {
+	public void ejectCard() {
 		isInserted = false;
 		updateVisibleStatus();
 	}
