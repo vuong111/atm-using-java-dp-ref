@@ -1,29 +1,51 @@
 package atm.gui.input;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import atm.gui.observer.Observable;
 import atm.gui.observer.Observer;
+import atm.utils.ATMUtils;
 
-public class CardSlot extends JButton implements ActionListener, Observable {
+public class CardSlot extends JPanel implements ActionListener {
 	/**
 	 * observers list
 	 */
-	private ArrayList<Observer> observerList = new ArrayList<Observer>();
+	private JTextField cardNumberFld;
+	private JButton cardSlot;
 	
 	private boolean isInserted = false;
 	
 	public CardSlot() {
-		super("Card Slot");
-		addActionListener(this);
+		setLayout(new GridLayout(0, 1));
+		
+		cardNumberFld = new JTextField("12345");
+		cardSlot = new JButton("Insert your card");
+		cardSlot.addActionListener(this);
+		
+		add(cardNumberFld);
+		add(cardSlot);
 	}
 	
 	public boolean isInserted() {
 		return isInserted;
+	}
+	
+	public synchronized int getCardNumber() {
+		
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return ATMUtils.parseInt(cardNumberFld.getText());
 	}
 	
 	/**
@@ -32,34 +54,20 @@ public class CardSlot extends JButton implements ActionListener, Observable {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		isInserted = true;
-		notifyObservers();
-	}
-	
-	/**
-	 * implement Observable's methods
-	 */
-	@Override
-	public void addObserver(Observer o) {
-		observerList.add(o);
-		
-	}
-	
-	@Override
-	public void deleteObserver(Observer o) {
-		observerList.remove(o);
-		
-	}
-	
-	@Override
-	public void deleteObservers() {
-		observerList = new ArrayList<Observer>();
-		
-	}
-	
-	@Override
-	public void notifyObservers() {
-		for (Observer o : observerList) {
-			o.update(this);
+		synchronized (this) {
+			notify();
 		}
+		updateVisibleStatus();
+		//notifyObservers();
+	}
+	
+	public void ejetCard() {
+		isInserted = false;
+		updateVisibleStatus();
+	}
+	
+	private void updateVisibleStatus() {
+		cardNumberFld.setEnabled(!isInserted);
+		cardSlot.setEnabled(!isInserted);
 	}
 }

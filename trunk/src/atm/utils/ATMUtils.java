@@ -33,7 +33,7 @@ public class ATMUtils {
 			return Integer.parseInt(i);
 		}
 		catch (NumberFormatException nfe) {
-			return 0;
+			return -1;
 		}
 	}
 }

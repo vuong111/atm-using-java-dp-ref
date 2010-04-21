@@ -12,7 +12,8 @@ import javax.swing.JPanel;
  * II - screenPanel
  */
 public class Screen extends JPanel {
-
+	
+	public static final String WELCOME = "Welcome";
 	public static final String LOGIN_MENU = "Login";
 	public static final String MAIN_MENU = "Main Menu";
 	public static final String WITHDRAW_MENU = "Withdraw";
@@ -22,6 +23,9 @@ public class Screen extends JPanel {
 	
 	/** map - store child components **/
 	HashMap<String, Component> map = new HashMap<String, Component>();
+	
+	/** welcomeScreen - screen welcome **/
+	private WelcomeScreen welcomeScreen = new WelcomeScreen();
 	
 	/** loginScreen - screen cho màn hình đăng nhập **/
 	private LoginScreen loginScreen = new LoginScreen();
@@ -49,6 +53,7 @@ public class Screen extends JPanel {
 	}
 	
 	private void initComponents() {
+		add(welcomeScreen, WELCOME);
 		add(loginScreen, LOGIN_MENU);
 		add(mainMenuScreen, MAIN_MENU);
 		add(withdrawScreen, WITHDRAW_MENU);

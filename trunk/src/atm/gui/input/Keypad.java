@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -12,34 +11,33 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import atm.gui.observer.Observable;
-import atm.gui.observer.Observer;
+import atm.gui.screen.Screen;
 import atm.utils.ATMUtils;
 
-public class Keypad implements ActionListener, Observable {
+public class Keypad {
 	
-	public static final int LEFT_KEY1 = 10;
-	public static final int LEFT_KEY2 = 11;
-	public static final int LEFT_KEY3 = 12;
-	public static final int LEFT_KEY4 = 13;
-	public static final int RIGHT_KEY1 = 14;
-	public static final int RIGHT_KEY2 = 15;
-	public static final int RIGHT_KEY3 = 16;
-	public static final int RIGHT_KEY4 = 17;
-	public static final int ENTER = 18;
-	public static final int CANCEL = 19;
-	public static final int CLEAR = 20;
+	public static final int LEFT_KEY1 = 1;
+	public static final int LEFT_KEY2 = 2;
+	public static final int LEFT_KEY3 = 3;
+	public static final int LEFT_KEY4 = 4;
+	public static final int RIGHT_KEY1 = 5;
+	public static final int RIGHT_KEY2 = 6;
+	public static final int RIGHT_KEY3 = 7;
+	public static final int RIGHT_KEY4 = 8;
+//	public static final int ENTER = 11;
+//	public static final int CANCEL = 12;
+//	public static final int CLEAR = 13;
+	
+	private Screen screen;
 	
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
 	private JPanel numberKeypad;
 	private JPanel operationKeypad;
-	
-	private ArrayList<Observer> observerList = new ArrayList<Observer>(); 
-	
-	private int pressedKeyCode;
-	
-	public Keypad() {
+
+	public Keypad(Screen scr) {
+		screen = scr;
+		currentInput = new StringBuffer();
 		initLeftKeypad();
 		initRightKeypad();
 		initNumberKeypad();
@@ -72,9 +70,16 @@ public class Keypad implements ActionListener, Observable {
 	    for (int i = LEFT_KEY1; i <= LEFT_KEY4; i++) {
 	    	leftKeypad.add(Box.createGlue());
 	    	JButton btn = new JButton("      ");
-	    	btn.setActionCommand(String.valueOf(i));
-	    	btn.addActionListener(this);
+	    	btn.setActionCommand(String.valueOf(i));	    	
 	    	leftKeypad.add(btn);
+
+	    	// add action listener to key
+	    	btn.addActionListener(new ActionListener() {
+	    		@Override
+	    		public void actionPerformed(ActionEvent e) {
+	    			rightleftKeyPressed(ATMUtils.parseInt(e.getActionCommand()));
+	    		}
+	    	});
 	    }
 	    leftKeypad.add(Box.createGlue());
 	    leftKeypad.setBackground(Color.red);
@@ -92,8 +97,15 @@ public class Keypad implements ActionListener, Observable {
 	    	rightKeypad.add(Box.createGlue());
 	    	JButton btn = new JButton("      ");
 	    	btn.setActionCommand(String.valueOf(i));
-	    	btn.addActionListener(this);
 	    	rightKeypad.add(btn);
+	    	
+	    	// add action listener to key
+	    	btn.addActionListener(new ActionListener() {
+	    		@Override
+	    		public void actionPerformed(ActionEvent e) {
+	    			rightleftKeyPressed(ATMUtils.parseInt(e.getActionCommand()));
+	    		}
+	    	});
 	    }
 	    rightKeypad.add(Box.createGlue());
 	    rightKeypad.setBackground(Color.red);
@@ -105,16 +117,28 @@ public class Keypad implements ActionListener, Observable {
 		//key 1->9
 	    for (int i = 1; i <= 9; i++) {
 	    	JButton keyBtn = new JButton(String.valueOf(i));    	
-	    	keyBtn.addActionListener(this);
 	    	numberKeypad.add(keyBtn);
+	    	
+	    	// add action listener to key
+	    	keyBtn.addActionListener(new ActionListener() {
+	    		@Override
+	    		public void actionPerformed(ActionEvent e) {
+	    			digitKeyPressed(ATMUtils.parseInt(e.getActionCommand()));	    			
+	    		}
+	    	});
 	    }
 	    //null key
 	    numberKeypad.add(new JButton(""));
 	    
 	    //key 0
 	    JButton keyBtn = new JButton(String.valueOf(0));
-	    keyBtn.addActionListener(this);
 	    numberKeypad.add(keyBtn);
+	    keyBtn.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			digitKeyPressed(ATMUtils.parseInt(e.getActionCommand()));
+    		}
+    	});
 	    
 	    //null key
 	    numberKeypad.add(new JButton(""));
@@ -125,66 +149,293 @@ public class Keypad implements ActionListener, Observable {
 		
 		//cancel key
 		JButton cancelBtn = new JButton("Cancel");
-		cancelBtn.setActionCommand(String.valueOf(CANCEL));
-		cancelBtn.addActionListener(this);
+		//cancelBtn.setActionCommand(String.valueOf(CANCEL));		
 		operationKeypad.add(cancelBtn);
+		cancelBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cancelKeyPressed();				
+			}
+		});
 		
 		//clear key
 		JButton clearBtn = new JButton("Clear");
-		clearBtn.setActionCommand(String.valueOf(CLEAR));
-		clearBtn.addActionListener(this);
+		//clearBtn.setActionCommand(String.valueOf(CLEAR));
 		operationKeypad.add(clearBtn);
+		clearBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearKeyPressed();
+			}
+		});
 		
-		//button key
+		//enter key
 		JButton enterBtn = new JButton("Enter");
-		enterBtn.setActionCommand(String.valueOf(ENTER));
-		enterBtn.addActionListener(this);
+		//enterBtn.setActionCommand(String.valueOf(ENTER));
 		operationKeypad.add(enterBtn);
+		enterBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				enterKeyPressed();				
+			}
+		});
 		
 		//null key
 		operationKeypad.add(new JButton(""));
 	}
 	
-	public int getPressedKeyCode() {
-		return pressedKeyCode;
-	}
+    public synchronized int readInput(int mode) { //, int maxValue) {
+    	this.mode = mode;
+    	//this.maxValue = maxValue;
+    	currentInput.setLength(0);
+    	cancelled = false;
+    	
+    	try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    	
+    	if (cancelled) {
+    		System.out.println("[cancelled]");
+    		return -1;
+    	} 		
+    	
+    	System.out.println("[entered/selected]");
+    	return ATMUtils.parseInt(currentInput.toString());
+    }
+    
+	/** Handle a digit key
+    *
+    *  @param digit the value on the key
+    */
+   private synchronized void digitKeyPressed(int digit)
+   {
+       switch (mode)
+       {
+           case IDLE_MODE:
+           
+               break;
+               
+           case LOGIN_MODE:
+           {
+               currentInput.append(digit);
+               StringBuffer echoString = new StringBuffer();
+               for (int i = 0; i < currentInput.length(); i ++)
+                   echoString.append('*');
+               screen.getLoginScreen().showMessage2(echoString.toString());
+               break;
+           }
+           
+           case MENU_MODE:
+        	   break;
+        	   
+           case WITHDRAW_MODE:
+        	   break;
+           
+           case BALANCE_INQUIRY_MODE:
+        	   break;
+        	   
+           case CHANGE_PIN_MODE:
+           {
+               if (digit > 0 && digit <= maxValue)
+               {
+                   currentInput.append(digit);
+                   notify();
+               }
+               else
+                   //getToolkit().beep();
+               break;
+           }
+           
+           case TRANSFER_MODE:
+        	   break;
+       }
+   }
+   
+   /** Handle the ENTER key
+    */
+   private synchronized void enterKeyPressed()
+   {
+	   switch(mode)
+       {
+       	   case IDLE_MODE:           
+               break;
+           
+           case LOGIN_MODE:
+           {
+               if (currentInput.length() > 0)
+                   notify();               
+               break;
+           } 
+
+           case MENU_MODE:
+        	   break;
+        	   
+           case WITHDRAW_MODE:
+        	   break;
+        	   
+           case BALANCE_INQUIRY_MODE:
+        	   //...
+        	   notify();
+        	   break;
+        	   
+           case CHANGE_PIN_MODE:
+        	   break;
+        	   
+           case TRANSFER_MODE:
+        	   break;
+       }
+   }
+               
+   /** Handle the CLEAR key
+    */
+   private synchronized void clearKeyPressed()
+   {
+       switch(mode)
+       {
+           case IDLE_MODE:
+           
+               break;
+               
+           case LOGIN_MODE:
+           
+               currentInput.setLength(0);
+               screen.getLoginScreen().clearAllMessages();
+               break;
+               
+           case MENU_MODE:
+        	   break;
+        	   
+           case WITHDRAW_MODE:
+        	   break;
+        	   
+           case BALANCE_INQUIRY_MODE:
+        	   break;
+        	   
+           case CHANGE_PIN_MODE:           
+                break;
+           
+           case TRANSFER_MODE:
+        	   break;
+       }
+   }           
+               
+   /** Handle the CANCEL KEY
+    */
+   private synchronized void cancelKeyPressed()
+   {
+       switch(mode)
+       {
+           case IDLE_MODE:
+        	   break;
+               
+           case LOGIN_MODE:
+           case MENU_MODE:
+           case WITHDRAW_MODE:
+           case BALANCE_INQUIRY_MODE:
+           case CHANGE_PIN_MODE:
+           case TRANSFER_MODE:
+           {
+        	   cancelled = true;
+               notify();
+               break;
+           }
+       }
+   }
+   
+   /** Handle the RIGHT & LEFT keys
+    */
+   private synchronized void rightleftKeyPressed(int keyCode) {
+	   switch (mode) {
+		   case IDLE_MODE:
+			   break;
+			   
+		   case LOGIN_MODE:
+		   {
+			   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
+				   notify();
+			   }
+			   else if (keyCode == RIGHT_KEY4) { //cancel
+				   cancelled = true; //-> readInput() return -1; !!!
+				   notify();
+			   }
+			   break;
+		   }
+		   
+		   case MENU_MODE:
+		   {
+			   if (keyCode == RIGHT_KEY4)
+				   cancelled = true; //-> readInput() return -1; !!!
+			   else
+				   currentInput.append(keyCode);
+			   
+			   notify();
+			   break;
+		   }
+		   
+		   case WITHDRAW_MODE:
+           {
+        	   if (keyCode == LEFT_KEY4)
+        		   break;
+        	   else if (keyCode == RIGHT_KEY4)
+        		   cancelled = true; //-> readInput() return -1; !!!
+        	   else                   
+        		   currentInput.append(keyCode);
+        		   
+        	   notify();
+        	   break;
+           }
+
+		   case BALANCE_INQUIRY_MODE:
+			   if (keyCode == RIGHT_KEY3) {
+				   //...
+				   notify();
+			   }
+			   else if (keyCode == RIGHT_KEY4) {
+				   cancelled = true;
+				   notify();
+			   }
+			   break;
+			   
+		   case CHANGE_PIN_MODE:
+			   break;
+			   
+		   case TRANSFER_MODE:
+			   break;		
+
+	   }
+   }
 	
-	/**
-	 * implement ActionListener's method
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		pressedKeyCode = ATMUtils.parseInt(e.getActionCommand());
-		notifyObservers();
-	}
+   /**
+    */
+	private int mode;
 	
-	/**
-	 * implement Observable's methods
-	 */
-	@Override
-	public void addObserver(Observer o) {
-//		deleteObservers();
-		observerList.add(o);
-		
-	}
+   /* Possible values for mode parameter to readInput() */
 	
-	@Override
-	public void deleteObserver(Observer o) {
-		observerList.remove(o);
-		
-	}
+	public static final int IDLE_MODE = 0;
 	
-	@Override
-	public void deleteObservers() {
-		observerList = new ArrayList<Observer>();
-		
-	}
-	
-	@Override
-	public void notifyObservers() {
-//		for (Observer o : observerList) {
-//			o.update(this);
-//		}
-		observerList.get(observerList.size() - 1).update(this);		
-	}
+    public static final int LOGIN_MODE = 1;
+    
+    public static final int MENU_MODE = 2;
+    
+    public static final int WITHDRAW_MODE = 3;
+    
+    public static final int BALANCE_INQUIRY_MODE = 4;
+    
+    public static final int CHANGE_PIN_MODE = 5;
+    
+    public static final int TRANSFER_MODE = 6;    
+    
+    /** Current partial line of input
+     */
+    private StringBuffer currentInput;
+    
+    /** Cancellation flag - set to true if user cancels
+     */
+    private boolean cancelled;
+    
+    /** Maximum valid value - used in MENU_MODE only
+     */
+    private int maxValue;
 }
