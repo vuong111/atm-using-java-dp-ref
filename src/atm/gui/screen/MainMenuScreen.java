@@ -12,13 +12,17 @@ public class MainMenuScreen extends JPanel {
 	private Image bgImage;
 	
 	public MainMenuScreen() {
+		initComponents();
+	}
+	
+	private void initComponents() {
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/mainmenu.png", "Withdraw").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
 	    setMinimumSize(size);
 	    setMaximumSize(size);
 	    setSize(size);
-	    setLayout(null);	    
+	    setLayout(null);
 	}
 	
 	@Override
