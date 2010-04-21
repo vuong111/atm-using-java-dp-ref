@@ -112,7 +112,7 @@ public class ATMWindow extends JFrame {
 		
 		if (pin != CANCELED) {
 			userAuthenticated = bankDatabase.authenticateUser(cardNumber, pin);				      
-			//
+
 		    if (userAuthenticated) {
 		    	System.out.println("Valid PIN: " + pin);
 		        currentAccountNumber = cardNumber;
@@ -120,12 +120,12 @@ public class ATMWindow extends JFrame {
 		    }
 		    else {
 		    	System.out.println("Invalid PIN: " + pin);
-		    	cardSlot.ejetCard();
+		    	cardSlot.ejectCard();
 		    }
 		}
 		else {
 			System.out.println("Cancelling authenticateUser...");
-			cardSlot.ejetCard();
+			cardSlot.ejectCard();
 		}
 	}
 	
@@ -156,7 +156,7 @@ public class ATMWindow extends JFrame {
 
 				case CANCELED:
 					userExited = true;
-					cardSlot.ejetCard();
+					cardSlot.ejectCard();
 					System.out.println("Cancelling performTransactions..");
 					break;
 	
@@ -184,17 +184,17 @@ public class ATMWindow extends JFrame {
 	    	transaction = new ChangePIN(currentAccountNumber, screen, bankDatabase, keypad);
 	    	break;
 	   
-	    case INSURANCE_COST_INFO:
+	    case INSURANCE_COST_INFO: //Keypad.LEFT_KEY4:
 	    	break;
 	    	
-	    case REGISTER_SERVICE:
+	    case REGISTER_SERVICE: //Keypad.RIGHT_KEY1:
 	    	break;
 	    
 	    case TRANSFER: //Keypad.RIGHT_KEY2:
 	    	transaction = new Transfer(currentAccountNumber, screen, bankDatabase, keypad);
 	    	break;
 	    	
-	    case SERVICE_COST_INFO:
+	    case SERVICE_COST_INFO: //Keypad.RIGHT_KEY3:
 	    	break;
 	    }
 

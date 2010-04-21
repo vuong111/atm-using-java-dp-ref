@@ -238,13 +238,8 @@ public class Keypad {
         	   
            case CHANGE_PIN_MODE:
            {
-               if (digit > 0 && digit <= maxValue)
-               {
-                   currentInput.append(digit);
-                   notify();
-               }
-               else
-                   //getToolkit().beep();
+               currentInput.append(digit);
+               screen.getChangePINScreen().display(currentInput.toString());
                break;
            }
            
@@ -267,7 +262,7 @@ public class Keypad {
                if (currentInput.length() > 0)
                    notify();               
                break;
-           } 
+           }
 
            case MENU_MODE:
         	   break;
@@ -281,6 +276,8 @@ public class Keypad {
         	   break;
         	   
            case CHANGE_PIN_MODE:
+        	   if (currentInput.length() > 0)
+                   notify();
         	   break;
         	   
            case TRANSFER_MODE:
@@ -313,7 +310,9 @@ public class Keypad {
            case BALANCE_INQUIRY_MODE:
         	   break;
         	   
-           case CHANGE_PIN_MODE:           
+           case CHANGE_PIN_MODE:
+               currentInput.setLength(0);
+               screen.getChangePINScreen().clearDisplay();
                 break;
            
            case TRANSFER_MODE:
@@ -399,6 +398,13 @@ public class Keypad {
 			   break;
 			   
 		   case CHANGE_PIN_MODE:
+			   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
+				   notify();
+			   }
+			   else if (keyCode == RIGHT_KEY4) { //cancel
+				   cancelled = true; //-> readInput() return -1; !!!
+				   notify();
+			   }
 			   break;
 			   
 		   case TRANSFER_MODE:

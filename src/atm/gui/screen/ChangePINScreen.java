@@ -5,14 +5,19 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import atm.utils.ATMUtils;
 
 public class ChangePINScreen extends JPanel {
+	public static final String ENTER_PIN = "Nhập mã PIN: ";
+	public static final String CONFIRM_PIN = "Xác nhận mã PIN: ";
+	
+	private JLabel pinLbl = new JLabel();
 	private JTextField pinFld = new JTextField(11);
-	private JTextField pinConfirmFld = new JTextField(11);
 	
 	private Image bgImage;
 	
@@ -29,35 +34,43 @@ public class ChangePINScreen extends JPanel {
 	}
 	
 	private void initComponents() {
-		//PIN field 1
+		//PIN label
+		add(pinLbl);
+		pinLbl.setBackground(Color.black);
+		pinLbl.setBounds(40, 165, 140, 26);
+		pinLbl.setForeground(Color.red);
+		
+		//PIN field
 		add(pinFld);
 		pinFld.setBackground(Color.green);
-		pinFld.setBounds(165, 131, 140, 26);
+		pinFld.setBounds(165, 165, 140, 26);
 		pinFld.setForeground(Color.red);
 		pinFld.setEditable(false);
-		
-		//PIN field 2
-		add(pinConfirmFld);
-		pinConfirmFld.setBackground(Color.green);
-		pinConfirmFld.setBounds(165, 165, 140, 26);
-		pinConfirmFld.setForeground(Color.red);
-		pinConfirmFld.setEditable(false);
 	}
 	
-	/** display new PIN code **/
-	public void showMessage1(String s) {
-		pinFld.setText(s);
+	/** display PIN code **/
+	public void display(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				pinFld.setText(msg);		
+			}
+		});
 	}
 	
-	/** display new PIN Confirm code **/
-	public void showMessage2(String s) {
-		pinConfirmFld.setText(s);
+	/** clear PIN display **/	
+	public void clearDisplay() {
+		display("");
 	}
 	
-	/** clear all fields **/	
-	public void clearAllMessages() {
-		showMessage1("");
-		showMessage2("");
+	/** show PIN request message **/
+	public void showMessage(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				pinLbl.setText(msg);
+			}
+		});		
 	}
 	
 	@Override

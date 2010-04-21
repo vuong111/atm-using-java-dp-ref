@@ -17,7 +17,7 @@ public class LoginScreen extends JPanel {
 	private Image bgImage;
 	
 	public LoginScreen() {	
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/login1.png", "Login").getImage();
+		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/login.png", "Login").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
 	    setMinimumSize(size);
