@@ -3,9 +3,6 @@ package atm.gui.screen;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.HashMap;
-import java.util.HashSet;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
