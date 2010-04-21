@@ -1,8 +1,6 @@
 package atm.gui;
 
 import atm.gui.input.Keypad;
-import atm.gui.observer.Observable;
-import atm.gui.observer.Observer;
 import atm.gui.screen.Screen;
 
 public class BalanceInquiry extends Transaction
@@ -15,12 +13,12 @@ public class BalanceInquiry extends Transaction
 	}
 
 	/** performs the transaction **/
-	public void execute()
+	public synchronized void execute()
 	{
 		BankDatabase bankDatabase = getBankDatabase();
 		Screen screen = getScreen();
       
-		String fullName = bankDatabase.getFullName( getAccountNumber() );      
+		String fullName = bankDatabase.getFullName(getAccountNumber());      
 		double availableBalance = bankDatabase.getAvailableBalance( getAccountNumber() );
 
 		screen.show(Screen.VIEW_BALANCE);
@@ -28,16 +26,7 @@ public class BalanceInquiry extends Transaction
 		screen.getViewBalanceScreen().displayMessage1(getAccountNumber() + "");
 		screen.getViewBalanceScreen().displayMessage2(fullName);
 		screen.getViewBalanceScreen().displayMessage3(availableBalance + " VND");
-	   
-		getKeypad().addObserver(new Observer() {
-			@Override
-			public void update(Observable observable) {
-				if ((getKeypad().getPressedKeyCode() == Keypad.RIGHT_KEY4) ||
-						(getKeypad().getPressedKeyCode() == Keypad.CANCEL)) {
-					
-					exitTransaction();
-				}
-			}
-		});
+		
+		getKeypad().readInput(Keypad.BALANCE_INQUIRY_MODE);
 	}
 }

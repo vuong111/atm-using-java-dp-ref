@@ -11,13 +11,13 @@ import javax.swing.JTextField;
 import atm.utils.ATMUtils;
 
 public class LoginScreen extends JPanel {
-	private JTextField accountNumberFld = new JTextField("12345", 11);
-	private JTextField pinFld = new JTextField("54321", 11);
+	//private JTextField accountNumberFld = new JTextField("12345", 11);
+	private JTextField pinFld = new JTextField(11);
 	
 	private Image bgImage;
 	
 	public LoginScreen() {	
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/login.png", "Login").getImage();
+		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/login1.png", "Login").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
 	    setMinimumSize(size);
@@ -29,12 +29,12 @@ public class LoginScreen extends JPanel {
 	}
 	
 	private void initComponents() {	    
-		//account number field
-		add(accountNumberFld);
-		accountNumberFld.setBackground(Color.green);
-		accountNumberFld.setBounds(165, 131, 140, 26);
-		accountNumberFld.setForeground(Color.red);
-		accountNumberFld.setEditable(false);
+//		//account number field
+//		add(accountNumberFld);
+//		accountNumberFld.setBackground(Color.green);
+//		accountNumberFld.setBounds(165, 131, 140, 26);
+//		accountNumberFld.setForeground(Color.red);
+//		accountNumberFld.setEditable(false);
 		
 		//pin field
 		add(pinFld);
@@ -46,7 +46,8 @@ public class LoginScreen extends JPanel {
 	
 	/** display account number **/
 	public void showMessage1(String s) {
-		accountNumberFld.setText(s);
+		//accountNumberFld.setText(s);
+		showMessage2(s);
 	}
 	
 	/** display PIN code **/

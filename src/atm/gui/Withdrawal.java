@@ -3,8 +3,6 @@ package atm.gui;
 import atm.gui.BankDatabase;
 import atm.gui.input.CashDispenser;
 import atm.gui.input.Keypad;
-import atm.gui.observer.Observable;
-import atm.gui.observer.Observer;
 import atm.gui.screen.Screen;
 
 public class Withdrawal extends Transaction {
@@ -13,6 +11,9 @@ public class Withdrawal extends Transaction {
 	private static final double MONEY3 = 500;
 	private static final double MONEY4 = 1000;
 	private static final double MONEY5 = 2000;
+	private static final double MONEY6 = 2000;
+	
+	private final static int CANCELED = -1;
 	
 	private double amount;
 	
@@ -27,69 +28,34 @@ public class Withdrawal extends Transaction {
 	
 	@Override
 	public void execute() {
-	    getScreen().show(Screen.WITHDRAW_MENU);
 	    
-	    getKeypad().addObserver(new Observer() {
-	    	double availableBalance;
-		    BankDatabase bankDatabase = getBankDatabase(); 
+	    boolean cashDispensed = false; // cash was not dispensed yet
+	    double availableBalance; // amount available for withdrawal
+	      
+	    double amountOptions[] = {MONEY1, MONEY2, MONEY3, 0, MONEY4, MONEY5, MONEY6};
+	    
+	    do {
+		    getScreen().show(Screen.WITHDRAW_MENU);
 		    
-	    	@Override
-			public void update(Observable observable) {
-			
-				int keyCode = getKeypad().getPressedKeyCode();
+		    int choice = getKeypad().readInput(Keypad.WITHDRAW_MODE);		    
+		    
+		    if (choice != CANCELED) {
+		    	amount = amountOptions[choice - 1];
+			    availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
 				
-				switch (keyCode) {	
-				
-				case Keypad.RIGHT_KEY4:
-				case Keypad.CANCEL:
-					exitTransaction();
-					break;
-				default:
-					amount = getAmount(keyCode);
-
-					if (amount == 0) {
-						return;
-					}
-					
-					availableBalance = bankDatabase.getAvailableBalance(getAccountNumber());
-					
-					if (amount <= availableBalance) {
-						bankDatabase.debit(getAccountNumber(), amount);
-						System.out.println("Withdrew: " + amount);
-						exitTransaction();
-					}
-					else
-						System.out.println("Not enough money. Pls choose a smaller amount.");
-				} //end switch
-			} // end update()
-	    	
-	    	private double getAmount(int type) {
-	    		double amount;
-	    		switch (type) {
-	    		case Keypad.LEFT_KEY1:
-					amount = MONEY1;
-					break;
-				case Keypad.LEFT_KEY2:
-					amount = MONEY3;
-					break;
-				case Keypad.LEFT_KEY3:
-					amount = MONEY5;
-					break;
-				case Keypad.RIGHT_KEY1:
-					amount = MONEY2;
-					break;
-				case Keypad.RIGHT_KEY2:
-					amount = MONEY4;
-					break;
-				case Keypad.RIGHT_KEY3:
-					amount = MONEY1;
-					break;	
-				default:
-					amount = 0;
-					break;
+				if (amount <= availableBalance) {
+					getBankDatabase().debit(getAccountNumber(), amount);
+					cashDispensed = true;
+					System.out.println("cashWithdrew: " + amount);
 				}
-	    		return amount;
-	    	} // end private getAmount() - extract method
-	    }); // end addObserver()
+				else
+					System.out.println("Not enough money. Pls choose a smaller amount.");
+		    }
+		    else {
+		    	System.out.println("Cancelling withdraw..." );
+	            return;
+		    }
+	    } while (!cashDispensed);		
+
 	} // end execute()
 }
