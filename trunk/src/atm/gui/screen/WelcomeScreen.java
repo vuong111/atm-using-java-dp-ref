@@ -14,6 +14,10 @@ public class WelcomeScreen extends JPanel {
 	private Image bgImage;
 	
 	public WelcomeScreen() {
+		initComponents();
+	}
+	
+	private void initComponents() {
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/welcome.png", "Transfer").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);

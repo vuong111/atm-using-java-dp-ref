@@ -17,7 +17,11 @@ public class BalanceInquiryScreen extends JPanel {
 	private JTextField balanceFld = new JTextField("15.000.000 VND");
 	private Image bgImage;
 	
-	public BalanceInquiryScreen() {
+	public BalanceInquiryScreen() {	    
+	    initComponents();
+	}
+	
+	private void initComponents() {
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/viewbalance.png", "View balance").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
@@ -26,11 +30,6 @@ public class BalanceInquiryScreen extends JPanel {
 	    setSize(size);
 	    setLayout(null);
 	    
-	    initComponents();
-	}
-	
-	private void initComponents() {
-
 		add(accountNumberFld);
 		accountNumberFld.setBackground(Color.green);
 		accountNumberFld.setBounds(165, 105, 140, 26);

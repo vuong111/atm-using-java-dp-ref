@@ -106,7 +106,7 @@ public class ATMWindow extends JFrame {
 	
 	private void authenticateUser(int cardNumber) {
 		screen.show(Screen.LOGIN_MENU);
-		screen.getLoginScreen().clearAllMessages();
+		screen.getLoginScreen().clearDisplay();
 
 		int pin = keypad.readInput(Keypad.LOGIN_MODE);
 		

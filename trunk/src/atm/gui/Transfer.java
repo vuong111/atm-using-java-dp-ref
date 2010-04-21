@@ -2,8 +2,12 @@ package atm.gui;
 
 import atm.gui.input.Keypad;
 import atm.gui.screen.Screen;
+import atm.gui.screen.TransferScreen;
 
 public class Transfer extends Transaction {
+	
+	private static final int CANCELLED = -1;
+	
 	/** Transfer constructor **/
 	public Transfer(int userAccountNumber, Screen atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
@@ -16,51 +20,22 @@ public class Transfer extends Transaction {
 	{
 		getScreen().show(Screen.TRANSFER);
 		
-		System.out.println("Under construction");
+		getScreen().getTransferScreen().showPanel(TransferScreen.ACCOUNT_PANEL);
+		int transferAccount = getKeypad().readInput(Keypad.TRANSFER_MODE);
+		getScreen().getTransferScreen().clearDisplay();
+
+		if (transferAccount == CANCELLED) {
+			return;
+		}
 		
-//		getKeypad().addObserver(new Observer() {
-//			int accountNumber = 0;
-//			
-//			@Override
-//			public void update(Observable observable) {
-//				int keyCode = getKeypad().getPressedKeyCode();
-//				
-//				switch (keyCode) {
-//				
-//				// enter				
-//				case Keypad.ENTER:
-//				case Keypad.RIGHT_KEY3:
-//					System.out.println("transfer account: " + accountNumber);					
-//				    System.out.println("[test]do Transfer...");
-//				    //code here...
-//					break;
-//					
-//				// cancel
-//				case Keypad.CANCEL:
-//				case Keypad.RIGHT_KEY4:
-//					exitTransaction();
-//					getScreen().getTransferScreen().clearAllMessages();
-//					break;
-//					
-//				// clear
-//				case Keypad.CLEAR:
-//					accountNumber = 0;
-//					getScreen().getTransferScreen().showMessage1(String.valueOf(accountNumber));					
-//					break;
-//
-//				// others
-//				default:
-//					// keyCode in {0..9}
-//					if (0 <= keyCode && keyCode <= 9) {
-//						accountNumber = accountNumber * 10 + keyCode;
-//						getScreen().getTransferScreen().showMessage1(String.valueOf(accountNumber));
-//					}
-//					break;
-//					
-//				} // end switch (keyCode)
-//				
-//				System.out.println(String.valueOf("[transfer] key pressed: " + keyCode));
-//			} // end update()
-//		}); // end addObserver()
-	} // end execute()
+		getScreen().getTransferScreen().showPanel(TransferScreen.MONEY_PANEL);
+		int transferMoney = getKeypad().readInput(Keypad.TRANSFER_MODE);
+		getScreen().getTransferScreen().clearDisplay();
+		
+		if (transferMoney == CANCELLED) {
+			return;
+		}
+		
+		System.out.println("[Under construction] - " + transferAccount + " / " + transferMoney);
+	}
 }

@@ -44,12 +44,12 @@ public class Screen extends JPanel {
 	
 	/** constructor **/
 	public Screen() {
-		//super(new CardLayout());
-		setLayout(new CardLayout());
 		initComponents();
 	}
 	
 	private void initComponents() {
+		setLayout(new CardLayout());
+		
 		add(welcomeScreen, WELCOME);
 		add(loginScreen, LOGIN_MENU);
 		add(mainMenuScreen, MAIN_MENU);

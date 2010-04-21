@@ -11,7 +11,11 @@ import atm.utils.ATMUtils;
 public class WithdrawScreen extends JPanel {
 	private Image bgImage;
 	
-	public WithdrawScreen() {
+	public WithdrawScreen() {    
+		initComponents();
+	}
+	
+	private void initComponents() {
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/withdraw.png", "Withdraw").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
@@ -19,12 +23,6 @@ public class WithdrawScreen extends JPanel {
 	    setMaximumSize(size);
 	    setSize(size);
 	    setLayout(null);
-	    
-		initComponents();
-	}
-	
-	private void initComponents() {
-		
 	}
 	
 	@Override

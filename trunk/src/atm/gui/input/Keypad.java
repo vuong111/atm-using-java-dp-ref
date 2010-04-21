@@ -209,137 +209,110 @@ public class Keypad {
     *
     *  @param digit the value on the key
     */
-   private synchronized void digitKeyPressed(int digit)
-   {
-       switch (mode)
-       {
-           case IDLE_MODE:
+   private synchronized void digitKeyPressed(int digit) {
+       switch (mode) {
+       case IDLE_MODE:       
+           break;
            
-               break;
-               
-           case LOGIN_MODE:
-           {
-               currentInput.append(digit);
-               StringBuffer echoString = new StringBuffer();
-               for (int i = 0; i < currentInput.length(); i ++)
-                   echoString.append('*');
-               screen.getLoginScreen().showMessage2(echoString.toString());
-               break;
-           }
-           
-           case MENU_MODE:
-        	   break;
-        	   
-           case WITHDRAW_MODE:
-        	   break;
-           
-           case BALANCE_INQUIRY_MODE:
-        	   break;
-        	   
-           case CHANGE_PIN_MODE:
-           {
-               currentInput.append(digit);
-               screen.getChangePINScreen().display(currentInput.toString());
-               break;
-           }
-           
-           case TRANSFER_MODE:
-        	   break;
+       case LOGIN_MODE:
+           currentInput.append(digit);
+           StringBuffer echoString = new StringBuffer();
+           for (int i = 0; i < currentInput.length(); i ++)
+               echoString.append('*');
+           screen.getLoginScreen().display(echoString.toString());
+           break;
+       
+       case MENU_MODE:
+    	   break;
+    	   
+       case WITHDRAW_MODE:
+    	   break;
+       
+       case BALANCE_INQUIRY_MODE:
+    	   break;
+    	   
+       case CHANGE_PIN_MODE:
+           currentInput.append(digit);
+           screen.getChangePINScreen().display(currentInput.toString());
+           break;
+       
+       case TRANSFER_MODE:
+    	   currentInput.append(digit);
+    	   screen.getTransferScreen().display(currentInput.toString());
+    	   break;  
        }
    }
    
    /** Handle the ENTER key
     */
-   private synchronized void enterKeyPressed()
-   {
-	   switch(mode)
-       {
-       	   case IDLE_MODE:           
-               break;
+   private synchronized void enterKeyPressed() {
+	   switch(mode) {
+   	   case IDLE_MODE:           
+           break;
+       
+       case LOGIN_MODE:
+           if (currentInput.length() > 0)
+               notify();               
+           break;
            
-           case LOGIN_MODE:
-           {
-               if (currentInput.length() > 0)
-                   notify();               
-               break;
-           }
-
-           case MENU_MODE:
-        	   break;
-        	   
-           case WITHDRAW_MODE:
-        	   break;
-        	   
-           case BALANCE_INQUIRY_MODE:
-        	   //...
-        	   notify();
-        	   break;
-        	   
-           case CHANGE_PIN_MODE:
-        	   if (currentInput.length() > 0)
-                   notify();
-        	   break;
-        	   
-           case TRANSFER_MODE:
-        	   break;
+       case MENU_MODE:
+       case WITHDRAW_MODE:
+    	   break;
+    	   
+       case BALANCE_INQUIRY_MODE:
+    	   //...
+    	   notify();
+    	   break;
+    	   
+       case CHANGE_PIN_MODE:
+       case TRANSFER_MODE:
+    	   if (currentInput.length() > 0)
+               notify();
+    	   break;
        }
    }
                
    /** Handle the CLEAR key
     */
-   private synchronized void clearKeyPressed()
-   {
-       switch(mode)
-       {
-           case IDLE_MODE:
+   private synchronized void clearKeyPressed() {
+       switch(mode) {
+       case IDLE_MODE:           
+           break;
            
-               break;
-               
-           case LOGIN_MODE:
+       case LOGIN_MODE:       
+           currentInput.setLength(0);
+           screen.getLoginScreen().clearDisplay();
+           break;
            
-               currentInput.setLength(0);
-               screen.getLoginScreen().clearAllMessages();
-               break;
-               
-           case MENU_MODE:
-        	   break;
-        	   
-           case WITHDRAW_MODE:
-        	   break;
-        	   
-           case BALANCE_INQUIRY_MODE:
-        	   break;
-        	   
-           case CHANGE_PIN_MODE:
-               currentInput.setLength(0);
-               screen.getChangePINScreen().clearDisplay();
-                break;
-           
-           case TRANSFER_MODE:
-        	   break;
+       case MENU_MODE:    	   
+       case WITHDRAW_MODE:
+       case BALANCE_INQUIRY_MODE:
+    	   break;
+    	   
+       case CHANGE_PIN_MODE:
+       case TRANSFER_MODE:
+    	   currentInput.setLength(0);
+           screen.getChangePINScreen().clearDisplay();
+    	   break;
        }
    }           
                
    /** Handle the CANCEL KEY
     */
-   private synchronized void cancelKeyPressed()
-   {
-       switch(mode)
-       {
-           case IDLE_MODE:
-        	   break;
-               
-           case LOGIN_MODE:
-           case MENU_MODE:
-           case WITHDRAW_MODE:
-           case BALANCE_INQUIRY_MODE:
-           case CHANGE_PIN_MODE:
-           case TRANSFER_MODE:
-           {
-        	   cancelled = true;
-               notify();
-               break;
-           }
+   private synchronized void cancelKeyPressed() {
+       switch(mode) {
+       case IDLE_MODE:
+    	   break;
+           
+       case LOGIN_MODE:
+       case MENU_MODE:
+       case WITHDRAW_MODE:
+       case BALANCE_INQUIRY_MODE:
+       case CHANGE_PIN_MODE:
+       case TRANSFER_MODE:
+    	   cancelled = true;
+           notify();
+           break;
        }
    }
    
@@ -347,78 +320,69 @@ public class Keypad {
     */
    private synchronized void rightleftKeyPressed(int keyCode) {
 	   switch (mode) {
-		   case IDLE_MODE:
-			   break;
-			   
-		   case LOGIN_MODE:
-		   {
-			   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
-				   notify();
-			   }
-			   else if (keyCode == RIGHT_KEY4) { //cancel
-				   cancelled = true; //-> readInput() return -1; !!!
-				   notify();
-			   }
-			   break;
-		   }
+	   case IDLE_MODE:
+		   break;
 		   
-		   case MENU_MODE:
-		   {
-			   if (keyCode == RIGHT_KEY4)
-				   cancelled = true; //-> readInput() return -1; !!!
-			   else
-				   currentInput.append(keyCode);
-			   
+	   case LOGIN_MODE:
+		   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
 			   notify();
-			   break;
 		   }
+		   else if (keyCode == RIGHT_KEY4) { //cancel
+			   cancelled = true; //-> readInput() return -1; !!!
+			   notify();
+		   }
+		   break;
+	   
+	   case MENU_MODE:
+		   if (keyCode == RIGHT_KEY4)
+			   cancelled = true; //-> readInput() return -1; !!!
+		   else
+			   currentInput.append(keyCode);
 		   
-		   case WITHDRAW_MODE:
-           {
-        	   if (keyCode == LEFT_KEY4)
-        		   break;
-        	   else if (keyCode == RIGHT_KEY4)
-        		   cancelled = true; //-> readInput() return -1; !!!
-        	   else                   
-        		   currentInput.append(keyCode);
-        		   
-        	   notify();
-        	   break;
-           }
+		   notify();
+		   break;
+	   
+	   case WITHDRAW_MODE:
+     	   if (keyCode == LEFT_KEY4)
+    		   break;
+    	   else if (keyCode == RIGHT_KEY4)
+    		   cancelled = true; //-> readInput() return -1; !!!
+    	   else                   
+    		   currentInput.append(keyCode);
+    		   
+    	   notify();
+    	   break;
 
-		   case BALANCE_INQUIRY_MODE:
-			   if (keyCode == RIGHT_KEY3) {
-				   //...
-				   notify();
-			   }
-			   else if (keyCode == RIGHT_KEY4) {
-				   cancelled = true;
-				   notify();
-			   }
-			   break;
-			   
-		   case CHANGE_PIN_MODE:
-			   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
-				   notify();
-			   }
-			   else if (keyCode == RIGHT_KEY4) { //cancel
-				   cancelled = true; //-> readInput() return -1; !!!
-				   notify();
-			   }
-			   break;
-			   
-		   case TRANSFER_MODE:
-			   break;		
-
+	   case BALANCE_INQUIRY_MODE:
+		   if (keyCode == RIGHT_KEY3) {
+			   //...
+			   notify();
+		   }
+		   else if (keyCode == RIGHT_KEY4) {
+			   cancelled = true;
+			   notify();
+		   }
+		   break;
+		   
+	   case CHANGE_PIN_MODE:
+	   case TRANSFER_MODE:
+		   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
+			   notify();
+		   }
+		   else if (keyCode == RIGHT_KEY4) { //cancel
+			   cancelled = true; //-> readInput() return -1; !!!
+			   notify();
+		   }
+		   break;
 	   }
    }
 	
-   /**
+   /** readInput mode
     */
 	private int mode;
 	
-   /* Possible values for mode parameter to readInput() */
-	
+   /** Possible values for mode parameter to readInput()
+    */
 	public static final int IDLE_MODE = 0;
 	
     public static final int LOGIN_MODE = 1;

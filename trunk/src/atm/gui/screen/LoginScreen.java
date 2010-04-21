@@ -16,7 +16,11 @@ public class LoginScreen extends JPanel {
 	
 	private Image bgImage;
 	
-	public LoginScreen() {	
+	public LoginScreen() {	    
+		initComponents();
+	}
+	
+	private void initComponents() {	    
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/login.png", "Login").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
@@ -24,17 +28,6 @@ public class LoginScreen extends JPanel {
 	    setMaximumSize(size);
 	    setSize(size);
 	    setLayout(null);
-	    
-		initComponents();
-	}
-	
-	private void initComponents() {	    
-//		//account number field
-//		add(accountNumberFld);
-//		accountNumberFld.setBackground(Color.green);
-//		accountNumberFld.setBounds(165, 131, 140, 26);
-//		accountNumberFld.setForeground(Color.red);
-//		accountNumberFld.setEditable(false);
 		
 		//pin field
 		add(pinFld);
@@ -44,21 +37,14 @@ public class LoginScreen extends JPanel {
 		pinFld.setEditable(false);
 	}
 	
-	/** display account number **/
-	public void showMessage1(String s) {
-		//accountNumberFld.setText(s);
-		showMessage2(s);
-	}
-	
 	/** display PIN code **/
-	public void showMessage2(String s) {
+	public void display(String s) {
 		pinFld.setText(s);
 	}
 	
-	/** clear all fields **/	
-	public void clearAllMessages() {
-		showMessage1("");
-		showMessage2("");
+	/** clear display **/	
+	public void clearDisplay() {
+		display("");
 	}
 	
 	@Override

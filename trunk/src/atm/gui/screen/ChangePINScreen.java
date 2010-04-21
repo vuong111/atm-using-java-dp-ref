@@ -16,12 +16,16 @@ public class ChangePINScreen extends JPanel {
 	public static final String ENTER_PIN = "Nhập mã PIN: ";
 	public static final String CONFIRM_PIN = "Xác nhận mã PIN: ";
 	
-	private JLabel pinLbl = new JLabel();
+	private JLabel pinLbl = new JLabel(ENTER_PIN);
 	private JTextField pinFld = new JTextField(11);
 	
 	private Image bgImage;
 	
-	public ChangePINScreen() {
+	public ChangePINScreen() {	    
+	    initComponents();
+	}
+	
+	private void initComponents() {
 		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/changePIN.png", "Change Pin").getImage();
 		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
 	    setPreferredSize(size);
@@ -30,10 +34,6 @@ public class ChangePINScreen extends JPanel {
 	    setSize(size);
 	    setLayout(null);
 	    
-	    initComponents();
-	}
-	
-	private void initComponents() {
 		//PIN label
 		add(pinLbl);
 		pinLbl.setBackground(Color.black);
