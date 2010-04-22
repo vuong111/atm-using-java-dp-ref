@@ -1,9 +1,9 @@
-package atm.gui;
+package atm.transaction;
 
-import atm.gui.BankDatabase;
-import atm.gui.input.CashDispenser;
-import atm.gui.input.Keypad;
-import atm.gui.screen.Screen;
+import atm.bank.BankDatabase;
+import atm.input.CashDispenser;
+import atm.input.Keypad;
+import atm.screen.Screen;
 
 public class Withdrawal extends Transaction {
 	private static final double MONEY1 = 100;

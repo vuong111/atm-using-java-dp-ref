@@ -1,8 +1,9 @@
-package atm.gui;
+package atm.transaction;
 
-import atm.gui.input.Keypad;
-import atm.gui.screen.Screen;
-import atm.gui.screen.TransferScreen;
+import atm.bank.BankDatabase;
+import atm.input.Keypad;
+import atm.screen.Screen;
+import atm.screen.TransferScreen;
 
 public class Transfer extends Transaction {
 	

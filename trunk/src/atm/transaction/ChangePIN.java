@@ -1,8 +1,9 @@
-package atm.gui;
+package atm.transaction;
 
-import atm.gui.input.Keypad;
-import atm.gui.screen.ChangePINScreen;
-import atm.gui.screen.Screen;
+import atm.bank.BankDatabase;
+import atm.input.Keypad;
+import atm.screen.ChangePINScreen;
+import atm.screen.Screen;
 
 public class ChangePIN extends Transaction {
 	
