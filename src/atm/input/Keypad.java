@@ -290,9 +290,13 @@ public class Keypad {
     	   break;
     	   
        case CHANGE_PIN_MODE:
-       case TRANSFER_MODE:
     	   currentInput.setLength(0);
            screen.getChangePINScreen().clearDisplay();
+    	   break;
+    	   
+       case TRANSFER_MODE:
+    	   currentInput.setLength(0);
+           screen.getTransferScreen().clearDisplay();
     	   break;
        }
    }           

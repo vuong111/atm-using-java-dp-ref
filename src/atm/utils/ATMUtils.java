@@ -28,9 +28,19 @@ public class ATMUtils {
 	}
 	
 	/** parse a string to an integer **/
-	public static int parseInt(String i) {
+	public static int parseInt(String s) {
 		try {
-			return Integer.parseInt(i);
+			return Integer.parseInt(s);
+		}
+		catch (NumberFormatException nfe) {
+			return -1;
+		}
+	}
+	
+	/** parse a string to a double **/
+	public static double parseDouble(String s) {
+		try {
+			return Double.parseDouble(s);
 		}
 		catch (NumberFormatException nfe) {
 			return -1;

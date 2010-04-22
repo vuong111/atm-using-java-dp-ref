@@ -1,5 +1,6 @@
 package atm.transaction;
 
+import atm.bank.Account;
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
 import atm.screen.Screen;
@@ -19,24 +20,43 @@ public class Transfer extends Transaction {
 	/** performs the transaction **/
 	public void execute()
 	{
+		double availableBalance; // amount available for transfer
+		
 		getScreen().show(Screen.TRANSFER);
 		
 		getScreen().getTransferScreen().showPanel(TransferScreen.ACCOUNT_PANEL);
-		int transferAccount = getKeypad().readInput(Keypad.TRANSFER_MODE);
+		int transferAccountNumber = getKeypad().readInput(Keypad.TRANSFER_MODE);
 		getScreen().getTransferScreen().clearDisplay();
 
-		if (transferAccount == CANCELLED) {
+		if (transferAccountNumber == CANCELLED) {
+			return;
+		}
+		
+		String transferAccountName = getBankDatabase().getFullName(transferAccountNumber);
+		
+		if (transferAccountName == null) {
+			System.out.println("Invalid account");
 			return;
 		}
 		
 		getScreen().getTransferScreen().showPanel(TransferScreen.MONEY_PANEL);
-		int transferMoney = getKeypad().readInput(Keypad.TRANSFER_MODE);
+		getScreen().getTransferScreen().printAccountInfo(transferAccountNumber, transferAccountName);
+		double transferAmount = getKeypad().readInput(Keypad.TRANSFER_MODE);
 		getScreen().getTransferScreen().clearDisplay();
 		
-		if (transferMoney == CANCELLED) {
+		if (transferAmount == CANCELLED) {
 			return;
 		}
 		
-		System.out.println("[Under construction] - " + transferAccount + " / " + transferMoney);
+		availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
+		
+		if (transferAmount <= availableBalance) {
+			getBankDatabase().transfer(getAccountNumber(), transferAccountNumber, transferAmount);
+		
+			System.out.println("Transfered " + transferAmount + " to account:" + transferAccountNumber);
+		}
+		else {
+			System.out.println("not money enough for transfering..");
+		}
 	}
 }

@@ -24,7 +24,11 @@ public class BankDatabase {
 	
 	/** return current user full name **/
 	public String getFullName(int userAccountNumber) {
-		return getAccount(userAccountNumber).getFullName();
+		Account userAccount = getAccount(userAccountNumber);
+
+		if (userAccount != null)
+			return userAccount.getFullName();
+		return null;
 	}
 
 	/** return available balance of Account with specified account number **/
@@ -72,5 +76,11 @@ public class BankDatabase {
 		userAccount.debit(amount);
 		
 		updateAccount(userAccount);
+	}
+	
+	/** transfer an amount to specified account number **/
+	public void transfer(int sourceAccountNumber, int destinationAccountNumber, double amount) {
+		debit(sourceAccountNumber, amount);
+		credit(destinationAccountNumber, amount);
 	}
 }
