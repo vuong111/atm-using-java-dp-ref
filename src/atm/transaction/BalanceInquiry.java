@@ -1,7 +1,8 @@
-package atm.gui;
+package atm.transaction;
 
-import atm.gui.input.Keypad;
-import atm.gui.screen.Screen;
+import atm.bank.BankDatabase;
+import atm.input.Keypad;
+import atm.screen.Screen;
 
 public class BalanceInquiry extends Transaction
 {

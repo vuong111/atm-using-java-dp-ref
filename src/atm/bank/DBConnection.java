@@ -1,4 +1,4 @@
-package atm.gui.db;
+package atm.bank;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

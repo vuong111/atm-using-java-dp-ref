@@ -1,4 +1,4 @@
-package atm.gui.observer;
+package atm.utils;
 
 public interface Observable {
 	public void addObserver(Observer o);

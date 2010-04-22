@@ -1,4 +1,4 @@
-package atm.gui;
+package atm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,25 +6,24 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import atm.gui.BalanceInquiry;
-import atm.gui.Transaction;
-import atm.gui.input.CardSlot;
-import atm.gui.input.CashDispenser;
-import atm.gui.input.DepositSlot;
-import atm.gui.input.Keypad;
-import atm.gui.screen.Screen;
-import atm.gui.welcome.WelcomePanel;
+import atm.bank.BankDatabase;
+import atm.input.CardSlot;
+import atm.input.CashDispenser;
+import atm.input.DepositSlot;
+import atm.input.Keypad;
+import atm.screen.Screen;
+import atm.transaction.BalanceInquiry;
+import atm.transaction.ChangePIN;
+import atm.transaction.Transaction;
+import atm.transaction.Transfer;
+import atm.transaction.Withdrawal;
 
 public class ATMWindow extends JFrame {
 	   
-	/**
-	 * welcomePanel
-	 */	
-	private WelcomePanel welcomePanel = new WelcomePanel(this);
-	
 	/** screen **/
 	private Screen screen = new Screen();
 	
@@ -78,7 +77,7 @@ public class ATMWindow extends JFrame {
 		ioPanel.add(vPanel2);
 		ioPanel.setBackground(new Color(51, 153, 204));
 		
-		add(welcomePanel, BorderLayout.NORTH);				//welcome
+		add(new JLabel("Welcome to my ATM"), BorderLayout.NORTH); //welcome
 		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
 		add(keypad.getRightKeypad(), BorderLayout.EAST); 	//keypad - right side		
 		add(screen, BorderLayout.CENTER); 				  	//screen		
@@ -200,10 +199,6 @@ public class ATMWindow extends JFrame {
 
 	    return transaction;
    }
-	
-	public WelcomePanel getWelcomePanel() {
-		return welcomePanel;
-	}
 	
 	public Screen getScreen() {
 		return screen;

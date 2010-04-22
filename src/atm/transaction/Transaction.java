@@ -1,12 +1,12 @@
-package atm.gui;
+package atm.transaction;
 
 import java.util.ArrayList;
 
-import atm.gui.BankDatabase;
-import atm.gui.input.Keypad;
-import atm.gui.observer.Observable;
-import atm.gui.observer.Observer;
-import atm.gui.screen.Screen;
+import atm.bank.BankDatabase;
+import atm.input.Keypad;
+import atm.screen.Screen;
+import atm.utils.Observable;
+import atm.utils.Observer;
 
 public abstract class Transaction implements Observable {
 	private int accountNumber; // indicates account involved
