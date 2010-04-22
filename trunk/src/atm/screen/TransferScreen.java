@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -45,6 +46,11 @@ public class TransferScreen extends JPanel {
 		mainLayout.show(this, panelName);
 	}
 	
+	/** show transfer account's info - only for Money panel **/
+	public void printAccountInfo(int accountNumber, String fullName) {
+		moneyPanel.printAccountInfo(accountNumber, fullName);
+	}
+	
 	public void display(final String msg) {
 		if (currentPanelName.equals(ACCOUNT_PANEL))
 			accountPanel.display(msg);
@@ -57,6 +63,10 @@ public class TransferScreen extends JPanel {
 	}
 }
 
+/**
+ * Account panel
+ *
+ */
 class AccountPanel extends JPanel {
 	private JTextField accountFld = new JTextField(11);	
 	private Image bgImage;
@@ -102,7 +112,13 @@ class AccountPanel extends JPanel {
 	}
 }
 
+/**
+ * Money panel
+ *
+ */
 class MoneyPanel extends JPanel {
+	private JLabel accountNumberLbl = new JLabel();
+	private JLabel accountNameLbl = new JLabel();
 	private JTextField moneyFld = new JTextField(11);	
 	private Image bgImage;
 	
@@ -119,11 +135,36 @@ class MoneyPanel extends JPanel {
 	    setSize(size);
 	    setLayout(null);
 	    
+	    //transfer account number
+	    add(accountNumberLbl);
+	    accountNumberLbl.setBackground(Color.green);
+	    accountNumberLbl.setBounds(165, 105, 140, 26);
+	    accountNumberLbl.setForeground(Color.red);
+		
+		//transfer account full name
+		add(accountNameLbl);
+		accountNameLbl.setBackground(Color.green);
+		accountNameLbl.setBounds(165, 135, 140, 26);
+		accountNameLbl.setForeground(Color.red);
+		
+		//transfer account money
 		add(moneyFld);
 		moneyFld.setBackground(Color.green);
-		moneyFld.setBounds(165, 170, 140, 26);
+		moneyFld.setBounds(165, 175, 140, 26);
 		moneyFld.setForeground(Color.red);
 		moneyFld.setEditable(false);
+		
+	}
+	
+	/** show transfer account's info **/
+	public void printAccountInfo(final int accountNumber, final String fullName) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				accountNumberLbl.setText(String.valueOf(accountNumber));
+				accountNameLbl.setText(fullName);
+			}
+		});
 	}
 	
 	/** display transfer money **/
