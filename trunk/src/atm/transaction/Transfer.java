@@ -1,7 +1,7 @@
 package atm.transaction;
 
-import atm.bank.Account;
 import atm.bank.BankDatabase;
+import atm.bean.Account;
 import atm.input.Keypad;
 import atm.screen.Screen;
 import atm.screen.TransferScreen;

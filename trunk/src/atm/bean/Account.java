@@ -1,4 +1,8 @@
-package atm.bank;
+package atm.bean;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Account 
 {
@@ -7,7 +11,9 @@ public class Account
 	private int pin;
 	private double availableBalance; // funds available for withdrawal
 	private double totalBalance; // funds available + pending deposits
-
+	
+	private Set<Transaction> listTransaction = new HashSet<Transaction>();
+	
 	/** Account constructor initializes attributes **/
 	public Account( int theAccountNumber, String theFullName, int thePIN,
 		   			double theAvailableBalance, double theTotalBalance ) {
@@ -42,7 +48,30 @@ public class Account
 	public double getTotalBalance() {
 		return totalBalance;
 	}
-
+	
+	/*****listTransaction*****/
+	
+	public Set<Transaction> getListTransaction() {
+		return listTransaction;
+	}
+	
+	public void setListTransaction(Set<Transaction> listTransaction) {
+		this.listTransaction = listTransaction;
+	}
+	
+	public void addTransaction(Transaction transaction) {
+		if (!listTransaction.contains(transaction))
+			listTransaction.add(transaction);
+	}
+	
+	public void removeTransaction(Transaction transaction) {
+		listTransaction.remove(transaction);
+	}
+	
+	/*************
+	 * BEHAVIORS *
+	 *************/ 
+	
 	/** credits an amount to the account **/
 	public void credit(double amount) {
 		availableBalance += amount;
@@ -63,7 +92,21 @@ public class Account
 			return false;
 	}
    
+	/** change PIN **/
 	public void changePIN(int newPIN) {
 		pin = newPIN;
+	}
+	
+	@Override
+	public String toString() {
+		
+		String msg = "AccNumber: " + accountNumber + ", name: " + fullName + 
+					", balance: " + availableBalance + "\n-----------\n";
+		Iterator<Transaction> iterator = listTransaction.iterator();
+		while (iterator.hasNext()) {
+			Transaction transaction = (Transaction) iterator.next();
+				msg += transaction.toString() + "\n";
+		}
+		return msg;
 	}
 }
