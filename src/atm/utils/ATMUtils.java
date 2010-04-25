@@ -1,5 +1,9 @@
 package atm.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.ImageIcon;
 
 public class ATMUtils {
@@ -14,6 +18,13 @@ public class ATMUtils {
 	        return null;
 	    }
 	}
+	
+	/** get current date time **/
+	public static String getCurrentDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 	
 	/** Check if a string can be parsed to an integer number **/
 	public static boolean isNumberKey(String i)

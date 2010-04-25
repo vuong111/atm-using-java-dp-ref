@@ -184,6 +184,7 @@ public class Keypad {
 		operationKeypad.add(new JButton(""));
 	}
 	
+	//will add readDouble soon..
     public synchronized int readInput(int mode) { //, int maxValue) {
     	this.mode = mode;
     	//this.maxValue = maxValue;
