@@ -5,16 +5,15 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import atm.utils.ATMUtils;
 
 public class BalanceInquiryScreen extends JPanel {
-	private JTextField accountNumberFld = new JTextField("123456");
-	private JTextField fullNameFld = new JTextField("Vietcombank");
-	private JTextField balanceFld = new JTextField("15.000.000 VND");
+	private JTextField accountNumberFld = new JTextField();
+	private JTextField fullNameFld = new JTextField();
+	private JTextField balanceFld = new JTextField();
 	private Image bgImage;
 	
 	public BalanceInquiryScreen() {	    
