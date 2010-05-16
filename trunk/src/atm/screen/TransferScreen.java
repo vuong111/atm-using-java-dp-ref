@@ -2,18 +2,14 @@ package atm.screen;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import atm.utils.ATMUtils;
 
-public class TransferScreen extends JPanel {
+public class TransferScreen extends Screen {
 	
 	public static final String ACCOUNT_PANEL = "Transfer Amount Panel";
 	public static final String MONEY_PANEL = "Transfer Money Panel";
@@ -25,12 +21,12 @@ public class TransferScreen extends JPanel {
 	
 	private CardLayout mainLayout;
 	
-	/** constructor **/
-	public TransferScreen() {		
-		initComponents();
+	@Override
+	protected void configBackgroundImage() {
+		//no config..	
 	}
 	
-	private void initComponents() {
+	public void addComponents() {
 		mainLayout = new CardLayout();
 		setLayout(mainLayout);
 		
@@ -39,6 +35,11 @@ public class TransferScreen extends JPanel {
 		
 		moneyPanel = new MoneyPanel();
 		add(moneyPanel, MONEY_PANEL);
+	}
+	
+	@Override
+	protected void configSize() {
+		//no config..
 	}
 	
 	public void showPanel(String panelName) {
@@ -51,6 +52,7 @@ public class TransferScreen extends JPanel {
 		moneyPanel.printAccountInfo(accountNumber, fullName);
 	}
 	
+	/** display a message **/
 	public void display(final String msg) {
 		if (currentPanelName.equals(ACCOUNT_PANEL))
 			accountPanel.display(msg);
@@ -58,6 +60,7 @@ public class TransferScreen extends JPanel {
 			moneyPanel.display(msg);
 	}
 	
+	/** clear display **/
 	public void clearDisplay() {
 		display("");
 	}
@@ -67,23 +70,19 @@ public class TransferScreen extends JPanel {
  * Account panel
  *
  */
-class AccountPanel extends JPanel {
-	private JTextField accountFld = new JTextField(11);	
-	private Image bgImage;
-	
-	public AccountPanel() {
-	    initComponents();
+class AccountPanel extends Screen {
+	private JTextField accountFld;
+
+	@Override
+	protected void configBackgroundImage() {
+		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/transfer1.png", "Transfer1").getImage();
+		
 	}
 	
-	private void initComponents() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/transfer1.png", "Transfer1").getImage();
-		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
-	    
+	@Override
+	public void addComponents() {	
+		accountFld = new JTextField(11);	
+		
 		add(accountFld);
 		accountFld.setBackground(Color.green);
 		accountFld.setBounds(165, 131, 140, 26);
@@ -105,37 +104,30 @@ class AccountPanel extends JPanel {
 	public void clearDisplay() {
 		display("");
 	}
-	
-	@Override
-	public void paintComponent(Graphics g) {
-	    g.drawImage(bgImage, 0, 0, null);
-	}
 }
 
 /**
  * Money panel
  *
  */
-class MoneyPanel extends JPanel {
-	private JLabel accountNumberLbl = new JLabel();
-	private JLabel accountNameLbl = new JLabel();
-	private JTextField moneyFld = new JTextField(11);	
-	private Image bgImage;
-	
-	public MoneyPanel() {	    
-	    initComponents();
+class MoneyPanel extends Screen {
+	private JLabel accountNumberLbl;
+	private JLabel accountNameLbl;
+	private JTextField moneyFld;	
+
+	@Override
+	protected void configBackgroundImage() {
+		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/transfer2.png", "Transfer2").getImage();
+		
 	}
 	
-	private void initComponents() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/transfer2.png", "Transfer2").getImage();
-		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
-	    
-	    //transfer account number
+	@Override
+	public void addComponents() {
+		accountNumberLbl = new JLabel();
+		accountNameLbl = new JLabel();
+		moneyFld = new JTextField(11);
+		
+		//transfer account number
 	    add(accountNumberLbl);
 	    accountNumberLbl.setBackground(Color.green);
 	    accountNumberLbl.setBounds(165, 105, 140, 26);
@@ -180,10 +172,5 @@ class MoneyPanel extends JPanel {
 	/** clear display **/	
 	public void clearDisplay() {
 		display("");
-	}
-	
-	@Override
-	public void paintComponent(Graphics g) {
-	    g.drawImage(bgImage, 0, 0, null);
 	}
 }

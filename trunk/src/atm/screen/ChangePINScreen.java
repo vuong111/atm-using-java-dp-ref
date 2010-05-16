@@ -1,39 +1,30 @@
 package atm.screen;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import atm.utils.ATMUtils;
 
-public class ChangePINScreen extends JPanel {
+public class ChangePINScreen extends Screen {
 	public static final String ENTER_PIN = "Nhập mã PIN: ";
 	public static final String CONFIRM_PIN = "Xác nhận mã PIN: ";
 	
-	private JLabel pinLbl = new JLabel(ENTER_PIN);
-	private JTextField pinFld = new JTextField(11);
+	private JLabel pinLbl;
+	private JTextField pinFld;
 	
-	private Image bgImage;
-	
-	public ChangePINScreen() {	    
-	    initComponents();
+	@Override
+	protected void configBackgroundImage() {
+		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/changePIN.png", "Change Pin").getImage();	
 	}
 	
-	private void initComponents() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/changePIN.png", "Change Pin").getImage();
-		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
-	    
+	@Override
+	public void addComponents() {
+		pinLbl = new JLabel(ENTER_PIN);
+		pinFld = new JTextField(11);
+		
 		//PIN label
 		add(pinLbl);
 		pinLbl.setBackground(Color.black);
@@ -63,7 +54,7 @@ public class ChangePINScreen extends JPanel {
 		display("");
 	}
 	
-	/** show PIN request message **/
+	/** show PIN request label **/
 	public void showMessage(final String msg) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -72,9 +63,5 @@ public class ChangePINScreen extends JPanel {
 			}
 		});		
 	}
-	
-	@Override
-	public void paintComponent(Graphics g) {
-	    g.drawImage(bgImage, 0, 0, null);
-	}
+
 }
