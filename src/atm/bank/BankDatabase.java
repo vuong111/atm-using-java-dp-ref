@@ -38,10 +38,7 @@ public class BankDatabase {
 	/** return current user full name **/
 	public String getFullName(double userAccountNumber) {
 		Account userAccount = getAccount(userAccountNumber);
-
-		if (userAccount != null)
-			return userAccount.getFullName();
-		return null;
+		return userAccount.getFullName(); // Introduce Null Object 
 	}
 
 	/** return available balance of Account with specified account number **/
@@ -59,14 +56,7 @@ public class BankDatabase {
 	 *  those of an account in the database
 	 **/
 	public boolean authenticateUser(int userAccountNumber, int userPIN) {
-		Account userAccount = getAccount(userAccountNumber);
-
-		if (userAccount != null) {
-			System.out.println(userAccount);
-			return userAccount.validatePIN(userPIN);
-		}
-		
-		return false;
+		return getAccount(userAccountNumber).validatePIN(userPIN);
 	}
    
 	/** change PIN code **/
@@ -82,7 +72,7 @@ public class BankDatabase {
 		Account userAccount = getAccount(userAccountNumber);
 		
 		//update Account
-		userAccount.credit(amount);		
+		userAccount.credit(amount);
 		updateAccount(userAccount);
 		
 		//insert Transaction info

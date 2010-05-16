@@ -54,11 +54,12 @@ public class AccountDAO extends DAO<Account> {
 		try {
 			Statement stm = connection.createStatement();
 			stm.executeUpdate(sql);
+			return true;
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			sqle.printStackTrace();			
 		}
 		
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -68,22 +69,21 @@ public class AccountDAO extends DAO<Account> {
 					"AND Transaction.accountNumber = " + theAccountNumber +
 					" ORDER BY Transaction.date_time";
 		
-		Account account = null;
+		Account account = Account.newNull();
 		
 		try {
 			Statement stm = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = stm.executeQuery(sql);			
 			
-			if (rs.first()) {
-				int accountNumber = rs.getInt("accountNumber");
-				String fullName = rs.getString("fullName");
-				int pin = rs.getInt("pin");
-				double availableBalance = rs.getDouble("availableBalance");
-				double totalBalance = rs.getDouble("totalBalance");
-				account = new Account(accountNumber, fullName, pin, availableBalance, totalBalance);
-			}
-			else
-				return null;
+			if (!rs.first())
+				return account;
+
+			int accountNumber = rs.getInt("accountNumber");
+			String fullName = rs.getString("fullName");
+			int pin = rs.getInt("pin");
+			double availableBalance = rs.getDouble("availableBalance");
+			double totalBalance = rs.getDouble("totalBalance");
+			account = new Account(accountNumber, fullName, pin, availableBalance, totalBalance);
 			
 			rs.beforeFirst();
 			DAO<Transaction> transactionDAO = DAOFactory.getTransactionDAO();

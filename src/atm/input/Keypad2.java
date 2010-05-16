@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 import atm.screen.Screen;
 import atm.utils.ATMUtils;
 
-public class Keypad {	
+public class Keypad2 {
+	
 	public static final int LEFT_KEY1 = 1;
 	public static final int LEFT_KEY2 = 2;
 	public static final int LEFT_KEY3 = 3;
@@ -23,8 +24,9 @@ public class Keypad {
 	public static final int RIGHT_KEY2 = 6;
 	public static final int RIGHT_KEY3 = 7;
 	public static final int RIGHT_KEY4 = 8;
-	
-	public static final int CANCELED = -1;
+//	public static final int ENTER = 11;
+//	public static final int CANCEL = 12;
+//	public static final int CLEAR = 13;
 	
 	private Screen screen;
 	
@@ -33,7 +35,7 @@ public class Keypad {
 	private JPanel numberKeypad;
 	private JPanel operationKeypad;
 
-	public Keypad(Screen scr) {
+	public Keypad2(Screen scr) {
 		screen = scr;
 		currentInput = new StringBuffer();
 		initLeftKeypad();
@@ -196,9 +198,11 @@ public class Keypad {
 		}
     	
     	if (cancelled) {
-    		return CANCELED;
+    		System.out.println("[cancelled]");
+    		return -1;
     	} 		
     	
+    	System.out.println("[entered/selected]");
     	return ATMUtils.parseInt(currentInput.toString());
     }
     

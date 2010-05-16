@@ -14,9 +14,13 @@ public class Account
 	
 	private Set<Transaction> listTransaction = new HashSet<Transaction>();
 	
+	public Account() {
+		
+	}
+	
 	/** Account constructor initializes attributes **/
-	public Account( int theAccountNumber, String theFullName, int thePIN,
-		   			double theAvailableBalance, double theTotalBalance ) {
+	public Account(int theAccountNumber, String theFullName, int thePIN,
+		   			double theAvailableBalance, double theTotalBalance) {
 		accountNumber = theAccountNumber;
 		fullName = theFullName;
 		pin = thePIN;
@@ -24,6 +28,11 @@ public class Account
 		totalBalance = theTotalBalance;
 	}
 
+	/** Introduce Null Object **/
+	public static Account newNull() {
+		return new NullAccount();
+	}
+	
 	/** returns account number **/
 	public int getAccountNumber() {
       	return accountNumber;  
