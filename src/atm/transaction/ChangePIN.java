@@ -3,14 +3,14 @@ package atm.transaction;
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
 import atm.screen.ChangePINScreen;
-import atm.screen.Screen;
+import atm.screen.ScreenController;
 
 public class ChangePIN extends Transaction {
 	
 	private static final int CANCELLED = -1;
 	
 	/** ChangePIN constructor **/
-	public ChangePIN(int userAccountNumber, Screen atmScreen, 
+	public ChangePIN(int userAccountNumber, ScreenController atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		super(userAccountNumber, atmScreen, atmBankDatabase, atmKeypad);
@@ -19,7 +19,7 @@ public class ChangePIN extends Transaction {
 	/** performs the transaction **/
 	public void execute()
 	{
-		getScreen().show(Screen.CHANGE_PIN);
+		getScreen().show(ScreenController.CHANGE_PIN);
 		
 		//Enter a new PIN
 		getScreen().getChangePINScreen().showMessage(ChangePINScreen.ENTER_PIN);

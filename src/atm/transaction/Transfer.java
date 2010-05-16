@@ -3,7 +3,7 @@ package atm.transaction;
 import atm.bank.BankDatabase;
 import atm.bean.Account;
 import atm.input.Keypad;
-import atm.screen.Screen;
+import atm.screen.ScreenController;
 import atm.screen.TransferScreen;
 
 public class Transfer extends Transaction {
@@ -11,7 +11,7 @@ public class Transfer extends Transaction {
 	private static final int CANCELLED = -1;
 	
 	/** Transfer constructor **/
-	public Transfer(int userAccountNumber, Screen atmScreen, 
+	public Transfer(int userAccountNumber, ScreenController atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		super(userAccountNumber, atmScreen, atmBankDatabase, atmKeypad);
@@ -22,7 +22,7 @@ public class Transfer extends Transaction {
 	{
 		double availableBalance; // amount available for transfer
 		
-		getScreen().show(Screen.TRANSFER);
+		getScreen().show(ScreenController.TRANSFER);
 		
 		getScreen().getTransferScreen().showPanel(TransferScreen.ACCOUNT_PANEL);
 		int transferAccountNumber = getKeypad().readInput(Keypad.TRANSFER_MODE);
@@ -34,7 +34,7 @@ public class Transfer extends Transaction {
 		
 		String transferAccountName = getBankDatabase().getFullName(transferAccountNumber);
 		
-		if (transferAccountName == null) {
+		if (transferAccountName.equals("")) {
 			System.out.println("Invalid account");
 			return;
 		}

@@ -11,7 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import atm.screen.Screen;
+import atm.screen.ScreenController;
 import atm.utils.ATMUtils;
 
 public class Keypad {	
@@ -26,14 +26,14 @@ public class Keypad {
 	
 	public static final int CANCELED = -1;
 	
-	private Screen screen;
+	private ScreenController screen;
 	
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
 	private JPanel numberKeypad;
 	private JPanel operationKeypad;
 
-	public Keypad(Screen scr) {
+	public Keypad(ScreenController scr) {
 		screen = scr;
 		currentInput = new StringBuffer();
 		initLeftKeypad();
@@ -213,10 +213,10 @@ public class Keypad {
            
        case LOGIN_MODE:
            currentInput.append(digit);
-           StringBuffer echoString = new StringBuffer();
+           StringBuffer echoStringL = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
-               echoString.append('*');
-           screen.getLoginScreen().display(echoString.toString());
+        	   echoStringL.append('*');
+           screen.getLoginScreen().display(echoStringL.toString());
            break;
        
        case MENU_MODE:
@@ -229,8 +229,11 @@ public class Keypad {
     	   break;
     	   
        case CHANGE_PIN_MODE:
-           currentInput.append(digit);
-           screen.getChangePINScreen().display(currentInput.toString());
+    	   currentInput.append(digit);
+           StringBuffer echoStringC = new StringBuffer();
+           for (int i = 0; i < currentInput.length(); i ++)
+               echoStringC.append('*');
+           screen.getChangePINScreen().display(echoStringC.toString());
            break;
        
        case TRANSFER_MODE:

@@ -1,40 +1,32 @@
 package atm.screen;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import atm.utils.ATMUtils;
 
-public class BalanceInquiryScreen extends JPanel {
-	private JTextField accountNumberFld = new JTextField();
-	private JTextField fullNameFld = new JTextField();
-	private JTextField balanceFld = new JTextField();
-	private Image bgImage;
-	
-	public BalanceInquiryScreen() {	    
-	    initComponents();
+public class BalanceInquiryScreen extends Screen {
+	private JTextField accountNumberFld;
+	private JTextField fullNameFld;
+	private JTextField balanceFld;	
+
+	@Override
+	protected void configBackgroundImage() {
+		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/viewbalance.png", "View balance").getImage();
+		
 	}
 	
-	private void initComponents() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/viewbalance.png", "View balance").getImage();
-		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
-	    
+	@Override
+	public void addComponents() {
+		accountNumberFld = new JTextField();
+		fullNameFld = new JTextField();
+		balanceFld = new JTextField();
+		
 		add(accountNumberFld);
 		accountNumberFld.setBackground(Color.green);
 		accountNumberFld.setBounds(165, 105, 140, 26);
 		accountNumberFld.setForeground(Color.red);
 		accountNumberFld.setEditable(false);
-		
+				
 		add(fullNameFld);
 		fullNameFld.setBackground(Color.green);
 		fullNameFld.setBounds(165, 140, 140, 26);
@@ -68,9 +60,5 @@ public class BalanceInquiryScreen extends JPanel {
 	public void displayMessage3(String msg) {
 		balanceFld.setText(msg);
 	}
-	
-	@Override
-	public void paintComponent(Graphics g) {
-	    g.drawImage(bgImage, 0, 0, null);
-	}
+
 }
