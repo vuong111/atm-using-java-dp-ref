@@ -51,7 +51,8 @@ public class TransactionDAO extends DAO<Transaction>{
 		String sql = "SELECT * FROM Transaction " +
 					 "WHERE transaction_id = " + id;
 		
-		Transaction transaction = new Transaction();
+		Transaction transaction = Transaction.newNull();
+		
 		try {
 			Statement stm = connection.createStatement();
 			ResultSet rs = stm.executeQuery(sql);

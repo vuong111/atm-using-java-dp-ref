@@ -15,7 +15,7 @@ public class Transaction {
 	private double balance;
 	
 	public Transaction() {
-		//...
+
 	}
 	
 	public Transaction(int accNumber, int refNumber, String type, 
@@ -27,6 +27,11 @@ public class Transaction {
 		this.amount = amount;
 		this.dateTime = date;
 		this.balance = balance;		
+	}
+	
+	/** Introduce Null Object **/
+	public static Transaction newNull() {
+		return new NullTransaction();
 	}
 	
 	public Transaction(int accNumber, String type, 
