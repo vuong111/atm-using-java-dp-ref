@@ -7,10 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import atm.utils.ATMUtils;
-
-public class TransferScreen extends Screen {
-	
+public class TransferScreen extends Screen {	
 	public static final String ACCOUNT_PANEL = "Transfer Amount Panel";
 	public static final String MONEY_PANEL = "Transfer Money Panel";
 	
@@ -22,9 +19,14 @@ public class TransferScreen extends Screen {
 	private CardLayout mainLayout;
 	
 	@Override
-	protected void configBackgroundImage() {
-		//no config..	
-	}
+	protected String getImageName() {
+		return "login.png";
+	};
+	
+	@Override
+	protected String getImageDescription() {
+		return "";
+	};
 	
 	public void addComponents() {
 		mainLayout = new CardLayout();
@@ -47,22 +49,31 @@ public class TransferScreen extends Screen {
 		mainLayout.show(this, panelName);
 	}
 	
-	/** show transfer account's info - only for Money panel **/
-	public void printAccountInfo(int accountNumber, String fullName) {
-		moneyPanel.printAccountInfo(accountNumber, fullName);
+	/** show transfer account id - on Money panel**/
+	@Override
+	public void displayMessage1(String msg) {
+		moneyPanel.displayMessage1(msg);
 	}
 	
-	/** display a message **/
-	public void display(final String msg) {
+	/** show transfer account name - on Money panel**/
+	@Override
+	public void displayMessage2(String msg) {
+		moneyPanel.displayMessage2(msg);
+	}
+	
+	/** display accountID / money **/
+	@Override
+	public void displayMessage3(final String msg) {
 		if (currentPanelName.equals(ACCOUNT_PANEL))
-			accountPanel.display(msg);
+			accountPanel.displayMessage1(msg);
 		else
-			moneyPanel.display(msg);
+			moneyPanel.displayMessage3(msg);
 	}
 	
 	/** clear display **/
+	@Override
 	public void clearDisplay() {
-		display("");
+		displayMessage3("");
 	}
 }
 
@@ -71,13 +82,20 @@ public class TransferScreen extends Screen {
  *
  */
 class AccountPanel extends Screen {
+	private static final String IMAGE_NAME = "transfer1.png";
+	private static final String IMAGE_DESCRIPTION = "Transfer1";
+	
 	private JTextField accountFld;
 
 	@Override
-	protected void configBackgroundImage() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/transfer1.png", "Transfer1").getImage();
-		
-	}
+	protected String getImageName() {
+		return IMAGE_NAME;
+	};
+	
+	@Override
+	protected String getImageDescription() {
+		return IMAGE_DESCRIPTION;
+	};
 	
 	@Override
 	public void addComponents() {	
@@ -91,7 +109,8 @@ class AccountPanel extends Screen {
 	}
 	
 	/** display transfer account **/
-	public void display(final String msg) {
+	@Override
+	public void displayMessage1(final String msg) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -100,9 +119,19 @@ class AccountPanel extends Screen {
 		});
 	}
 	
+	@Override
+	public void displayMessage2(String msg) {
+		//display nothing..
+	}
+	
+	@Override
+	public void displayMessage3(String msg) {
+		//display nothing..
+	}
+	
 	/** clear display **/	
 	public void clearDisplay() {
-		display("");
+		displayMessage1("");
 	}
 }
 
@@ -111,15 +140,22 @@ class AccountPanel extends Screen {
  *
  */
 class MoneyPanel extends Screen {
+	private static final String IMAGE_NAME = "transfer2.png";
+	private static final String IMAGE_DESCRIPTION = "Transfer2";
+	
 	private JLabel accountNumberLbl;
 	private JLabel accountNameLbl;
 	private JTextField moneyFld;	
 
 	@Override
-	protected void configBackgroundImage() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/transfer2.png", "Transfer2").getImage();
-		
-	}
+	protected String getImageName() {
+		return IMAGE_NAME;
+	};
+	
+	@Override
+	protected String getImageDescription() {
+		return IMAGE_DESCRIPTION;
+	};
 	
 	@Override
 	public void addComponents() {
@@ -144,23 +180,34 @@ class MoneyPanel extends Screen {
 		moneyFld.setBackground(Color.green);
 		moneyFld.setBounds(165, 175, 140, 26);
 		moneyFld.setForeground(Color.red);
-		moneyFld.setEditable(false);
-		
+		moneyFld.setEditable(false);		
 	}
 	
-	/** show transfer account's info **/
-	public void printAccountInfo(final int accountNumber, final String fullName) {
+	/** display account id **/
+	@Override
+	public void displayMessage1(final String msg) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				accountNumberLbl.setText(String.valueOf(accountNumber));
-				accountNameLbl.setText(fullName);
+				accountNumberLbl.setText(msg);	
+			}
+		});
+	}
+	
+	/** display account name **/
+	@Override
+	public void displayMessage2(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				accountNameLbl.setText(msg);	
 			}
 		});
 	}
 	
 	/** display transfer money **/
-	public void display(final String msg) {
+	@Override
+	public void displayMessage3(final String msg) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -171,6 +218,6 @@ class MoneyPanel extends Screen {
 	
 	/** clear display **/	
 	public void clearDisplay() {
-		display("");
+		displayMessage3("");
 	}
 }

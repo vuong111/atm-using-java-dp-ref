@@ -26,10 +26,10 @@ import atm.transaction.Withdrawal;
 public class ATM extends JFrame {
 	   
 	/** screen **/
-	private ScreenController screen = new ScreenController();
+	private ScreenController screenController = new ScreenController();
 	
 	/** keypad **/
-	private Keypad keypad = new Keypad(screen);
+	private Keypad keypad = new Keypad(screenController);
 	
 	/** cardSlot **/ 
 	private CardSlot cardSlot = new CardSlot();
@@ -58,7 +58,7 @@ public class ATM extends JFrame {
 		userAuthenticated = false;
 		currentAccountNumber = 0;
 		
-		initComponents();
+		initComponents();		
 	}
 	
 	private void initComponents() {		
@@ -83,7 +83,7 @@ public class ATM extends JFrame {
 		add(new JLabel("Welcome to my ATM"), BorderLayout.NORTH); //welcome
 		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
 		add(keypad.getRightKeypad(), BorderLayout.EAST); 	//keypad - right side		
-		add(screen, BorderLayout.CENTER); 				  	//screen		
+		add(screenController, BorderLayout.CENTER); 				  	//screen		
 		add(ioPanel, BorderLayout.SOUTH);
 		
 		/**
@@ -93,10 +93,29 @@ public class ATM extends JFrame {
 		pack();
 	}
 	
+	private void initTransactions() {
+		transactions = new HashMap<Integer, Transaction>();
+		
+		transactions.put(WITHDRAW, 
+				new Withdrawal(currentAccountNumber, screenController, bankDatabase, keypad, cashDispenser));
+		transactions.put(BALANCE_INQUIRY, 
+				new BalanceInquiry(currentAccountNumber, screenController, bankDatabase, keypad));
+		transactions.put(CHANGE_PIN, 
+				new ChangePIN(currentAccountNumber, screenController, bankDatabase, keypad));
+		transactions.put(TRANSFER, 
+				new Transfer(currentAccountNumber, screenController, bankDatabase, keypad));
+	}
+	
+	private Transaction getTransaction(Integer type) {
+		if (transactions.get(type) == null)
+			return Transaction.newNull();
+		return transactions.get(type);
+	}
+	
 	public void run() {
 		while (true) {			
 			while (!userAuthenticated) {
-				screen.show(ScreenController.WELCOME);
+				screenController.show(ScreenController.WELCOME);
 				authenticateUser(cardSlot.getCardNumber());
 			}
 			
@@ -107,8 +126,8 @@ public class ATM extends JFrame {
 	}
 	
 	private void authenticateUser(int cardNumber) {
-		screen.show(ScreenController.LOGIN_MENU);
-		screen.getLoginScreen().clearDisplay();
+		screenController.show(ScreenController.LOGIN_MENU);
+		screenController.getLoginScreen().clearDisplay();
 
 		int pin = keypad.readInput(Keypad.LOGIN_MODE);
 		
@@ -130,13 +149,13 @@ public class ATM extends JFrame {
 		}
 	}
 	
-	private void performTransactions() {
+	private void performTransactions() {	
 		initTransactions();
 		
 		boolean userExited = false;
 		
 	    while (!userExited) {
-		    screen.show(ScreenController.MAIN_MENU);
+		    screenController.show(ScreenController.MAIN_MENU);
 			
 			int transactionType = keypad.readInput(Keypad.MENU_MODE);
 			
@@ -157,27 +176,7 @@ public class ATM extends JFrame {
 					break;
 			} //end switch
 	    } // end while
-	}
-	
-	
-	private void initTransactions() {
-		transactions = new HashMap<Integer, Transaction>();
-		
-		transactions.put(WITHDRAW, 
-				new Withdrawal(currentAccountNumber, screen, bankDatabase, keypad, cashDispenser));
-		transactions.put(BALANCE_INQUIRY, 
-				new BalanceInquiry(currentAccountNumber, screen, bankDatabase, keypad));
-		transactions.put(CHANGE_PIN, 
-				new ChangePIN(currentAccountNumber, screen, bankDatabase, keypad));
-		transactions.put(TRANSFER, 
-				new Transfer(currentAccountNumber, screen, bankDatabase, keypad));
-	}
-	
-	private Transaction getTransaction(Integer type) {
-		if (transactions.get(type) == null)
-			return Transaction.newNull();
-		return transactions.get(type);
-	}
+	}	
 
 	private static final int WITHDRAW = Keypad.LEFT_KEY1;
 	private static final int BALANCE_INQUIRY = Keypad.LEFT_KEY2;

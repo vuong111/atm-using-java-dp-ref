@@ -12,6 +12,10 @@ public class NullAccount extends Account {
 		return "";
 	}
 	
+	@Override
+	public int getPIN() {
+		return 0;
+	}
 	
 	@Override
 	public double getAvailableBalance() {

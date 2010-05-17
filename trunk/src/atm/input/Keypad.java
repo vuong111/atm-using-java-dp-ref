@@ -216,7 +216,7 @@ public class Keypad {
            StringBuffer echoStringL = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
         	   echoStringL.append('*');
-           screen.getLoginScreen().display(echoStringL.toString());
+           screen.getLoginScreen().displayMessage1(echoStringL.toString());
            break;
        
        case MENU_MODE:
@@ -233,12 +233,12 @@ public class Keypad {
            StringBuffer echoStringC = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
                echoStringC.append('*');
-           screen.getChangePINScreen().display(echoStringC.toString());
+           screen.getChangePINScreen().displayMessage2(echoStringC.toString());
            break;
        
        case TRANSFER_MODE:
     	   currentInput.append(digit);
-    	   screen.getTransferScreen().display(currentInput.toString());
+    	   screen.getTransferScreen().displayMessage3(currentInput.toString());
     	   break;  
        }
    }

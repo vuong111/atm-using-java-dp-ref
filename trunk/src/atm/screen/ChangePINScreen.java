@@ -9,6 +9,9 @@ import javax.swing.SwingUtilities;
 import atm.utils.ATMUtils;
 
 public class ChangePINScreen extends Screen {
+	private static final String IMAGE_NAME = "changePIN.png";
+	private static final String IMAGE_DESCRIPTION = "Change PIN";
+	
 	public static final String ENTER_PIN = "Nhập mã PIN: ";
 	public static final String CONFIRM_PIN = "Xác nhận mã PIN: ";
 	
@@ -16,9 +19,14 @@ public class ChangePINScreen extends Screen {
 	private JTextField pinFld;
 	
 	@Override
-	protected void configBackgroundImage() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/changePIN.png", "Change Pin").getImage();	
-	}
+	protected String getImageName() {
+		return IMAGE_NAME;
+	};
+	
+	@Override
+	protected String getImageDescription() {
+		return IMAGE_DESCRIPTION;
+	};
 	
 	@Override
 	public void addComponents() {
@@ -39,8 +47,20 @@ public class ChangePINScreen extends Screen {
 		pinFld.setEditable(false);
 	}
 	
-	/** display PIN code **/
-	public void display(final String msg) {
+	/** show PIN request LABEL **/
+
+	public void displayMessage1(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				pinLbl.setText(msg);
+			}
+		});		
+	}
+	
+	/** display PIN code FIELD **/
+	@Override
+	public void displayMessage2(final String msg) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -49,19 +69,14 @@ public class ChangePINScreen extends Screen {
 		});
 	}
 	
-	/** clear PIN display **/	
-	public void clearDisplay() {
-		display("");
+	@Override
+	public void displayMessage3(String msg) {
+		//display nothing..
 	}
 	
-	/** show PIN request label **/
-	public void showMessage(final String msg) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				pinLbl.setText(msg);
-			}
-		});		
+	/** clear PIN FIELD **/	
+	@Override
+	public void clearDisplay() {
+		displayMessage2("");
 	}
-
 }

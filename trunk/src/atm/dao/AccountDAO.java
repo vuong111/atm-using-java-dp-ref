@@ -87,7 +87,7 @@ public class AccountDAO extends DAO<Account> {
 			
 			rs.beforeFirst();
 			DAO<Transaction> transactionDAO = DAOFactory.getTransactionDAO();
-			
+
 			while (rs.next()) {
 				account.addTransaction(transactionDAO.find(rs.getInt("transaction_id")));
 			}

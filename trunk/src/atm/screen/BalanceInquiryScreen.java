@@ -2,18 +2,27 @@ package atm.screen;
 
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import atm.utils.ATMUtils;
 
 public class BalanceInquiryScreen extends Screen {
+	private static final String IMAGE_NAME = "viewbalance.png";
+	private static final String IMAGE_DESCRIPTION = "View Balance";
+		
 	private JTextField accountNumberFld;
 	private JTextField fullNameFld;
-	private JTextField balanceFld;	
+	private JTextField balanceFld;
 
 	@Override
-	protected void configBackgroundImage() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), "images/viewbalance.png", "View balance").getImage();
-		
-	}
+	protected String getImageName() {
+		return IMAGE_NAME;
+	};
+	
+	@Override
+	protected String getImageDescription() {
+		return IMAGE_DESCRIPTION;
+	};
 	
 	@Override
 	public void addComponents() {
@@ -26,7 +35,7 @@ public class BalanceInquiryScreen extends Screen {
 		accountNumberFld.setBounds(165, 105, 140, 26);
 		accountNumberFld.setForeground(Color.red);
 		accountNumberFld.setEditable(false);
-				
+
 		add(fullNameFld);
 		fullNameFld.setBackground(Color.green);
 		fullNameFld.setBounds(165, 140, 140, 26);
@@ -40,25 +49,42 @@ public class BalanceInquiryScreen extends Screen {
 		balanceFld.setEditable(false);
 
 	}
-	
-	/*
-	 * displayMessage(int index, String msg) 
-	 * => Replace Parameter with Explicit Methods
-	 */
-	
+
 	/** display account number **/
-	public void displayMessage1(String msg) {
-		accountNumberFld.setText(msg);
+	@Override
+	public void displayMessage1(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				accountNumberFld.setText(msg);
+			}
+		});		
 	}
 	
 	/** display account's full name **/
-	public void displayMessage2(String msg) {
-		fullNameFld.setText(msg);
+	@Override
+	public void displayMessage2(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				fullNameFld.setText(msg);
+			}
+		});			
 	}
 
 	/** display account balance **/
-	public void displayMessage3(String msg) {
-		balanceFld.setText(msg);
+	@Override
+	public void displayMessage3(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				balanceFld.setText(msg);
+			}
+		});		
 	}
-
+	
+	@Override
+	public void clearDisplay() {
+		//clear nothing..
+	}
 }
