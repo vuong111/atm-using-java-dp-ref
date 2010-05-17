@@ -61,6 +61,7 @@ public class BankDatabase {
    
 	/** change PIN code **/
 	public void changePIN(int userAccountNumber, int newPIN) {
+		System.out.println(userAccountNumber + "/" + newPIN);
 		Account userAccount = getAccount(userAccountNumber);
 		userAccount.changePIN(newPIN);
 		
@@ -101,18 +102,18 @@ public class BankDatabase {
 	/** transfer an amount to specified account number **/
 	public void transfer(int sourceAccountNumber, int destinationAccountNumber, double amount) {
 		String currentDateTime = ATMUtils.getCurrentDateTime();
-		
+
 		Account sourceAccount = getAccount(sourceAccountNumber);
 		Account destinationAccount = getAccount(destinationAccountNumber);
-		
+
 		//update source account
 		sourceAccount.debit(amount);
 		updateAccount(sourceAccount);
-		
+
 		//update destination Account
 		destinationAccount.credit(amount);
 		updateAccount(destinationAccount);
-		
+
 		//insert Transaction info into source account
 		Transaction sTransaction = 
 			new Transaction(sourceAccount.getAccountNumber(), destinationAccount.getAccountNumber(),

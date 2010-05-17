@@ -22,7 +22,7 @@ public class ChangePIN extends Transaction {
 		getScreen().show(ScreenController.CHANGE_PIN);
 		
 		//Enter a new PIN
-		getScreen().getChangePINScreen().showMessage(ChangePINScreen.ENTER_PIN);
+		getScreen().getChangePINScreen().displayMessage1(ChangePINScreen.ENTER_PIN);
 		int newPIN = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
 		getScreen().getChangePINScreen().clearDisplay();
 		
@@ -31,7 +31,7 @@ public class ChangePIN extends Transaction {
 		}
 		
 		//Confirm the PIN entered
-		getScreen().getChangePINScreen().showMessage(ChangePINScreen.CONFIRM_PIN);
+		getScreen().getChangePINScreen().displayMessage1(ChangePINScreen.CONFIRM_PIN);
 		int newPIN_confirm = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
 		getScreen().getChangePINScreen().clearDisplay();
 		
@@ -44,7 +44,7 @@ public class ChangePIN extends Transaction {
 		else if (newPIN != newPIN_confirm)
 			System.out.println("2 PIN fields do not match..");
 	    else {
-	    	getBankDatabase().changePIN(getAccountNumber(), newPIN);				    	
+	    	getBankDatabase().changePIN(getAccountNumber(), newPIN);			    	
 	    	System.out.println("PIN changed");
 	    }	    	
 	} // end execute()

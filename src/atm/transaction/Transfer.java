@@ -40,7 +40,9 @@ public class Transfer extends Transaction {
 		}
 		
 		getScreen().getTransferScreen().showPanel(TransferScreen.MONEY_PANEL);
-		getScreen().getTransferScreen().printAccountInfo(transferAccountNumber, transferAccountName);
+		getScreen().getTransferScreen().displayMessage1(transferAccountNumber + "");
+		getScreen().getTransferScreen().displayMessage2(transferAccountName);
+
 		double transferAmount = getKeypad().readInput(Keypad.TRANSFER_MODE);
 		getScreen().getTransferScreen().clearDisplay();
 		
@@ -49,10 +51,9 @@ public class Transfer extends Transaction {
 		}
 		
 		availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
-		
+
 		if (transferAmount <= availableBalance) {
 			getBankDatabase().transfer(getAccountNumber(), transferAccountNumber, transferAmount);
-		
 			System.out.println("Transfered " + transferAmount + " to account:" + transferAccountNumber);
 		}
 		else {
