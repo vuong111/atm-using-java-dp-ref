@@ -50,41 +50,40 @@ public class BalanceInquiryScreen extends Screen {
 
 	}
 
-	/** display account number **/
-	@Override
-	public void displayMessage1(final String msg) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				accountNumberFld.setText(msg);
-			}
-		});		
+	private void printAccountNumber(String msg) {
+		accountNumberFld.setText(msg);			
 	}
 	
-	/** display account's full name **/
+	private void printAccountName(String msg) {
+		fullNameFld.setText(msg);
+	}
+	
+	private void printAccountBalance(String msg) {
+		balanceFld.setText(msg);
+	}
+	
 	@Override
-	public void displayMessage2(final String msg) {
+	public void printMessage(final String msg, final int pos) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				fullNameFld.setText(msg);
+				switch (pos) {
+				case 1:
+					printAccountNumber(msg);
+					break;
+				case 2:
+					printAccountName(msg);
+					break;
+				case 3:
+					printAccountBalance(msg);
+					break;
+				}
 			}
 		});			
 	}
-
-	/** display account balance **/
-	@Override
-	public void displayMessage3(final String msg) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				balanceFld.setText(msg);
-			}
-		});		
-	}
 	
 	@Override
-	public void clearDisplay() {
-		//clear nothing..
+	public void displayInput(final String msg) {
+		//display nothing..
 	}
 }

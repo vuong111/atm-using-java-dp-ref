@@ -10,7 +10,7 @@ import atm.utils.Observer;
 
 public abstract class Transaction {
 	private int accountNumber; // indicates account involved
-   	private ScreenController screen; // ATM's screen
+   	private ScreenController screenController; // ATM's screen
    	private BankDatabase bankDatabase; // account info database
    	private Keypad keypad; // ATM's keypad
    
@@ -21,7 +21,7 @@ public abstract class Transaction {
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		accountNumber = userAccountNumber;
-		screen = atmScreen;
+		screenController = atmScreen;
 		bankDatabase = atmBankDatabase;
 		keypad = atmKeypad;
 	}
@@ -32,8 +32,8 @@ public abstract class Transaction {
 	}
 
 	/** return reference to screen **/
-	public ScreenController getScreen() {
-		return screen;
+	public ScreenController getScreenController() {
+		return screenController;
 	}
 
 	/** return reference to bank database **/

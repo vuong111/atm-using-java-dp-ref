@@ -26,7 +26,7 @@ public class Keypad {
 	
 	public static final int CANCELED = -1;
 	
-	private ScreenController screen;
+	private ScreenController screenController;
 	
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
@@ -34,7 +34,7 @@ public class Keypad {
 	private JPanel operationKeypad;
 
 	public Keypad(ScreenController scr) {
-		screen = scr;
+		screenController = scr;
 		currentInput = new StringBuffer();
 		initLeftKeypad();
 		initRightKeypad();
@@ -216,7 +216,7 @@ public class Keypad {
            StringBuffer echoStringL = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
         	   echoStringL.append('*');
-           screen.getLoginScreen().displayMessage1(echoStringL.toString());
+           screenController.displayInput(echoStringL.toString());
            break;
        
        case MENU_MODE:
@@ -233,13 +233,13 @@ public class Keypad {
            StringBuffer echoStringC = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
                echoStringC.append('*');
-           screen.getChangePINScreen().displayMessage2(echoStringC.toString());
+           screenController.displayInput(echoStringC.toString());
            break;
        
        case TRANSFER_MODE:
     	   currentInput.append(digit);
-    	   screen.getTransferScreen().displayMessage3(currentInput.toString());
-    	   break;  
+    	   screenController.displayInput(currentInput.toString());
+    	   break;
        }
    }
    
@@ -281,7 +281,7 @@ public class Keypad {
            
        case LOGIN_MODE:       
            currentInput.setLength(0);
-           screen.getLoginScreen().clearDisplay();
+           screenController.clearDisplay();
            break;
            
        case MENU_MODE:    	   
@@ -291,12 +291,12 @@ public class Keypad {
     	   
        case CHANGE_PIN_MODE:
     	   currentInput.setLength(0);
-           screen.getChangePINScreen().clearDisplay();
+           screenController.clearDisplay();
     	   break;
     	   
        case TRANSFER_MODE:
     	   currentInput.setLength(0);
-           screen.getTransferScreen().clearDisplay();
+           screenController.clearDisplay();
     	   break;
        }
    }           

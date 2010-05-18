@@ -47,36 +47,31 @@ public class ChangePINScreen extends Screen {
 		pinFld.setEditable(false);
 	}
 	
-	/** show PIN request LABEL **/
-
-	public void displayMessage1(final String msg) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				pinLbl.setText(msg);
-			}
-		});		
+	private void printChangePINLabel(String msg) {
+		pinLbl.setText(msg);
 	}
 	
-	/** display PIN code FIELD **/
+	private void displayPINInput(String msg) {
+		pinFld.setText(msg);
+	}
+	
 	@Override
-	public void displayMessage2(final String msg) {
+	public void printMessage(final String msg, final int pos) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				pinFld.setText(msg);		
+				printChangePINLabel(msg);
 			}
 		});
 	}
 	
 	@Override
-	public void displayMessage3(String msg) {
-		//display nothing..
-	}
-	
-	/** clear PIN FIELD **/	
-	@Override
-	public void clearDisplay() {
-		displayMessage2("");
+	public void displayInput(final String msg) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				displayPINInput(msg);
+			}
+		});
 	}
 }

@@ -3,6 +3,7 @@ package atm.transaction;
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
 import atm.screen.ChangePINScreen;
+import atm.screen.Screen;
 import atm.screen.ScreenController;
 
 public class ChangePIN extends Transaction {
@@ -19,21 +20,23 @@ public class ChangePIN extends Transaction {
 	/** performs the transaction **/
 	public void execute()
 	{
-		getScreen().show(ScreenController.CHANGE_PIN);
+		getScreenController().showScreen(Screen.CHANGE_PIN);
+		getScreenController().clearDisplay();
 		
 		//Enter a new PIN
-		getScreen().getChangePINScreen().displayMessage1(ChangePINScreen.ENTER_PIN);
+		getScreenController().printMessage(ChangePINScreen.ENTER_PIN, 1);
 		int newPIN = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
-		getScreen().getChangePINScreen().clearDisplay();
+		
 		
 		if (newPIN == CANCELLED) {
 			return;
 		}
 		
 		//Confirm the PIN entered
-		getScreen().getChangePINScreen().displayMessage1(ChangePINScreen.CONFIRM_PIN);
-		int newPIN_confirm = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
-		getScreen().getChangePINScreen().clearDisplay();
+		getScreenController().printMessage(ChangePINScreen.CONFIRM_PIN, 1);
+		getScreenController().clearDisplay();
+		
+		int newPIN_confirm = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);	
 		
 		if (newPIN_confirm == CANCELLED) {
 			return;

@@ -3,6 +3,7 @@ package atm.transaction;
 import atm.bank.BankDatabase;
 import atm.input.CashDispenser;
 import atm.input.Keypad;
+import atm.screen.Screen;
 import atm.screen.ScreenController;
 
 public class Withdrawal extends Transaction {
@@ -35,7 +36,7 @@ public class Withdrawal extends Transaction {
 	    double amountOptions[] = {MONEY1, MONEY2, MONEY3, 0, MONEY4, MONEY5, MONEY6};
 	    
 	    do { //bo...
-		    getScreen().show(ScreenController.WITHDRAW_MENU);
+		    getScreenController().showScreen(Screen.WITHDRAW_MENU);
 		    
 		    int choice = getKeypad().readInput(Keypad.WITHDRAW_MODE);		    
 		    

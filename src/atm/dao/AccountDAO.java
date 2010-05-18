@@ -85,12 +85,12 @@ public class AccountDAO extends DAO<Account> {
 			double totalBalance = rs.getDouble("totalBalance");
 			account = new Account(accountNumber, fullName, pin, availableBalance, totalBalance);
 			
-			rs.beforeFirst();
-			DAO<Transaction> transactionDAO = DAOFactory.getTransactionDAO();
-
-			while (rs.next()) {
-				account.addTransaction(transactionDAO.find(rs.getInt("transaction_id")));
-			}
+//			rs.beforeFirst();
+//			DAO<Transaction> transactionDAO = DAOFactory.getTransactionDAO();
+//
+//			while (rs.next()) {
+//				account.addTransaction(transactionDAO.find(rs.getInt("transaction_id")));
+//			}
 			
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();

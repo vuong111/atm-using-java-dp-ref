@@ -16,6 +16,7 @@ import atm.input.CardSlot;
 import atm.input.CashDispenser;
 import atm.input.DepositSlot;
 import atm.input.Keypad;
+import atm.screen.Screen;
 import atm.screen.ScreenController;
 import atm.transaction.BalanceInquiry;
 import atm.transaction.ChangePIN;
@@ -113,9 +114,9 @@ public class ATM extends JFrame {
 	}
 	
 	public void run() {
-		while (true) {			
+		while (true) {
 			while (!userAuthenticated) {
-				screenController.show(ScreenController.WELCOME);
+				screenController.showScreen(Screen.WELCOME);
 				authenticateUser(cardSlot.getCardNumber());
 			}
 			
@@ -126,8 +127,8 @@ public class ATM extends JFrame {
 	}
 	
 	private void authenticateUser(int cardNumber) {
-		screenController.show(ScreenController.LOGIN_MENU);
-		screenController.getLoginScreen().clearDisplay();
+		screenController.showScreen(Screen.LOGIN_MENU);
+		screenController.clearDisplay();
 
 		int pin = keypad.readInput(Keypad.LOGIN_MODE);
 		
@@ -155,7 +156,7 @@ public class ATM extends JFrame {
 		boolean userExited = false;
 		
 	    while (!userExited) {
-		    screenController.show(ScreenController.MAIN_MENU);
+		    screenController.showScreen(Screen.MAIN_MENU);
 			
 			int transactionType = keypad.readInput(Keypad.MENU_MODE);
 			
