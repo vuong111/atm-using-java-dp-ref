@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import atm.bean.Transaction;
+import atm.bean.TransactionVO;
 
-public class TransactionDAO extends DAO<Transaction>{
+public class TransactionDAO extends DAO<TransactionVO>{
 	
 	public TransactionDAO(Connection conn) {
 		super(conn);
 	}
 	
 	@Override
-	public boolean insert(Transaction obj) {
+	public boolean insert(TransactionVO obj) {
 		String sql = "INSERT INTO Transaction (accountNumber, referenceNumber, type, amount, balance, date_time) " +
 					"VALUES (" + obj.getAccountNumber() + ", " +
 								obj.getReferenceNumber() + ", '" +
@@ -37,21 +37,21 @@ public class TransactionDAO extends DAO<Transaction>{
 	}
 	
 	@Override
-	public boolean delete(Transaction obj) {
+	public boolean delete(TransactionVO obj) {
 		return false;
 	}
 	
 	@Override
-	public boolean update(Transaction obj) {
+	public boolean update(TransactionVO obj) {
 		return false;
 	}
 	
 	@Override
-	public Transaction find(double id) {
+	public TransactionVO find(double id) {
 		String sql = "SELECT * FROM Transaction " +
 					 "WHERE transaction_id = " + id;
 		
-		Transaction transaction = Transaction.newNull();
+		TransactionVO transaction = TransactionVO.newNull();
 		
 		try {
 			Statement stm = connection.createStatement();
@@ -65,7 +65,7 @@ public class TransactionDAO extends DAO<Transaction>{
 				double balance = rs.getDouble("balance");
 				String dateTime = rs.getString("date_time");				
 				
-				transaction = new Transaction(accountNumber, accountReference, type, amount, 
+				transaction = new TransactionVO(accountNumber, accountReference, type, amount, 
 										balance, dateTime);
 			}
 		} catch (SQLException sqle) {

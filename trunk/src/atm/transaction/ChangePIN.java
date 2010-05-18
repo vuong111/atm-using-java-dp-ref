@@ -25,8 +25,7 @@ public class ChangePIN extends Transaction {
 		
 		//Enter a new PIN
 		getScreen().printMessage(ChangePINScreen.ENTER_PIN, 1);
-		int newPIN = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
-		
+		int newPIN = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);		
 		
 		if (newPIN == CANCELLED) {
 			return;
@@ -40,15 +39,15 @@ public class ChangePIN extends Transaction {
 		
 		if (newPIN_confirm == CANCELLED) {
 			return;
-		}		
+		}
 		
 		if (newPIN == 0)
 			System.out.println("PIN must > 0");
 		else if (newPIN != newPIN_confirm)
 			System.out.println("2 PIN fields do not match..");
 	    else {
-	    	getBankDatabase().changePIN(getAccountNumber(), newPIN);			    	
-	    	System.out.println("PIN changed");
+	    	getBankDatabase().changePIN(getAccountNumber(), newPIN);
+	    	System.out.println("PIN changed: " + getAccountNumber() + "/" + newPIN);
 	    }	    	
 	} // end execute()
 }
