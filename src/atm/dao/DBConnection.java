@@ -18,6 +18,7 @@ public class DBConnection {
         	connection = newConnection();
         }
         
+        /* Refactoring > Singleton */
         public static synchronized Connection getInstance() {
         	if (connection == null) {
         		new DBConnection();

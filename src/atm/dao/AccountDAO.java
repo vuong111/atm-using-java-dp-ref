@@ -67,7 +67,7 @@ public class AccountDAO extends DAO<Account> {
 					"AND Account.accountNumber = " + theAccountNumber +
 					" ORDER BY Transaction.date_time";
 		
-		Account account = Account.newNull();
+		Account account = Account.newNull(); // Refactoring > Introduce null object
 		
 		try {
 			Statement stm = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
