@@ -11,7 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import atm.screen.ScreenController;
+import atm.screen.Screen;
 import atm.utils.ATMUtils;
 
 public class Keypad {	
@@ -26,14 +26,14 @@ public class Keypad {
 	
 	public static final int CANCELED = -1;
 	
-	private ScreenController screenController;
+	private Screen screenController;
 	
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
 	private JPanel numberKeypad;
 	private JPanel operationKeypad;
 
-	public Keypad(ScreenController scr) {
+	public Keypad(Screen scr) {
 		screenController = scr;
 		currentInput = new StringBuffer();
 		initLeftKeypad();

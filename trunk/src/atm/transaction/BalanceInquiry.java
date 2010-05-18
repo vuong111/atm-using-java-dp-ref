@@ -2,13 +2,13 @@ package atm.transaction;
 
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
+import atm.screen.ScreenType;
 import atm.screen.Screen;
-import atm.screen.ScreenController;
 
 public class BalanceInquiry extends Transaction
 {
 	/** BalanceInquiry constructor **/
-	public BalanceInquiry(int userAccountNumber, ScreenController atmScreen, 
+	public BalanceInquiry(int userAccountNumber, Screen atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		super(userAccountNumber, atmScreen, atmBankDatabase, atmKeypad);
@@ -20,11 +20,11 @@ public class BalanceInquiry extends Transaction
 		String fullName = getBankDatabase().getFullName(getAccountNumber());      
 		double availableBalance = getBankDatabase().getAvailableBalance( getAccountNumber() );
 
-		getScreenController().showScreen(Screen.VIEW_BALANCE);
+		getScreen().setScreenType(ScreenType.VIEW_TYPE);
 
-		getScreenController().printMessage(getAccountNumber() + "", 1);
-		getScreenController().printMessage(fullName, 2);
-		getScreenController().printMessage(availableBalance + " VND", 3);
+		getScreen().printMessage(getAccountNumber() + "", 1);
+		getScreen().printMessage(fullName, 2);
+		getScreen().printMessage(availableBalance + " VND", 3);
 		
 		//wait until enter/cancel key is clicked
 		waitForEscape(); //or call getKeypad().readInput(Keypad.BALANCE_INQUIRY_MODE);

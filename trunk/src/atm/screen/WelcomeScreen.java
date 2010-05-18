@@ -2,7 +2,7 @@ package atm.screen;
 
 import atm.utils.ATMUtils;
 
-public class WelcomeScreen extends Screen {
+public class WelcomeScreen extends ScreenType {
 	private static final String IMAGE_NAME = "welcome.png";
 	private static final String IMAGE_DESCRIPTION = "Welcome";
 	

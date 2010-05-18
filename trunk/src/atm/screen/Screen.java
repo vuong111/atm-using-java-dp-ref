@@ -1,109 +1,57 @@
 package atm.screen;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import atm.utils.ATMUtils;
-
-public abstract class Screen extends JPanel {	
-	public static final String WELCOME = "Welcome";
-	public static final String LOGIN_MENU = "Login";
-	public static final String MAIN_MENU = "Main Menu";
-	public static final String VIEW_BALANCE = "View Balance";
-	public static final String WITHDRAW_MENU = "Withdraw";
-	public static final String CHANGE_PIN = "Change Pin";
-	public static final String TRANSFER1 = "Transfer1";
-	public static final String TRANSFER2 = "Transfer2";	
+public class Screen extends JPanel {
 	
-	private String imageFolder = "images";
-	private Image bgImage;	
-
+	/* REPLACE TYPE CODE WITH STRATEGY/STATE
+	 * REPLACE CONDITIONAL WITH POLYMORPHISM
+	 */
+	
+	/** screenType - current screen **/
+	private ScreenType screenType;
+	
+	/** constructor **/
 	public Screen() {
 		initComponents();
-	}
-
-	private void initComponents() { //template method
-		configBackgroundImage();
-		configSize();
-		addComponents();
+		
+		setScreenType(ScreenType.WELCOME_TYPE); //+ để lưu giữ size của screen ban đầu..
 	}
 	
-	/**
-	 * Form template methods..
-	 */
-	protected void configBackgroundImage() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), imageFolder + "/" + 
-				getImageName(), getImageDescription()).getImage();
+	private void initComponents() {
+		setBackground(Color.GREEN);
+		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));		
 	}
 	
-	protected void configSize() {
-		Dimension size = new Dimension(bgImage.getWidth(null), bgImage.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
+	private void showScreen() {
+		removeAll();
+		add(screenType);		
+		validate();	//repaint();
 	}
-
-	abstract protected void addComponents();
-	abstract protected String getImageName();
-	abstract protected String getImageDescription();
 	
-	/**
-	 * Print & display methods
-	 */
-	abstract public void printMessage(String msg, int pos);
+	/** set screen type **/
+	public void setScreenType(int type) {
+		screenType = ScreenType.newType(type);
+		showScreen();
+	}
 	
-	abstract public void displayInput(String msg);
+	public ScreenType getScreenType() {
+		return screenType;
+	}	
+	
+	/** print & display methods.. **/
+	public void printMessage(String msg, int posIndex) {
+		getScreenType().printMessage(msg, posIndex);
+	}
+	
+	public void displayInput(String msg) {
+		getScreenType().displayInput(msg);
+	}
 	
 	public void clearDisplay() {
-		displayInput("");
+		getScreenType().clearDisplay();
 	}
-	
-	/**
-	 * Factory methods..
-	 */
-	public static Screen getBalanceInquiryScreen() {
-		return new BalanceInquiryScreen();
-	}
-	
-	public static Screen getChangePINScreen() {
-		return new ChangePINScreen();
-	}
-	
-	public static Screen getLoginScreen() {
-		return new LoginScreen();
-	}
-	
-	public static Screen getMainMenuScreen() {
-		return new MainMenuScreen();
-	}
-	
-	public static Screen getTransferScreen1() {
-		return new TransferScreen1();
-	}
-	
-	public static Screen getTransferScreen2() {
-		return new TransferScreen2();
-	}
-	
-	public static Screen getWelcomeScreen() {
-		return new WelcomeScreen();
-	}
-	
-	public static Screen getWithdrawScreen() {
-		return new WithdrawScreen();
-	}
-	
-	/** 
-	 * Override paintComponent(g)
-	 */
-	@Override
-	public void paintComponent(Graphics g) {
-	    g.drawImage(bgImage, 0, 0, null);
-	}
-
 }

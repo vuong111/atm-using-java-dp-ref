@@ -1,6 +1,6 @@
 package atm.screen;
 
-public class MainMenuScreen extends Screen {
+public class MainMenuScreen extends ScreenType {
 	private static final String IMAGE_NAME = "mainmenu.png";
 	private static final String IMAGE_DESCRIPTION = "Main Menu";
 	

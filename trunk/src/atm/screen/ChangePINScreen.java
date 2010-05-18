@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 import atm.utils.ATMUtils;
 
-public class ChangePINScreen extends Screen {
+public class ChangePINScreen extends ScreenType {
 	private static final String IMAGE_NAME = "changePIN.png";
 	private static final String IMAGE_DESCRIPTION = "Change PIN";
 	

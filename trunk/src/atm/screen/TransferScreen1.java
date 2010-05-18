@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class TransferScreen1 extends Screen {
+public class TransferScreen1 extends ScreenType {
 	private static final String IMAGE_NAME = "transfer1.png";
 	private static final String IMAGE_DESCRIPTION = "Transfer1";
 	
