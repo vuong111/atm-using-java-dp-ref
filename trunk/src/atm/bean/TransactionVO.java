@@ -1,6 +1,6 @@
 package atm.bean;
 
-public class Transaction {
+public class TransactionVO {
 	public static final String WITHDRAW_TYPE = "WITHDRAW";
 	public static final String DEPOSIT_TYPE = "DEPOSIT";
 	public static final String CHANGE_PIN_TYPE = "CHANGE_PIN";
@@ -14,11 +14,9 @@ public class Transaction {
 	private String dateTime;
 	private double balance;
 	
-	public Transaction() {
+	public TransactionVO() {}
 
-	}
-	
-	public Transaction(int accNumber, int refNumber, String type, 
+	public TransactionVO(int accNumber, int refNumber, String type, 
 						double amount, double balance, String date) {
 		
 		this.accountNumber = accNumber;
@@ -29,17 +27,18 @@ public class Transaction {
 		this.balance = balance;		
 	}
 	
-	/** Introduce Null Object **/
-	public static Transaction newNull() {
-		return new NullTransaction();
-	}
-	
-	public Transaction(int accNumber, String type, 
-						double amount, double balance, String date) {
+	/* Refactoring > CHAIN CONSTRUCTOR */
+	public TransactionVO(int accNumber, String type, 
+			double amount, double balance, String date) {
 
 		this(accNumber, 0, type, amount, balance, date);
 	}
-
+	
+	/** Introduce Null Object **/
+	public static TransactionVO newNull() {
+		return new NullTransactionVO();
+	}	
+	
 	public int getAccountNumber() {
 		return accountNumber;
 	}
