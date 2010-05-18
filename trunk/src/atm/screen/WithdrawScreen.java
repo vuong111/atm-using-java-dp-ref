@@ -21,5 +21,13 @@ public class WithdrawScreen extends Screen {
 		//no components..
 	}
 	
-	//no displays..
+	@Override
+	public void printMessage(String msg, int pos) {
+		//print nothing..
+	}
+	
+	@Override
+	public void displayInput(String msg) {
+		//display nothing..
+	}
 }

@@ -1,10 +1,9 @@
 package atm.transaction;
 
 import atm.bank.BankDatabase;
-import atm.bean.Account;
 import atm.input.Keypad;
+import atm.screen.Screen;
 import atm.screen.ScreenController;
-import atm.screen.TransferScreen;
 
 public class Transfer extends Transaction {
 	
@@ -22,11 +21,10 @@ public class Transfer extends Transaction {
 	{
 		double availableBalance; // amount available for transfer
 		
-		getScreen().show(ScreenController.TRANSFER);
+		getScreenController().showScreen(Screen.TRANSFER1);
+		getScreenController().clearDisplay();
 		
-		getScreen().getTransferScreen().showPanel(TransferScreen.ACCOUNT_PANEL);
-		int transferAccountNumber = getKeypad().readInput(Keypad.TRANSFER_MODE);
-		getScreen().getTransferScreen().clearDisplay();
+		int transferAccountNumber = getKeypad().readInput(Keypad.TRANSFER_MODE);		
 
 		if (transferAccountNumber == CANCELLED) {
 			return;
@@ -39,12 +37,12 @@ public class Transfer extends Transaction {
 			return;
 		}
 		
-		getScreen().getTransferScreen().showPanel(TransferScreen.MONEY_PANEL);
-		getScreen().getTransferScreen().displayMessage1(transferAccountNumber + "");
-		getScreen().getTransferScreen().displayMessage2(transferAccountName);
-
-		double transferAmount = getKeypad().readInput(Keypad.TRANSFER_MODE);
-		getScreen().getTransferScreen().clearDisplay();
+		getScreenController().showScreen(Screen.TRANSFER2);
+		getScreenController().clearDisplay();
+		getScreenController().printMessage(transferAccountNumber + "", 1);
+		getScreenController().printMessage(transferAccountName, 2);		
+		
+		double transferAmount = getKeypad().readInput(Keypad.TRANSFER_MODE);		
 		
 		if (transferAmount == CANCELLED) {
 			return;

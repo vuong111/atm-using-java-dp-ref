@@ -35,30 +35,22 @@ public class LoginScreen extends Screen {
 		
 	}
 	
-	/** display PIN code **/
+	private void displayPINInput(String msg) {
+		pinFld.setText(msg);
+	}
+	
 	@Override
-	public void displayMessage1(final String msg) {
+	public void printMessage(final String msg, final int pos) {
+		//print nothing..
+	}
+	
+	@Override
+	public void displayInput(final String msg) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				pinFld.setText(msg);
+				displayPINInput(msg);
 			}
-		});
-	}
-	
-	@Override
-	public void displayMessage2(String msg) {
-		//display nothing..
-	}
-	
-	@Override
-	public void displayMessage3(String msg) {
-		//display nothing..
-	}
-	
-	/** clear display **/
-	@Override
-	public void clearDisplay() {
-		displayMessage1("");
+		});	
 	}
 }
