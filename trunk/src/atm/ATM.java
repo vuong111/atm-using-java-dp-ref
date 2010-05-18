@@ -50,7 +50,7 @@ public class ATM extends JFrame {
 	/** current user's account number **/
 	private int currentAccountNumber;
 	
-	/** transactions collection **/
+	/** transactions collection -- stores transactions/commands **/
 	private Map<Integer, Transaction> transactions;
 	
 	/** constructor **/
@@ -151,7 +151,7 @@ public class ATM extends JFrame {
 	}
 	
 	private void performTransactions() {	
-		initTransactions();
+		initTransactions(); //init Commands
 		
 		boolean userExited = false;
 		
@@ -167,7 +167,8 @@ public class ATM extends JFrame {
 				case INSURANCE_COST_INFO:
 				case REGISTER_SERVICE:
 				case TRANSFER:
-				case SERVICE_COST_INFO:					
+				case SERVICE_COST_INFO:		
+					/* Refactoring > Replace Conditional Dispatcher with Command */
 					getTransaction(transactionType).execute();
 					break;
 					
