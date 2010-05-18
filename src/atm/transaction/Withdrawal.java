@@ -7,11 +7,11 @@ import atm.screen.ScreenType;
 import atm.screen.Screen;
 
 public class Withdrawal extends Transaction {
-	private static final double MONEY1 = 100;
-	private static final double MONEY2 = 200;
-	private static final double MONEY3 = 500;
-	private static final double MONEY4 = 1000;
-	private static final double MONEY5 = 2000;
+	private static final double MONEY1 = 50;
+	private static final double MONEY2 = 100;
+	private static final double MONEY3 = 200;
+	private static final double MONEY4 = 500;
+	private static final double MONEY5 = 1000;
 	private static final double MONEY6 = 2000;
 	
 	private final static int CANCELED = -1;
@@ -32,13 +32,13 @@ public class Withdrawal extends Transaction {
 	    
 	    boolean cashDispensed = false; // cash was not dispensed yet
 	    double availableBalance; // amount available for withdrawal
-	      
+
 	    double amountOptions[] = {MONEY1, MONEY2, MONEY3, 0, MONEY4, MONEY5, MONEY6};
 	    
 	    do { //bo...
 		    getScreen().setScreenType(ScreenType.WITHDRAW_TYPE);
 		    
-		    int choice = getKeypad().readInput(Keypad.WITHDRAW_MODE);		    
+		    int choice = getKeypad().readInput(Keypad.WITHDRAW_MODE);
 		    
 		    if (choice != CANCELED) {
 		    	amount = amountOptions[choice - 1];
@@ -56,7 +56,7 @@ public class Withdrawal extends Transaction {
 		    	System.out.println("Cancelling withdraw..." );
 	            return;
 		    }
-	    } while (!cashDispensed);		
+	    } while (!cashDispensed);
 
 	} // end execute()
 }

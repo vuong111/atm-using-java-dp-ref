@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import atm.bean.Account;
-import atm.bean.Transaction;
+import atm.bean.TransactionVO;
 
 
 public class AccountDAO extends DAO<Account> {
@@ -19,12 +19,11 @@ public class AccountDAO extends DAO<Account> {
 	@Override
 	public boolean insert(Account obj) {
 
-		String sql = "INSERT INTO Account (accountNumber, fullName, pin, availableBalance, totalBalance) " +
+		String sql = "INSERT INTO Account (accountNumber, fullName, pin, availableBalance) " +
 					"VALUES (" + obj.getAccountNumber() + ", '" +
 								obj.getFullName() + "', " +
 								obj.getPIN() + ", " +
-								obj.getAvailableBalance() + ", " +
-								obj.getTotalBalance() + 
+								obj.getAvailableBalance() +
 							")";
 		try {
 			Statement stm = connection.createStatement();
@@ -47,7 +46,6 @@ public class AccountDAO extends DAO<Account> {
 	public boolean update(Account userAccount) {
 		String sql = "UPDATE Account SET " +
 					" availableBalance = " + userAccount.getAvailableBalance() +
-					", totalBalance = " + userAccount.getTotalBalance() +
 					", pin = " + userAccount.getPIN() +
 					" WHERE accountNumber = " + userAccount.getAccountNumber();
 
@@ -66,7 +64,7 @@ public class AccountDAO extends DAO<Account> {
 	public Account find(double theAccountNumber) {
 		String sql = "SELECT * FROM Account, Transaction " +
 					"WHERE Account.accountNumber = Transaction.accountNumber " + 
-					"AND Transaction.accountNumber = " + theAccountNumber +
+					"AND Account.accountNumber = " + theAccountNumber +
 					" ORDER BY Transaction.date_time";
 		
 		Account account = Account.newNull();
@@ -82,8 +80,7 @@ public class AccountDAO extends DAO<Account> {
 			String fullName = rs.getString("fullName");
 			int pin = rs.getInt("pin");
 			double availableBalance = rs.getDouble("availableBalance");
-			double totalBalance = rs.getDouble("totalBalance");
-			account = new Account(accountNumber, fullName, pin, availableBalance, totalBalance);
+			account = new Account(accountNumber, fullName, pin, availableBalance);
 			
 //			rs.beforeFirst();
 //			DAO<Transaction> transactionDAO = DAOFactory.getTransactionDAO();

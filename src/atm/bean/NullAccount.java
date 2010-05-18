@@ -23,11 +23,6 @@ public class NullAccount extends Account {
 	}
 	
 	@Override
-	public double getTotalBalance() {
-		return 0;
-	}
-	
-	@Override
 	public boolean validatePIN(int userPIN) {
 		return false;
 	}
@@ -48,12 +43,12 @@ public class NullAccount extends Account {
 	}
 	
 	@Override
-	public void addTransaction(Transaction transaction) {
+	public void addTransaction(TransactionVO transaction) {
 		
 	}
 	
 	@Override
-	public void removeTransaction(Transaction transaction) {
+	public void removeTransaction(TransactionVO transaction) {
 		
 	}
 }
