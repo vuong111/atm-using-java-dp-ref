@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-class TransferScreen2 extends Screen {
+class TransferScreen2 extends ScreenType {
 	private static final String IMAGE_NAME = "transfer2.png";
 	private static final String IMAGE_DESCRIPTION = "Transfer2";
 	

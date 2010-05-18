@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 
 import atm.utils.ATMUtils;
 
-public class BalanceInquiryScreen extends Screen {
+public class BalanceInquiryScreen extends ScreenType {
 	private static final String IMAGE_NAME = "viewbalance.png";
 	private static final String IMAGE_DESCRIPTION = "View Balance";
 		
@@ -51,7 +51,7 @@ public class BalanceInquiryScreen extends Screen {
 	}
 
 	private void printAccountNumber(String msg) {
-		accountNumberFld.setText(msg);			
+		accountNumberFld.setText(msg);
 	}
 	
 	private void printAccountName(String msg) {

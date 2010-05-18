@@ -4,24 +4,22 @@ import java.util.ArrayList;
 
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
-import atm.screen.ScreenController;
-import atm.utils.Observable;
-import atm.utils.Observer;
+import atm.screen.Screen;
 
 public abstract class Transaction {
 	private int accountNumber; // indicates account involved
-   	private ScreenController screenController; // ATM's screen
+   	private Screen screen; // ATM's screen
    	private BankDatabase bankDatabase; // account info database
    	private Keypad keypad; // ATM's keypad
    
 	public Transaction() {}
 	
 	/** Transaction constructor invoked by subclasses using super() **/
-	public Transaction(int userAccountNumber, ScreenController atmScreen, 
+	public Transaction(int userAccountNumber, Screen atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		accountNumber = userAccountNumber;
-		screenController = atmScreen;
+		screen = atmScreen;
 		bankDatabase = atmBankDatabase;
 		keypad = atmKeypad;
 	}
@@ -32,8 +30,8 @@ public abstract class Transaction {
 	}
 
 	/** return reference to screen **/
-	public ScreenController getScreenController() {
-		return screenController;
+	public Screen getScreen() {
+		return screen;
 	}
 
 	/** return reference to bank database **/

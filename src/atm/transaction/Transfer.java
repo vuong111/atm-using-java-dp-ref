@@ -2,15 +2,15 @@ package atm.transaction;
 
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
+import atm.screen.ScreenType;
 import atm.screen.Screen;
-import atm.screen.ScreenController;
 
 public class Transfer extends Transaction {
 	
 	private static final int CANCELLED = -1;
 	
 	/** Transfer constructor **/
-	public Transfer(int userAccountNumber, ScreenController atmScreen, 
+	public Transfer(int userAccountNumber, Screen atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		super(userAccountNumber, atmScreen, atmBankDatabase, atmKeypad);
@@ -21,8 +21,8 @@ public class Transfer extends Transaction {
 	{
 		double availableBalance; // amount available for transfer
 		
-		getScreenController().showScreen(Screen.TRANSFER1);
-		getScreenController().clearDisplay();
+		getScreen().setScreenType(ScreenType.TRANSFER1_TYPE1);
+		getScreen().clearDisplay();
 		
 		int transferAccountNumber = getKeypad().readInput(Keypad.TRANSFER_MODE);		
 
@@ -37,10 +37,10 @@ public class Transfer extends Transaction {
 			return;
 		}
 		
-		getScreenController().showScreen(Screen.TRANSFER2);
-		getScreenController().clearDisplay();
-		getScreenController().printMessage(transferAccountNumber + "", 1);
-		getScreenController().printMessage(transferAccountName, 2);		
+		getScreen().setScreenType(ScreenType.TRANSFER2_TYPE);
+		getScreen().clearDisplay();
+		getScreen().printMessage(transferAccountNumber + "", 1);
+		getScreen().printMessage(transferAccountName, 2);		
 		
 		double transferAmount = getKeypad().readInput(Keypad.TRANSFER_MODE);		
 		

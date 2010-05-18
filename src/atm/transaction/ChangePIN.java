@@ -3,15 +3,15 @@ package atm.transaction;
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
 import atm.screen.ChangePINScreen;
+import atm.screen.ScreenType;
 import atm.screen.Screen;
-import atm.screen.ScreenController;
 
 public class ChangePIN extends Transaction {
 	
 	private static final int CANCELLED = -1;
 	
 	/** ChangePIN constructor **/
-	public ChangePIN(int userAccountNumber, ScreenController atmScreen, 
+	public ChangePIN(int userAccountNumber, Screen atmScreen, 
 						BankDatabase atmBankDatabase, Keypad atmKeypad) {
 		
 		super(userAccountNumber, atmScreen, atmBankDatabase, atmKeypad);
@@ -20,11 +20,11 @@ public class ChangePIN extends Transaction {
 	/** performs the transaction **/
 	public void execute()
 	{
-		getScreenController().showScreen(Screen.CHANGE_PIN);
-		getScreenController().clearDisplay();
+		getScreen().setScreenType(ScreenType.CHANGE_PIN_TYPE);
+		getScreen().clearDisplay();
 		
 		//Enter a new PIN
-		getScreenController().printMessage(ChangePINScreen.ENTER_PIN, 1);
+		getScreen().printMessage(ChangePINScreen.ENTER_PIN, 1);
 		int newPIN = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
 		
 		
@@ -33,8 +33,8 @@ public class ChangePIN extends Transaction {
 		}
 		
 		//Confirm the PIN entered
-		getScreenController().printMessage(ChangePINScreen.CONFIRM_PIN, 1);
-		getScreenController().clearDisplay();
+		getScreen().printMessage(ChangePINScreen.CONFIRM_PIN, 1);
+		getScreen().clearDisplay();
 		
 		int newPIN_confirm = getKeypad().readInput(Keypad.CHANGE_PIN_MODE);	
 		

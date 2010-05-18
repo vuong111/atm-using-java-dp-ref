@@ -2,7 +2,7 @@ package atm.screen;
 
 import atm.utils.ATMUtils;
 
-public class WithdrawScreen extends Screen {
+public class WithdrawScreen extends ScreenType {
 	private static final String IMAGE_NAME = "withdraw.png";
 	private static final String IMAGE_DESCRIPTION = "Withdraw";
 

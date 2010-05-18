@@ -7,7 +7,7 @@ import javax.swing.SwingUtilities;
 
 import atm.utils.ATMUtils;
 
-public class LoginScreen extends Screen {
+public class LoginScreen extends ScreenType {
 	private static final String IMAGE_NAME = "login.png";
 	private static final String IMAGE_DESCRIPTION = "Login";
 	
