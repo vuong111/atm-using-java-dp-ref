@@ -15,7 +15,7 @@ public abstract class ScreenType extends JPanel {
 	public static final int VIEW_TYPE = 4;
 	public static final int WITHDRAW_TYPE = 5;
 	public static final int CHANGE_PIN_TYPE = 6;
-	public static final int TRANSFER1_TYPE1 = 7;
+	public static final int TRANSFER1_TYPE = 7;
 	public static final int TRANSFER2_TYPE = 8;	
 	
 	private String imageFolder = "images";
@@ -25,7 +25,9 @@ public abstract class ScreenType extends JPanel {
 		initComponents();
 	}
 	
-	public static ScreenType newType(int type) {		
+	abstract public int getTypeCode();
+	
+	public static ScreenType newType(int type) {
 		switch (type) {
 		case WELCOME_TYPE:
 			return new WelcomeScreen();
@@ -39,7 +41,7 @@ public abstract class ScreenType extends JPanel {
 			return new WithdrawScreen();
 		case CHANGE_PIN_TYPE:
 			return new ChangePINScreen();
-		case TRANSFER1_TYPE1:
+		case TRANSFER1_TYPE:
 			return new TransferScreen1();
 		case TRANSFER2_TYPE:
 			return new TransferScreen2();

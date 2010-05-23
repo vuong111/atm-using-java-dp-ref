@@ -5,13 +5,16 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import atm.utils.ATMUtils;
-
 public class LoginScreen extends ScreenType {
 	private static final String IMAGE_NAME = "login.png";
 	private static final String IMAGE_DESCRIPTION = "Login";
 	
 	private JTextField pinFld;
+	
+	@Override
+	public int getTypeCode() {
+		return ScreenType.LOGIN_TYPE;
+	}
 	
 	@Override
 	public String getImageName() {

@@ -20,7 +20,7 @@ public class ChangePIN extends Transaction {
 	/** performs the transaction **/
 	public void execute()
 	{
-		getScreen().setScreenType(ScreenType.CHANGE_PIN_TYPE);
+		getScreen().setType(ScreenType.CHANGE_PIN_TYPE);
 		getScreen().clearDisplay();
 		
 		//Enter a new PIN

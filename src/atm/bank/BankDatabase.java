@@ -8,14 +8,9 @@ import atm.utils.ATMUtils;
 
 
 public class BankDatabase {
-	private DAO<Account> accountDAO;
-	private DAO<TransactionVO> transactionDAO;
+	private DAO<Account> accountDAO = DAOFactory.getAccountDAO();
+	private DAO<TransactionVO> transactionDAO = DAOFactory.getTransactionDAO();
 	
-	public BankDatabase() {
-		accountDAO = DAOFactory.getAccountDAO();
-		transactionDAO = DAOFactory.getTransactionDAO();
-	}
-
 	/** retrieve Account object containing specified account number **/
 	private Account getAccount(double accountNumber) {
 		return accountDAO.find(accountNumber);

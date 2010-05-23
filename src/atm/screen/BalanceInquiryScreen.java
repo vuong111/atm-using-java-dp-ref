@@ -15,6 +15,11 @@ public class BalanceInquiryScreen extends ScreenType {
 	private JTextField balanceFld;
 
 	@Override
+	public int getTypeCode() {
+		return ScreenType.VIEW_TYPE;
+	}
+	
+	@Override
 	protected String getImageName() {
 		return IMAGE_NAME;
 	};

@@ -21,7 +21,7 @@ public class Transfer extends Transaction {
 	{
 		double availableBalance; // amount available for transfer
 		
-		getScreen().setScreenType(ScreenType.TRANSFER1_TYPE1);
+		getScreen().setType(ScreenType.TRANSFER1_TYPE);
 		getScreen().clearDisplay();
 		
 		int transferAccountNumber = getKeypad().readInput(Keypad.TRANSFER_MODE);		
@@ -37,7 +37,7 @@ public class Transfer extends Transaction {
 			return;
 		}
 		
-		getScreen().setScreenType(ScreenType.TRANSFER2_TYPE);
+		getScreen().setType(ScreenType.TRANSFER2_TYPE);
 		getScreen().clearDisplay();
 		getScreen().printMessage(transferAccountNumber + "", 1);
 		getScreen().printMessage(transferAccountName, 2);		

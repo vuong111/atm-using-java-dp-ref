@@ -19,6 +19,11 @@ public class ChangePINScreen extends ScreenType {
 	private JTextField pinFld;
 	
 	@Override
+	public int getTypeCode() {
+		return ScreenType.CHANGE_PIN_TYPE;
+	}
+	
+	@Override
 	protected String getImageName() {
 		return IMAGE_NAME;
 	};

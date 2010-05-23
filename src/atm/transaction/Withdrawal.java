@@ -7,16 +7,16 @@ import atm.screen.ScreenType;
 import atm.screen.Screen;
 
 public class Withdrawal extends Transaction {
-	private static final double MONEY1 = 50;
-	private static final double MONEY2 = 100;
-	private static final double MONEY3 = 200;
-	private static final double MONEY4 = 500;
-	private static final double MONEY5 = 1000;
-	private static final double MONEY6 = 2000;
+	private static final int MONEY1 = 50;
+	private static final int MONEY2 = 100;
+	private static final int MONEY3 = 200;
+	private static final int MONEY4 = 500;
+	private static final int MONEY5 = 1000;
+	private static final int MONEY6 = 2000;
 	
 	private final static int CANCELED = -1;
 	
-	private double amount;
+	private int amount;
 	
 	private CashDispenser cashDispenser;
 	public Withdrawal(int userAccountNumber, Screen atmScreen, 
@@ -33,10 +33,10 @@ public class Withdrawal extends Transaction {
 	    boolean cashDispensed = false; // cash was not dispensed yet
 	    double availableBalance; // amount available for withdrawal
 
-	    double amountOptions[] = {MONEY1, MONEY2, MONEY3, 0, MONEY4, MONEY5, MONEY6};
+	    int amountOptions[] = {MONEY1, MONEY2, MONEY3, 0, MONEY4, MONEY5, MONEY6};
 	    
-	    do { //bo...
-		    getScreen().setScreenType(ScreenType.WITHDRAW_TYPE);
+	    do {
+		    getScreen().setType(ScreenType.WITHDRAW_TYPE);
 		    
 		    int choice = getKeypad().readInput(Keypad.WITHDRAW_MODE);
 		    
@@ -45,12 +45,19 @@ public class Withdrawal extends Transaction {
 			    availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
 				
 				if (amount <= availableBalance) {
-					getBankDatabase().debit(getAccountNumber(), amount);
-					cashDispensed = true;
-					System.out.println("cashWithdrew: " + amount);
+					if (cashDispenser.isSufficientCashAvailable(amount)) {
+						getBankDatabase().debit(getAccountNumber(), amount);
+						
+						cashDispenser.dispenseCash(amount);
+						cashDispensed = true;
+						
+						System.out.println("cashWithdrew: " + amount);
+					}
+					else
+						System.out.println("Cash is not available in the ATM. Please choose a smaller amount.");
 				}
 				else
-					System.out.println("Not enough money. Pls choose a smaller amount.");
+					System.out.println("Not enough money . Please choose a smaller amount.");
 		    }
 		    else {
 		    	System.out.println("Cancelling withdraw..." );
