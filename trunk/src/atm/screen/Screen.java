@@ -18,40 +18,40 @@ public class Screen extends JPanel {
 	public Screen() {
 		initComponents();
 		
-		setScreenType(ScreenType.WELCOME_TYPE); //+ để lưu giữ size của screen ban đầu..
+		setType(ScreenType.WELCOME_TYPE); //+ để lưu giữ size của screen ban đầu..
 	}
 	
 	private void initComponents() {
 		setBackground(Color.GREEN);
-		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));		
+		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));	
 	}
 	
-	private void showScreen() {
+	private void addScreen() {
 		removeAll();
 		add(screenType);		
 		validate();	//repaint();
 	}
 	
 	/** set screen type **/
-	public void setScreenType(int type) {
+	public void setType(int type) {
 		screenType = ScreenType.newType(type);
-		showScreen();
+		addScreen();
 	}
 	
-	public ScreenType getScreenType() {
-		return screenType;
+	public int getType() {
+		return screenType.getTypeCode();
 	}	
 	
 	/** print & display methods.. **/
 	public void printMessage(String msg, int posIndex) {
-		getScreenType().printMessage(msg, posIndex);
+		screenType.printMessage(msg, posIndex);
 	}
 	
 	public void displayInput(String msg) {
-		getScreenType().displayInput(msg);
+		screenType.displayInput(msg);
 	}
 	
 	public void clearDisplay() {
-		getScreenType().clearDisplay();
+		screenType.clearDisplay();
 	}
 }

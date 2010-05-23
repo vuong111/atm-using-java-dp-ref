@@ -7,6 +7,11 @@ public class WithdrawScreen extends ScreenType {
 	private static final String IMAGE_DESCRIPTION = "Withdraw";
 
 	@Override
+	public int getTypeCode() {
+		return ScreenType.WITHDRAW_TYPE;
+	}
+	
+	@Override
 	protected String getImageName() {
 		return IMAGE_NAME;
 	};

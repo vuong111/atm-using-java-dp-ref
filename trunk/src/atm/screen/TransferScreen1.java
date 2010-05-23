@@ -12,6 +12,11 @@ public class TransferScreen1 extends ScreenType {
 	private JTextField accountFld;
 
 	@Override
+	public int getTypeCode() {
+		return ScreenType.TRANSFER1_TYPE;
+	}
+	
+	@Override
 	protected String getImageName() {
 		return IMAGE_NAME;
 	};

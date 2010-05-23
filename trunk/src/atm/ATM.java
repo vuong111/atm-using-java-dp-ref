@@ -116,7 +116,7 @@ public class ATM extends JFrame {
 	public void run() {
 		while (true) {
 			while (!userAuthenticated) {
-				screen.setScreenType(ScreenType.WELCOME_TYPE);
+				screen.setType(ScreenType.WELCOME_TYPE);
 				authenticateUser(cardSlot.getCardNumber());
 			}
 			
@@ -127,12 +127,12 @@ public class ATM extends JFrame {
 	}
 	
 	private void authenticateUser(int cardNumber) {
-		screen.setScreenType(ScreenType.LOGIN_TYPE);
+		screen.setType(ScreenType.LOGIN_TYPE);
 		screen.clearDisplay();
 
 		int pin = keypad.readInput(Keypad.LOGIN_MODE);
 		
-		if (pin != CANCELED) {
+		if (pin != CANCELLED) {
 			userAuthenticated = bankDatabase.authenticateUser(cardNumber, pin);				      
 
 		    if (userAuthenticated) {
@@ -156,7 +156,7 @@ public class ATM extends JFrame {
 		boolean userExited = false;
 		
 	    while (!userExited) {
-		    screen.setScreenType(ScreenType.MAIN_MENU_TYPE);
+		    screen.setType(ScreenType.MAIN_MENU_TYPE);
 			
 			int transactionType = keypad.readInput(Keypad.MENU_MODE);
 			
@@ -169,10 +169,11 @@ public class ATM extends JFrame {
 				case TRANSFER:
 				case SERVICE_COST_INFO:		
 					/* Refactoring > Replace Conditional Dispatcher with Command */
-					getTransaction(transactionType).execute();
+					Transaction transaction = getTransaction(transactionType);
+					transaction.execute();
 					break;
 					
-				case CANCELED:
+				case CANCELLED:
 					userExited = true;
 					cardSlot.ejectCard();
 					break;
@@ -188,5 +189,5 @@ public class ATM extends JFrame {
 	private static final int TRANSFER = Keypad.RIGHT_KEY2;
 	private static final int SERVICE_COST_INFO = Keypad.RIGHT_KEY3;
 	
-	private static final int CANCELED = -1;
+	private static final int CANCELLED = -1;
 }

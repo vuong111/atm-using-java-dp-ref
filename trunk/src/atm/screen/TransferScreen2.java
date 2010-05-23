@@ -15,6 +15,11 @@ class TransferScreen2 extends ScreenType {
 	private JTextField moneyFld;	
 
 	@Override
+	public int getTypeCode() {
+		return ScreenType.TRANSFER2_TYPE;
+	}
+	
+	@Override
 	protected String getImageName() {
 		return IMAGE_NAME;
 	};

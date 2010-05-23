@@ -20,7 +20,7 @@ public class BalanceInquiry extends Transaction
 		String fullName = getBankDatabase().getFullName(getAccountNumber());      
 		double availableBalance = getBankDatabase().getAvailableBalance( getAccountNumber() );
 
-		getScreen().setScreenType(ScreenType.VIEW_TYPE);
+		getScreen().setType(ScreenType.VIEW_TYPE);
 
 		getScreen().printMessage(getAccountNumber() + "", 1);
 		getScreen().printMessage(fullName, 2);

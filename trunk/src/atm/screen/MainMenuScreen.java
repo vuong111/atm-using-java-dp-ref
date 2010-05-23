@@ -5,6 +5,11 @@ public class MainMenuScreen extends ScreenType {
 	private static final String IMAGE_DESCRIPTION = "Main Menu";
 	
 	@Override
+	public int getTypeCode() {
+		return ScreenType.MAIN_MENU_TYPE;
+	}
+	
+	@Override
 	protected String getImageName() {
 		return IMAGE_NAME;
 	};

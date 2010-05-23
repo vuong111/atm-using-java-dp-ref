@@ -26,7 +26,7 @@ public class Keypad {
 	
 	public static final int CANCELED = -1;
 	
-	private Screen screenController;
+	private Screen screen;
 	
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
@@ -34,7 +34,7 @@ public class Keypad {
 	private JPanel operationKeypad;
 
 	public Keypad(Screen scr) {
-		screenController = scr;
+		screen = scr;
 		currentInput = new StringBuffer();
 		initLeftKeypad();
 		initRightKeypad();
@@ -216,7 +216,7 @@ public class Keypad {
            StringBuffer echoStringL = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
         	   echoStringL.append('*');
-           screenController.displayInput(echoStringL.toString());
+           screen.displayInput(echoStringL.toString());
            break;
        
        case MENU_MODE:
@@ -230,15 +230,17 @@ public class Keypad {
     	   
        case CHANGE_PIN_MODE:
     	   currentInput.append(digit);
+    	   
            StringBuffer echoStringC = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i ++)
                echoStringC.append('*');
-           screenController.displayInput(echoStringC.toString());
+           
+           screen.displayInput(echoStringC.toString());
            break;
        
        case TRANSFER_MODE:
     	   currentInput.append(digit);
-    	   screenController.displayInput(currentInput.toString());
+    	   screen.displayInput(currentInput.toString());
     	   break;
        }
    }
@@ -252,7 +254,7 @@ public class Keypad {
        
        case LOGIN_MODE:
            if (currentInput.length() > 0)
-               notify();               
+               notify();
            break;
            
        case MENU_MODE:
@@ -281,7 +283,7 @@ public class Keypad {
            
        case LOGIN_MODE:       
            currentInput.setLength(0);
-           screenController.clearDisplay();
+           screen.clearDisplay();
            break;
            
        case MENU_MODE:    	   
@@ -291,12 +293,12 @@ public class Keypad {
     	   
        case CHANGE_PIN_MODE:
     	   currentInput.setLength(0);
-           screenController.clearDisplay();
+           screen.clearDisplay();
     	   break;
     	   
        case TRANSFER_MODE:
     	   currentInput.setLength(0);
-           screenController.clearDisplay();
+           screen.clearDisplay();
     	   break;
        }
    }           
