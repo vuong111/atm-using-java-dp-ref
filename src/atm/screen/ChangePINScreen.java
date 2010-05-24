@@ -12,8 +12,8 @@ public class ChangePINScreen extends ScreenType {
 	private static final String IMAGE_NAME = "changePIN.png";
 	private static final String IMAGE_DESCRIPTION = "Change PIN";
 	
-	public static final String ENTER_PIN = "Nhập mã PIN: ";
-	public static final String CONFIRM_PIN = "Xác nhận mã PIN: ";
+	public static final String ENTER_PIN_MESSAGE = "Nhập mã PIN: ";
+	public static final String CONFIRM_PIN_MESSAGE = "Xác nhận mã PIN: ";
 	
 	private JLabel pinLbl;
 	private JTextField pinFld;
@@ -35,7 +35,7 @@ public class ChangePINScreen extends ScreenType {
 	
 	@Override
 	public void addComponents() {
-		pinLbl = new JLabel(ENTER_PIN);
+		pinLbl = new JLabel(ENTER_PIN_MESSAGE);
 		pinFld = new JTextField(11);
 		
 		//PIN label

@@ -107,7 +107,7 @@ public class ATM extends JFrame {
 				new Transfer(currentAccountNumber, screen, bankDatabase, keypad));
 	}
 	
-	private Transaction getTransaction(Integer type) {
+	private Transaction lookupTransactionBy(Integer type) {
 		if (transactions.get(type) == null)
 			return Transaction.newNull();
 		return transactions.get(type);
@@ -169,7 +169,7 @@ public class ATM extends JFrame {
 				case TRANSFER:
 				case SERVICE_COST_INFO:		
 					/* Refactoring > Replace Conditional Dispatcher with Command */
-					Transaction transaction = getTransaction(transactionType);
+					Transaction transaction = lookupTransactionBy(transactionType);
 					transaction.execute();
 					break;
 					
