@@ -78,7 +78,7 @@ class TransferScreen2 extends ScreenType {
 					break;
 				case 2:
 					printAccountName(msg);
-					break;	
+					break;
 				}
 			}
 		});

@@ -22,7 +22,7 @@ public class Keypad {
 	public static final int RIGHT_KEY1 = 5;
 	public static final int RIGHT_KEY2 = 6;
 	public static final int RIGHT_KEY3 = 7;
-	public static final int RIGHT_KEY4 = 8;
+	public static final int RIGHT_KEY4 = 8; //-1
 	
 	public static final int CANCELED = -1;
 	
@@ -147,7 +147,6 @@ public class Keypad {
 		
 		//cancel key
 		JButton cancelBtn = new JButton("Cancel");
-		//cancelBtn.setActionCommand(String.valueOf(CANCEL));		
 		operationKeypad.add(cancelBtn);
 		cancelBtn.addActionListener(new ActionListener() {
 			@Override
@@ -158,7 +157,6 @@ public class Keypad {
 		
 		//clear key
 		JButton clearBtn = new JButton("Clear");
-		//clearBtn.setActionCommand(String.valueOf(CLEAR));
 		operationKeypad.add(clearBtn);
 		clearBtn.addActionListener(new ActionListener() {
 			@Override
@@ -169,7 +167,6 @@ public class Keypad {
 		
 		//enter key
 		JButton enterBtn = new JButton("Enter");
-		//enterBtn.setActionCommand(String.valueOf(ENTER));
 		operationKeypad.add(enterBtn);
 		enterBtn.addActionListener(new ActionListener() {
 			@Override
@@ -182,10 +179,8 @@ public class Keypad {
 		operationKeypad.add(new JButton(""));
 	}
 	
-	//will add readDouble soon..
-    public synchronized int readInput(int mode) { //, int maxValue) {
+    public synchronized int readInput(int mode) {
     	this.mode = mode;
-    	//this.maxValue = maxValue;
     	currentInput.setLength(0);
     	cancelled = false;
     	
@@ -208,35 +203,25 @@ public class Keypad {
     */
    private synchronized void digitKeyPressed(int digit) {
        switch (mode) {
-       case IDLE_MODE:       
-           break;
-           
+
        case LOGIN_MODE:
-           currentInput.append(digit);
-           StringBuffer echoStringL = new StringBuffer();
-           for (int i = 0; i < currentInput.length(); i ++)
-        	   echoStringL.append('*');
-           screen.displayInput(echoStringL.toString());
-           break;
-       
-       case MENU_MODE:
-    	   break;
-    	   
-       case WITHDRAW_MODE:
-    	   break;
-       
-       case BALANCE_INQUIRY_MODE:
-    	   break;
-    	   
        case CHANGE_PIN_MODE:
+    	   if (currentInput.length() == 6)
+    		   break;
+    	   
     	   currentInput.append(digit);
     	   
            StringBuffer echoStringC = new StringBuffer();
-           for (int i = 0; i < currentInput.length(); i ++)
+           for (int i = 0; i < currentInput.length(); i++)
                echoStringC.append('*');
            
            screen.displayInput(echoStringC.toString());
            break;
+           
+       case MENU_MODE:
+       case WITHDRAW_MODE:
+       case BALANCE_INQUIRY_MODE:
+    	   break; 
        
        case TRANSFER_MODE:
     	   currentInput.append(digit);
@@ -249,14 +234,14 @@ public class Keypad {
     */
    private synchronized void enterKeyPressed() {
 	   switch(mode) {
-   	   case IDLE_MODE:           
-           break;
-       
+
        case LOGIN_MODE:
-           if (currentInput.length() > 0)
+       case CHANGE_PIN_MODE:
+       case TRANSFER_MODE:
+    	   if (currentInput.length() > 0)
                notify();
-           break;
-           
+    	   break;
+    	   
        case MENU_MODE:
        case WITHDRAW_MODE:
     	   break;
@@ -264,13 +249,7 @@ public class Keypad {
        case BALANCE_INQUIRY_MODE:
     	   //...
     	   notify();
-    	   break;
-    	   
-       case CHANGE_PIN_MODE:
-       case TRANSFER_MODE:
-    	   if (currentInput.length() > 0)
-               notify();
-    	   break;
+    	   break;      
        }
    }
                
@@ -278,28 +257,19 @@ public class Keypad {
     */
    private synchronized void clearKeyPressed() {
        switch(mode) {
-       case IDLE_MODE:           
-           break;
-           
+
        case LOGIN_MODE:       
-           currentInput.setLength(0);
-           screen.clearDisplay();
-           break;
-           
-       case MENU_MODE:    	   
-       case WITHDRAW_MODE:
-       case BALANCE_INQUIRY_MODE:
-    	   break;
-    	   
        case CHANGE_PIN_MODE:
-    	   currentInput.setLength(0);
-           screen.clearDisplay();
-    	   break;
-    	   
        case TRANSFER_MODE:
     	   currentInput.setLength(0);
            screen.clearDisplay();
     	   break;
+           
+       case MENU_MODE:    	   
+       case WITHDRAW_MODE:
+       case BALANCE_INQUIRY_MODE:
+    	   break;    	   
+       
        }
    }           
                
@@ -307,9 +277,7 @@ public class Keypad {
     */
    private synchronized void cancelKeyPressed() {
        switch(mode) {
-       case IDLE_MODE:
-    	   break;
-           
+
        case LOGIN_MODE:
        case MENU_MODE:
        case WITHDRAW_MODE:
@@ -326,10 +294,10 @@ public class Keypad {
     */
    private synchronized void rightleftKeyPressed(int keyCode) {
 	   switch (mode) {
-	   case IDLE_MODE:
-		   break;
-		   
+
 	   case LOGIN_MODE:
+	   case CHANGE_PIN_MODE:
+	   case TRANSFER_MODE:
 		   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
 			   notify();
 		   }
@@ -338,7 +306,7 @@ public class Keypad {
 			   notify();
 		   }
 		   break;
-	   
+		   
 	   case MENU_MODE:
 		   if (keyCode == RIGHT_KEY4)
 			   cancelled = true; //-> readInput() return -1; !!!
@@ -351,7 +319,8 @@ public class Keypad {
 	   case WITHDRAW_MODE:
      	   if (keyCode == LEFT_KEY4)
     		   break;
-    	   else if (keyCode == RIGHT_KEY4)
+     	   
+    	   if (keyCode == RIGHT_KEY4)
     		   cancelled = true; //-> readInput() return -1; !!!
     	   else                   
     		   currentInput.append(keyCode);
@@ -370,16 +339,7 @@ public class Keypad {
 		   }
 		   break;
 		   
-	   case CHANGE_PIN_MODE:
-	   case TRANSFER_MODE:
-		   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
-			   notify();
-		   }
-		   else if (keyCode == RIGHT_KEY4) { //cancel
-			   cancelled = true; //-> readInput() return -1; !!!
-			   notify();
-		   }
-		   break;
+	   
 	   }
    }
 	
@@ -389,8 +349,7 @@ public class Keypad {
 	
    /** Possible values for mode parameter to readInput()
     */
-	public static final int IDLE_MODE = 0;
-	
+
     public static final int LOGIN_MODE = 1;
     
     public static final int MENU_MODE = 2;
@@ -410,8 +369,5 @@ public class Keypad {
     /** Cancellation flag - set to true if user cancels
      */
     private boolean cancelled;
-    
-    /** Maximum valid value - used in MENU_MODE only
-     */
-    private int maxValue;
+
 }
