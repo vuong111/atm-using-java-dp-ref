@@ -42,12 +42,12 @@ public class ChangePIN extends Transaction {
 
 	private void performChangePIN() {
 		getBankDatabase().changePIN(getAccountNumber(), newPIN);
-	    System.out.println("PIN changed: " + getAccountNumber() + "/" + newPIN);
+	    System.out.println("PIN changed..");
 	}
 
 	private boolean newPINIsValid() {
 		if (newPIN == CANCELLED) {
-			//hủy bỏ 'change pin'
+			System.out.println("ChangePIN cancelled..");
 			return false;
 		}
 		
@@ -68,8 +68,9 @@ public class ChangePIN extends Transaction {
 	}
 	
 	private int inputNewPINCode_confim() {
-		getScreen().printMessage(ChangePINScreen.CONFIRM_PIN_MESSAGE, 1);
+		getScreen().setType(ScreenType.CHANGE_PIN_TYPE);
 		getScreen().clearDisplay();
+		getScreen().printMessage(ChangePINScreen.CONFIRM_PIN_MESSAGE, 1);
 		
 		return getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
 	}

@@ -14,7 +14,11 @@ import javax.swing.JPanel;
 import atm.screen.Screen;
 import atm.utils.ATMUtils;
 
-public class Keypad {	
+public class Keypad {
+	
+	public static final int CANCELLED = -1;
+	
+	/** right/left keys code */
 	public static final int LEFT_KEY1 = 1;
 	public static final int LEFT_KEY2 = 2;
 	public static final int LEFT_KEY3 = 3;
@@ -22,17 +26,34 @@ public class Keypad {
 	public static final int RIGHT_KEY1 = 5;
 	public static final int RIGHT_KEY2 = 6;
 	public static final int RIGHT_KEY3 = 7;
-	public static final int RIGHT_KEY4 = 8; //-1
+	public static final int RIGHT_KEY4 = 8; //-1	
 	
-	public static final int CANCELED = -1;
+	/** Possible values for mode parameter to readInput() */
+    public static final int LOGIN_MODE = 1;    
+    public static final int MENU_MODE = 2;    
+    public static final int WITHDRAW_MODE = 3;    
+    public static final int BALANCE_INQUIRY_MODE = 4;    
+    public static final int CHANGE_PIN_MODE = 5;    
+    public static final int TRANSFER_MODE = 6; 
+   
+    /** readInput mode */
+	private int mode;      
+    
+    /** Current partial line of input */
+    private StringBuffer currentInput;
+    
+    /** Cancellation flag - set to true if user cancels */
+    private boolean cancelled;
 	
-	private Screen screen;
-	
+	/** Keypad types */
 	private JPanel leftKeypad;
 	private JPanel rightKeypad;
 	private JPanel numberKeypad;
 	private JPanel operationKeypad;
-
+	
+	/** screen */
+	private Screen screen;
+	
 	public Keypad(Screen scr) {
 		screen = scr;
 		currentInput = new StringBuffer();
@@ -191,7 +212,7 @@ public class Keypad {
 		}
     	
     	if (cancelled) {
-    		return CANCELED;
+    		return CANCELLED;
     	} 		
     	
     	return ATMUtils.parseInt(currentInput.toString());
@@ -211,11 +232,11 @@ public class Keypad {
     	   
     	   currentInput.append(digit);
     	   
-           StringBuffer echoStringC = new StringBuffer();
+           StringBuffer echoString = new StringBuffer();
            for (int i = 0; i < currentInput.length(); i++)
-               echoStringC.append('*');
+               echoString.append('*');
            
-           screen.displayInput(echoStringC.toString());
+           screen.displayInput(echoString.toString());
            break;
            
        case MENU_MODE:
@@ -227,6 +248,7 @@ public class Keypad {
     	   currentInput.append(digit);
     	   screen.displayInput(currentInput.toString());
     	   break;
+    	   
        }
    }
    
@@ -249,7 +271,8 @@ public class Keypad {
        case BALANCE_INQUIRY_MODE:
     	   //...
     	   notify();
-    	   break;      
+    	   break;
+    	   
        }
    }
                
@@ -287,6 +310,7 @@ public class Keypad {
     	   cancelled = true;
            notify();
            break;
+           
        }
    }
    
@@ -339,35 +363,6 @@ public class Keypad {
 		   }
 		   break;
 		   
-	   
 	   }
    }
-	
-   /** readInput mode
-    */
-	private int mode;
-	
-   /** Possible values for mode parameter to readInput()
-    */
-
-    public static final int LOGIN_MODE = 1;
-    
-    public static final int MENU_MODE = 2;
-    
-    public static final int WITHDRAW_MODE = 3;
-    
-    public static final int BALANCE_INQUIRY_MODE = 4;
-    
-    public static final int CHANGE_PIN_MODE = 5;
-    
-    public static final int TRANSFER_MODE = 6;    
-    
-    /** Current partial line of input
-     */
-    private StringBuffer currentInput;
-    
-    /** Cancellation flag - set to true if user cancels
-     */
-    private boolean cancelled;
-
 }

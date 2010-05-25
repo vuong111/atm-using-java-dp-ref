@@ -3,6 +3,6 @@ package atm.transaction;
 public class NullTransaction extends Transaction {
 	@Override
 	public void execute() {		
-		System.out.println("Under construction...");
+		System.out.println("[Null Transaction] - Under construction...");
 	}
 }

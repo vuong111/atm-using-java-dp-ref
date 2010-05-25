@@ -40,7 +40,7 @@ public class Transfer extends Transaction {
 
 	private boolean transferAccountIsExisting() {		
 		if (transferAccountNumber == CANCELLED) {
-			//hủy giao dịch
+			System.out.println("Transfer cancelled..");
 			return false;
 		}
 		
@@ -54,9 +54,10 @@ public class Transfer extends Transaction {
 	}
 	
 	private boolean transferAmountIsAvailable() {
-		if (transferAmount == CANCELLED)
-			//hủy giao dịch
+		if (transferAmount == CANCELLED) {
+			System.out.println("Transfer cancelled..");
 			return false;
+		}
 		
 		double availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
 		if (transferAmount > availableBalance) {

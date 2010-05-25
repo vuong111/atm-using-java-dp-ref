@@ -60,7 +60,7 @@ public class Withdrawal extends Transaction {
 					System.out.println("Not enough money . Please choose a smaller amount.");
 		    }
 		    else {
-		    	System.out.println("Cancelling withdraw..." );
+		    	System.out.println("Withdraw cancelled.." );
 	            return;
 		    }
 	    } while (!cashDispensed);
