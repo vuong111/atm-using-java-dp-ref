@@ -85,7 +85,7 @@ public class Transfer extends Transaction {
 		return getKeypad().readInput(Keypad.TRANSFER_MODE);
 	}
 	
-	private void performTransfer() {		
+	private void performTransfer() {
 		getBankDatabase().transfer(getAccountNumber(), transferAccountNumber, transferAmount);
 		System.out.println("Transfered " + transferAmount + " to account:" + transferAccountNumber);	
 	}

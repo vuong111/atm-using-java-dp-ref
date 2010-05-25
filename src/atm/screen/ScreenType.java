@@ -18,8 +18,8 @@ public abstract class ScreenType extends JPanel {
 	public static final int TRANSFER1_TYPE = 7;
 	public static final int TRANSFER2_TYPE = 8;	
 	
-	private String imageFolder = "images";
-	private Image bgImage;	
+	protected String imageFolder = "images";
+	protected Image bgImage;
 
 	public ScreenType() {
 		initComponents();
@@ -53,7 +53,7 @@ public abstract class ScreenType extends JPanel {
 	/* FORM TEMPLATE METHOD * 
 	 */
 	private void initComponents() {
-		configBackgroundImage();
+		loadBackgroundImage();
 		configSize();
 		addComponents();
 	}
@@ -61,9 +61,8 @@ public abstract class ScreenType extends JPanel {
 	/**
 	 * Form template methods..
 	 */
-	protected void configBackgroundImage() {
-		bgImage = ATMUtils.createImageIcon(this.getClass(), imageFolder + "/" + 
-				getImageName(), getImageDescription()).getImage();
+	protected void loadBackgroundImage() {
+		bgImage = ATMUtils.createImage(imageFolder + "/" + getImageName(), getImageDescription());
 	}
 	
 	protected void configSize() {

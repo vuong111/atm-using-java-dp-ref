@@ -9,7 +9,7 @@ import atm.utils.ATMUtils;
 public class BalanceInquiryScreen extends ScreenType {
 	private static final String IMAGE_NAME = "viewbalance.png";
 	private static final String IMAGE_DESCRIPTION = "View Balance";
-		
+	
 	private JTextField accountNumberFld;
 	private JTextField fullNameFld;
 	private JTextField balanceFld;
