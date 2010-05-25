@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -33,6 +31,7 @@ public class LineNumberCounter {
 				if (extension.equals("java"))
 				{
 					System.out.println(entry.getCanonicalPath() + " -> " + countLines(filePath) + " lines");
+					
 					lineTotal += countLines(filePath);
 					fileTotal++;
 				}
@@ -53,6 +52,7 @@ public class LineNumberCounter {
 		}
 	}
 	
+	//đếm số dòng của 1 file
 	public static int countLines(String filename) throws IOException {		
 		LineNumberReader reader  = new LineNumberReader(new FileReader(filename));
 
