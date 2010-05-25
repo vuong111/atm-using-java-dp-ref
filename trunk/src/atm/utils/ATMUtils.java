@@ -1,5 +1,6 @@
 package atm.utils;
 
+import java.awt.Image;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,15 +10,27 @@ import javax.swing.ImageIcon;
 public class ATMUtils {
 	
 	/** Returns an ImageIcon, or null if the path was invalid. */
-	public static ImageIcon createImageIcon(Class targetClass, String path, String description) {
-	    java.net.URL imgURL = targetClass.getResource(path);
+	public static Image createImage(String path, String description) {
+	    java.net.URL imgURL = ClassLoader.getSystemResource(path);
 	    if (imgURL != null) {
-	        return new ImageIcon(imgURL, description);
+	    	//System.out.println(imgURL);
+	        return new ImageIcon(imgURL, description).getImage();
 	    } else {
 	        System.err.println("Không tìm thấy file: " + path);
 	        return null;
 	    }
 	}
+	
+//	public static Image createImage(Class targetClass, String path, String description) {
+//	    java.net.URL imgURL = targetClass.getResource(path); //lấy imgURL dựa vào path của targetClass
+//	    if (imgURL != null) {
+//	    	//System.out.println(imgURL);
+//	        return new ImageIcon(imgURL, description).getImage();
+//	    } else {
+//	        System.err.println("Không tìm thấy file: " + path);
+//	        return null;
+//	    }
+//	}
 	
 	/** get current date time **/
 	public static String getCurrentDateTime() {
