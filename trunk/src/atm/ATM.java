@@ -145,7 +145,7 @@ public class ATM extends JFrame {
 		    }
 		}
 		else {
-			System.out.println("Cancelling authenticateUser...");
+			System.out.println("AuthenticateUser cancelled..");
 			cardSlot.ejectCard();
 		}
 	}
@@ -176,6 +176,7 @@ public class ATM extends JFrame {
 				case CANCELLED:
 					userExited = true;
 					cardSlot.ejectCard();
+					System.out.println("performTransactions cancelled..");
 					break;
 			} //end switch
 	    } // end while
@@ -189,5 +190,5 @@ public class ATM extends JFrame {
 	private static final int TRANSFER = Keypad.RIGHT_KEY2;
 	private static final int SERVICE_COST_INFO = Keypad.RIGHT_KEY3;
 	
-	private static final int CANCELLED = -1;
+	private static final int CANCELLED = Keypad.CANCELLED;
 }

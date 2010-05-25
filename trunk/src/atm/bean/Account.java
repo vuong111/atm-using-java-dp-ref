@@ -13,9 +13,7 @@ public class Account
 	
 	private Set<TransactionVO> listTransaction = new HashSet<TransactionVO>();
 	
-	public Account() {
-		
-	}
+	public Account() {}
 	
 	/** Account constructor initializes attributes **/
 	public Account(int theAccountNumber, String theFullName, int thePIN,
