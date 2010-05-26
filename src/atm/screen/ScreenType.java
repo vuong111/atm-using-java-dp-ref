@@ -10,13 +10,15 @@ import atm.utils.ATMUtils;
 
 public abstract class ScreenType extends JPanel {	
 	public static final int WELCOME_TYPE = 1;
-	public static final int LOGIN_TYPE = 2;
+	public static final int LOGIN_TYPE = 2;	
 	public static final int MAIN_MENU_TYPE = 3;
 	public static final int VIEW_TYPE = 4;
 	public static final int WITHDRAW_TYPE = 5;
-	public static final int CHANGE_PIN_TYPE = 6;
-	public static final int TRANSFER1_TYPE = 7;
-	public static final int TRANSFER2_TYPE = 8;	
+	public static final int CHANGE_PIN1_TYPE = 6;
+	public static final int CHANGE_PIN2_TYPE = 7;
+	public static final int TRANSFER1_TYPE = 8;
+	public static final int TRANSFER2_TYPE = 9;	
+	public static final int TRANSFER3_TYPE = 10;
 	
 	protected String imageFolder = "images";
 	protected Image bgImage;
@@ -32,15 +34,17 @@ public abstract class ScreenType extends JPanel {
 		case WELCOME_TYPE:
 			return new WelcomeScreen();
 		case LOGIN_TYPE:
-			return new LoginScreen();
+			return new LoginScreen();		
 		case MAIN_MENU_TYPE:
 			return new MainMenuScreen();
 		case VIEW_TYPE:
 			return new BalanceInquiryScreen();
 		case WITHDRAW_TYPE:
 			return new WithdrawScreen();
-		case CHANGE_PIN_TYPE:
-			return new ChangePINScreen();
+		case CHANGE_PIN1_TYPE:
+			return new ChangePINScreen1();
+		case CHANGE_PIN2_TYPE:
+			return new ChangePINScreen2();
 		case TRANSFER1_TYPE:
 			return new TransferScreen1();
 		case TRANSFER2_TYPE:

@@ -12,7 +12,8 @@ public class Withdrawal extends Transaction {
 	private static final int MONEY3 = 200;
 	private static final int MONEY4 = 500;
 	private static final int MONEY5 = 1000;
-	private static final int MONEY6 = 2000;
+	private static final int MONEY6 = 1500;
+	private static final int MONEY7 = 2000;
 	
 	private final static int CANCELED = -1;
 	
@@ -33,7 +34,7 @@ public class Withdrawal extends Transaction {
 	    boolean cashDispensed = false; // cash was not dispensed yet
 	    double availableBalance; // amount available for withdrawal
 
-	    int amountOptions[] = {MONEY1, MONEY2, MONEY3, 0, MONEY4, MONEY5, MONEY6};
+	    int amountOptions[] = {MONEY1, MONEY2, MONEY3, MONEY4, MONEY5, MONEY6, MONEY7};
 	    
 	    do {
 		    getScreen().setType(ScreenType.WITHDRAW_TYPE);

@@ -7,8 +7,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 class TransferScreen2 extends ScreenType {
-	private static final String IMAGE_NAME = "transfer2.png";
-	private static final String IMAGE_DESCRIPTION = "Transfer2";
 	
 	private JLabel accountNumberLbl;
 	private JLabel accountNameLbl;
@@ -21,12 +19,12 @@ class TransferScreen2 extends ScreenType {
 	
 	@Override
 	protected String getImageName() {
-		return IMAGE_NAME;
+		return "transfer2.png";
 	};
 	
 	@Override
 	protected String getImageDescription() {
-		return IMAGE_DESCRIPTION;
+		return "Transfer 2";
 	};
 	
 	@Override
@@ -38,19 +36,19 @@ class TransferScreen2 extends ScreenType {
 		//transfer account number
 	    add(accountNumberLbl);
 	    accountNumberLbl.setBackground(Color.green);
-	    accountNumberLbl.setBounds(165, 105, 140, 26);
+	    accountNumberLbl.setBounds(190, 112, 140, 26);
 	    accountNumberLbl.setForeground(Color.red);
 		
 		//transfer account full name
 		add(accountNameLbl);
 		accountNameLbl.setBackground(Color.green);
-		accountNameLbl.setBounds(165, 135, 140, 26);
+		accountNameLbl.setBounds(190, 142, 140, 26);
 		accountNameLbl.setForeground(Color.red);
 		
 		//transfer account money
 		add(moneyFld);
 		moneyFld.setBackground(Color.green);
-		moneyFld.setBounds(165, 175, 140, 26);
+		moneyFld.setBounds(190, 220, 140, 26);
 		moneyFld.setForeground(Color.red);
 		moneyFld.setEditable(false);		
 	}

@@ -4,11 +4,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import atm.utils.ATMUtils;
-
 public class BalanceInquiryScreen extends ScreenType {
-	private static final String IMAGE_NAME = "viewbalance.png";
-	private static final String IMAGE_DESCRIPTION = "View Balance";
 	
 	private JTextField accountNumberFld;
 	private JTextField fullNameFld;
@@ -21,12 +17,12 @@ public class BalanceInquiryScreen extends ScreenType {
 	
 	@Override
 	protected String getImageName() {
-		return IMAGE_NAME;
+		return "viewbalance.png";
 	};
 	
 	@Override
 	protected String getImageDescription() {
-		return IMAGE_DESCRIPTION;
+		return "View Balance";
 	};
 	
 	@Override
@@ -37,19 +33,19 @@ public class BalanceInquiryScreen extends ScreenType {
 		
 		add(accountNumberFld);
 		accountNumberFld.setBackground(Color.green);
-		accountNumberFld.setBounds(165, 105, 140, 26);
+		accountNumberFld.setBounds(190, 107, 140, 26);
 		accountNumberFld.setForeground(Color.red);
 		accountNumberFld.setEditable(false);
 
 		add(fullNameFld);
 		fullNameFld.setBackground(Color.green);
-		fullNameFld.setBounds(165, 140, 140, 26);
+		fullNameFld.setBounds(190, 142, 140, 26);
 		fullNameFld.setForeground(Color.red);
 		fullNameFld.setEditable(false);
 		
 		add(balanceFld);
 		balanceFld.setBackground(Color.green);
-		balanceFld.setBounds(165, 175, 140, 26);
+		balanceFld.setBounds(190, 177, 140, 26);
 		balanceFld.setForeground(Color.red);
 		balanceFld.setEditable(false);
 

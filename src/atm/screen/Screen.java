@@ -22,7 +22,7 @@ public class Screen extends JPanel {
 	}
 	
 	private void initComponents() {
-		setBackground(Color.GREEN);
+		setBackground(Color.ORANGE);
 		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));	
 	}
 	

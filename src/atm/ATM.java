@@ -79,7 +79,7 @@ public class ATM extends JFrame {
 		ioPanel.add(keypad.getNumberKeypad());				//keypad - number keypad		
 		ioPanel.add(keypad.getOperationKeypad()); 			//keypad - operation keypad		
 		ioPanel.add(vPanel2);
-		ioPanel.setBackground(new Color(51, 153, 204));
+		ioPanel.setBackground(Color.BLUE);
 		
 		add(new JLabel("Welcome to my ATM"), BorderLayout.NORTH); //welcome
 		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
@@ -164,10 +164,8 @@ public class ATM extends JFrame {
 				case WITHDRAW:
 				case BALANCE_INQUIRY:
 				case CHANGE_PIN:
-				case INSURANCE_COST_INFO:
-				case REGISTER_SERVICE:
+				case MINI_STATEMENT:
 				case TRANSFER:
-				case SERVICE_COST_INFO:		
 					/* Refactoring > Replace Conditional Dispatcher with Command */
 					Transaction transaction = lookupTransactionBy(transactionType);
 					transaction.execute();
@@ -185,10 +183,8 @@ public class ATM extends JFrame {
 	private static final int WITHDRAW = Keypad.LEFT_KEY1;
 	private static final int BALANCE_INQUIRY = Keypad.LEFT_KEY2;
 	private static final int CHANGE_PIN = Keypad.LEFT_KEY3;
-	private static final int INSURANCE_COST_INFO = Keypad.LEFT_KEY4;
-	private static final int REGISTER_SERVICE = Keypad.RIGHT_KEY1;
+	private static final int MINI_STATEMENT = Keypad.RIGHT_KEY1;
 	private static final int TRANSFER = Keypad.RIGHT_KEY2;
-	private static final int SERVICE_COST_INFO = Keypad.RIGHT_KEY3;
 	
 	private static final int CANCELLED = Keypad.CANCELLED;
 }

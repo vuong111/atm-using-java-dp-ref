@@ -1,8 +1,6 @@
 package atm.screen;
 
 public class WelcomeScreen extends ScreenType {
-	private static final String IMAGE_NAME = "welcome.png";
-	private static final String IMAGE_DESCRIPTION = "Welcome";
 	
 	@Override
 	public int getTypeCode() {
@@ -11,12 +9,12 @@ public class WelcomeScreen extends ScreenType {
 	
 	@Override
 	protected String getImageName() {
-		return IMAGE_NAME;
+		return "welcome.png";
 	};
 	
 	@Override
 	protected String getImageDescription() {
-		return IMAGE_DESCRIPTION;
+		return "Welcome";
 	};
 	
 	@Override
