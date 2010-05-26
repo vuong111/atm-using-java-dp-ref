@@ -18,7 +18,6 @@ public abstract class ScreenType extends JPanel {
 	public static final int CHANGE_PIN2_TYPE = 7;
 	public static final int TRANSFER1_TYPE = 8;
 	public static final int TRANSFER2_TYPE = 9;	
-	public static final int TRANSFER3_TYPE = 10;
 	
 	protected String imageFolder = "images";
 	protected Image bgImage;
