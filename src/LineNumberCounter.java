@@ -4,12 +4,18 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 
 public class LineNumberCounter {
-	public static int lineTotal;
-	public static int fileTotal;
-	
+	public static int linesTotal;
+	public static int classesTotal;
+	public static int instanceFieldsTotal;
+	public static int methodsTotal;
+
 	public static void main(String[] args) {
 		listDirectory("/workspace/ATM@/src/atm/"); //or absolutePath/canonicalPath
-		System.out.println("Total: " + lineTotal + " lines / " + fileTotal + " files");
+		System.out.println("=================");
+		System.out.println("Total: " + linesTotal + " lines (" + 
+				classesTotal + " classes | " +
+				instanceFieldsTotal + " fields | " +
+				methodsTotal + " methods)");
 	}
 	
 	public static void listDirectory(String path) {
@@ -30,10 +36,28 @@ public class LineNumberCounter {
 				
 				if (extension.equals("java"))
 				{
-					System.out.println(entry.getCanonicalPath() + " -> " + countLines(filePath) + " lines");
+					/*get class full name (package.name)
+					filePath = D:\workspace\ATM@\src\atm\transaction\Transfer.java
+					===> classFullName = atm.transaction.Transfer
+					*/
+					int packagePos = filePath.lastIndexOf("atm\\");
+					String classFullName = filePath.substring(packagePos, dotPos).replace("\\", ".");
 					
-					lineTotal += countLines(filePath);
-					fileTotal++;
+					try {
+						Class c = Class.forName(classFullName);
+						System.out.println(filePath + " -> " +
+								countLines(filePath) + " lines (" +
+								c.getDeclaredFields().length + " fields | " +
+								c.getDeclaredMethods().length + " methods)");
+						
+						classesTotal++;
+						linesTotal += countLines(filePath);
+						instanceFieldsTotal += c.getDeclaredFields().length;
+						methodsTotal += c.getDeclaredMethods().length;
+						
+					} catch (ClassNotFoundException e) {
+						System.out.println("Error: " + e);
+					}
 				}
 			}
 			else if (entry.isDirectory()) {
