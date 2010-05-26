@@ -5,34 +5,33 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class TransferScreen1 extends ScreenType {
-	
-	private JTextField accountFld;
+public class WithdrawScreen2 extends ScreenType {
+	private JTextField amountField;
 
 	@Override
 	public int getTypeCode() {
-		return ScreenType.TRANSFER1_TYPE;
+		return ScreenType.WITHDRAW2_TYPE;
 	}
 	
 	@Override
 	protected String getImageName() {
-		return "transfer1.png";
+		return "withdraw2.png";
 	};
 	
 	@Override
 	protected String getImageDescription() {
-		return "Transfer 1";
+		return "Withdraw 2";
 	};
 	
 	@Override
 	public void addComponents() {	
-		accountFld = new JTextField(11);	
+		amountField = new JTextField(11);	
 		
-		add(accountFld);
-		accountFld.setBackground(Color.green);
-		accountFld.setBounds(190, 131, 140, 26);
-		accountFld.setForeground(Color.red);
-		accountFld.setEditable(false);
+		add(amountField);
+		amountField.setBackground(Color.green);
+		amountField.setBounds(190, 131, 140, 26);
+		amountField.setForeground(Color.red);
+		amountField.setEditable(false);
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class TransferScreen1 extends ScreenType {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				accountFld.setText(msg);
+				amountField.setText(msg);
 			}
 		});
 	}

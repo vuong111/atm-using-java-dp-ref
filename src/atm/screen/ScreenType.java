@@ -13,11 +13,12 @@ public abstract class ScreenType extends JPanel {
 	public static final int LOGIN_TYPE = 2;	
 	public static final int MAIN_MENU_TYPE = 3;
 	public static final int VIEW_TYPE = 4;
-	public static final int WITHDRAW_TYPE = 5;
-	public static final int CHANGE_PIN1_TYPE = 6;
-	public static final int CHANGE_PIN2_TYPE = 7;
-	public static final int TRANSFER1_TYPE = 8;
-	public static final int TRANSFER2_TYPE = 9;	
+	public static final int WITHDRAW1_TYPE = 5;
+	public static final int WITHDRAW2_TYPE = 6;
+	public static final int CHANGE_PIN1_TYPE = 7;
+	public static final int CHANGE_PIN2_TYPE = 8;
+	public static final int TRANSFER1_TYPE = 9;
+	public static final int TRANSFER2_TYPE = 10;	
 	
 	protected String imageFolder = "images";
 	protected Image bgImage;
@@ -38,8 +39,10 @@ public abstract class ScreenType extends JPanel {
 			return new MainMenuScreen();
 		case VIEW_TYPE:
 			return new BalanceInquiryScreen();
-		case WITHDRAW_TYPE:
+		case WITHDRAW1_TYPE:
 			return new WithdrawScreen();
+		case WITHDRAW2_TYPE:
+			return new WithdrawScreen2();
 		case CHANGE_PIN1_TYPE:
 			return new ChangePINScreen1();
 		case CHANGE_PIN2_TYPE:
