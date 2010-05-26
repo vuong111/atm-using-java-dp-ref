@@ -40,8 +40,8 @@ public class LineNumberCounter {
 					filePath = D:\workspace\ATM@\src\atm\transaction\Transfer.java
 					===> classFullName = atm.transaction.Transfer
 					*/
-					int packagePos = filePath.lastIndexOf("atm\\");
-					String classFullName = filePath.substring(packagePos, dotPos).replace("\\", ".");
+					int srcPos = filePath.lastIndexOf("src");
+					String classFullName = filePath.substring(srcPos + 4, dotPos).replace("\\", ".");
 					
 					try {
 						Class c = Class.forName(classFullName);
