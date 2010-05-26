@@ -10,7 +10,7 @@ class TransferScreen2 extends ScreenType {
 	
 	private JLabel accountNumberLbl;
 	private JLabel accountNameLbl;
-	private JTextField moneyFld;	
+	private JTextField amountFld;	
 
 	@Override
 	public int getTypeCode() {
@@ -31,7 +31,7 @@ class TransferScreen2 extends ScreenType {
 	public void addComponents() {
 		accountNumberLbl = new JLabel();
 		accountNameLbl = new JLabel();
-		moneyFld = new JTextField(11);
+		amountFld = new JTextField(11);
 		
 		//transfer account number
 	    add(accountNumberLbl);
@@ -46,11 +46,11 @@ class TransferScreen2 extends ScreenType {
 		accountNameLbl.setForeground(Color.red);
 		
 		//transfer account money
-		add(moneyFld);
-		moneyFld.setBackground(Color.green);
-		moneyFld.setBounds(190, 220, 140, 26);
-		moneyFld.setForeground(Color.red);
-		moneyFld.setEditable(false);		
+		add(amountFld);
+		amountFld.setBackground(Color.green);
+		amountFld.setBounds(190, 220, 140, 26);
+		amountFld.setForeground(Color.red);
+		amountFld.setEditable(false);		
 	}
 	
 	private void printAccountNumber(String msg) {
@@ -62,7 +62,7 @@ class TransferScreen2 extends ScreenType {
 	}
 	
 	private void displayTransferMoneyInput(String msg) {
-		moneyFld.setText(msg);
+		amountFld.setText(msg);
 	}
 	
 	@Override

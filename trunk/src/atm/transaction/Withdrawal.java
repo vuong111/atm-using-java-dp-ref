@@ -7,15 +7,15 @@ import atm.screen.ScreenType;
 import atm.screen.Screen;
 
 public class Withdrawal extends Transaction {
-	private static final int MONEY1 = 50;
-	private static final int MONEY2 = 100;
-	private static final int MONEY3 = 200;
-	private static final int MONEY4 = 500;
-	private static final int MONEY5 = 1000;
-	private static final int MONEY6 = 1500;
-	private static final int MONEY7 = 2000;
+	private static final int AMOUNT1 = 50;
+	private static final int AMOUNT2 = 100;
+	private static final int AMOUNT3 = 200;
+	private static final int AMOUNT4 = 500;
+	private static final int AMOUNT5 = 1000;
+	private static final int AMOUNT6 = 1500;
+	private static final int AMOUNT7 = 2000;
 	
-	private final static int CANCELED = -1;
+	private final static int CANCELLED = -1;
 	
 	private int amount;
 	
@@ -34,14 +34,14 @@ public class Withdrawal extends Transaction {
 	    boolean cashDispensed = false; // cash was not dispensed yet
 	    double availableBalance; // amount available for withdrawal
 
-	    int amountOptions[] = {MONEY1, MONEY2, MONEY3, MONEY4, MONEY5, MONEY6, MONEY7};
+	    int amountOptions[] = {AMOUNT1, AMOUNT2, AMOUNT3, AMOUNT4, AMOUNT5, AMOUNT6, AMOUNT7};
 	    
 	    do {
-		    getScreen().setType(ScreenType.WITHDRAW_TYPE);
+		    getScreen().setType(ScreenType.WITHDRAW1_TYPE);
 		    
 		    int choice = getKeypad().readInput(Keypad.WITHDRAW_MODE);
 		    
-		    if (choice != CANCELED) {
+		    if (choice != CANCELLED) {
 		    	amount = amountOptions[choice - 1];
 			    availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
 				

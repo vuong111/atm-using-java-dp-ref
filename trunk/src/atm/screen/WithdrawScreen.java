@@ -6,7 +6,7 @@ public class WithdrawScreen extends ScreenType {
 	
 	@Override
 	public int getTypeCode() {
-		return ScreenType.WITHDRAW_TYPE;
+		return ScreenType.WITHDRAW1_TYPE;
 	}
 	
 	@Override
