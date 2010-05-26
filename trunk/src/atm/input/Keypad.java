@@ -259,7 +259,7 @@ public class Keypad {
 
        case LOGIN_MODE:
        case CHANGE_PIN_MODE:
-       case TRANSFER_MODE:
+       case TRANSFER_MODE: //only for transfer1 & transfer2
     	   if (currentInput.length() > 0)
                notify();
     	   break;
@@ -321,7 +321,7 @@ public class Keypad {
 
 	   case LOGIN_MODE:
 	   case CHANGE_PIN_MODE:
-	   case TRANSFER_MODE:
+	   case TRANSFER_MODE: //only for transfer1 & transfer2..
 		   if ((keyCode == RIGHT_KEY3) && (currentInput.length() > 0)) { //enter
 			   notify();
 		   }
@@ -332,23 +332,16 @@ public class Keypad {
 		   break;
 		   
 	   case MENU_MODE:
-		   if (keyCode == RIGHT_KEY4)
-			   cancelled = true; //-> readInput() return -1; !!!
-		   else
-			   currentInput.append(keyCode);
-		   
+		   currentInput.append(keyCode);		   
 		   notify();
 		   break;
 	   
 	   case WITHDRAW_MODE:
-     	   if (keyCode == LEFT_KEY4)
-    		   break;
-     	   
-    	   if (keyCode == RIGHT_KEY4)
-    		   cancelled = true; //-> readInput() return -1; !!!
-    	   else                   
-    		   currentInput.append(keyCode);
-    		   
+		   currentInput.append(keyCode);
+    	   
+		   if (keyCode == RIGHT_KEY4)
+    		   cancelled = true; //readInput() return -1;
+  		   
     	   notify();
     	   break;
 

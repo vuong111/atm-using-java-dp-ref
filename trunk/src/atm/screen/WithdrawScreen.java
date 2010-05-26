@@ -3,9 +3,7 @@ package atm.screen;
 import atm.utils.ATMUtils;
 
 public class WithdrawScreen extends ScreenType {
-	private static final String IMAGE_NAME = "withdraw.png";
-	private static final String IMAGE_DESCRIPTION = "Withdraw";
-
+	
 	@Override
 	public int getTypeCode() {
 		return ScreenType.WITHDRAW_TYPE;
@@ -13,12 +11,12 @@ public class WithdrawScreen extends ScreenType {
 	
 	@Override
 	protected String getImageName() {
-		return IMAGE_NAME;
+		return "withdraw.png";
 	};
 	
 	@Override
 	protected String getImageDescription() {
-		return IMAGE_DESCRIPTION;
+		return "Withdraw";
 	};
 	
 	@Override

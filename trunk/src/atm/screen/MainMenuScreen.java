@@ -1,8 +1,6 @@
 package atm.screen;
 
 public class MainMenuScreen extends ScreenType {
-	private static final String IMAGE_NAME = "mainmenu.png";
-	private static final String IMAGE_DESCRIPTION = "Main Menu";
 	
 	@Override
 	public int getTypeCode() {
@@ -11,12 +9,12 @@ public class MainMenuScreen extends ScreenType {
 	
 	@Override
 	protected String getImageName() {
-		return IMAGE_NAME;
+		return "mainmenu.png";
 	};
 	
 	@Override
 	protected String getImageDescription() {
-		return IMAGE_DESCRIPTION;
+		return "Main Menu";
 	};
 	
 	@Override

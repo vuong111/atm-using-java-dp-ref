@@ -2,7 +2,6 @@ package atm.transaction;
 
 import atm.bank.BankDatabase;
 import atm.input.Keypad;
-import atm.screen.ChangePINScreen;
 import atm.screen.ScreenType;
 import atm.screen.Screen;
 
@@ -60,17 +59,15 @@ public class ChangePIN extends Transaction {
 	}
 
 	private int inputNewPINCode() {
-		getScreen().setType(ScreenType.CHANGE_PIN_TYPE);
+		getScreen().setType(ScreenType.CHANGE_PIN1_TYPE);
 		getScreen().clearDisplay();
-		getScreen().printMessage(ChangePINScreen.ENTER_PIN_MESSAGE, 1);
 		
 		return getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
 	}
 	
 	private int inputNewPINCode_confim() {
-		getScreen().setType(ScreenType.CHANGE_PIN_TYPE);
+		getScreen().setType(ScreenType.CHANGE_PIN2_TYPE);
 		getScreen().clearDisplay();
-		getScreen().printMessage(ChangePINScreen.CONFIRM_PIN_MESSAGE, 1);
 		
 		return getKeypad().readInput(Keypad.CHANGE_PIN_MODE);
 	}

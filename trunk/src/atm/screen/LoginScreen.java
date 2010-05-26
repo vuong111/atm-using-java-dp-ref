@@ -6,8 +6,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class LoginScreen extends ScreenType {
-	private static final String IMAGE_NAME = "login.png";
-	private static final String IMAGE_DESCRIPTION = "Login";
 	
 	private JTextField pinFld;
 	
@@ -18,12 +16,12 @@ public class LoginScreen extends ScreenType {
 	
 	@Override
 	public String getImageName() {
-		return IMAGE_NAME;
+		return "login.png";
 	};
 	
 	@Override
 	public String getImageDescription() {
-		return IMAGE_DESCRIPTION;
+		return "Login";
 	};
 	
 	@Override
@@ -32,7 +30,7 @@ public class LoginScreen extends ScreenType {
 		
 		add(pinFld);
 		pinFld.setBackground(Color.green);
-		pinFld.setBounds(165, 165, 140, 26);
+		pinFld.setBounds(190, 165, 140, 26);
 		pinFld.setForeground(Color.red);
 		pinFld.setEditable(false);
 		
