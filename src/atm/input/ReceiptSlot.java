@@ -2,9 +2,9 @@ package atm.input;
 
 import javax.swing.JButton;
 
-public class DepositSlot extends JButton {
+public class ReceiptSlot extends JButton {
 	
-	public DepositSlot() {
+	public ReceiptSlot() {
 		super("Giấy in");
 	}
 }

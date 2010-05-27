@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import atm.bank.BankDatabase;
 import atm.input.CardSlot;
 import atm.input.CashDispenser;
-import atm.input.DepositSlot;
+import atm.input.ReceiptSlot;
 import atm.input.Keypad;
 import atm.screen.ScreenType;
 import atm.screen.Screen;
@@ -38,8 +38,8 @@ public class ATM extends JFrame {
 	/** cashDispenser **/
 	private CashDispenser cashDispenser = new CashDispenser();
 	
-	/** depositSlot **/
-	private DepositSlot depositSlot = new DepositSlot();
+	/** receiptSlot **/
+	private ReceiptSlot receiptSlot = new ReceiptSlot();
 	
 	/** Database **/
 	private BankDatabase bankDatabase = new BankDatabase();
@@ -68,7 +68,7 @@ public class ATM extends JFrame {
 		 */
 		JPanel vPanel1 = new JPanel(new GridLayout(0, 1));		
 		vPanel1.add(cashDispenser);		//cashDispenser
-		vPanel1.add(depositSlot);		//depositSlot		
+		vPanel1.add(receiptSlot);		//receiptSlot		
 		
 		JPanel vPanel2 = new JPanel(new GridLayout(0, 1));		
 		vPanel2.add(cardSlot);			//cardSlot
