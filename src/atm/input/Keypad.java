@@ -88,7 +88,7 @@ public class Keypad {
 	    leftKeypad.add(Box.createGlue());
 	    for (int i = LEFT_KEY1; i <= LEFT_KEY4; i++) {
 	    	leftKeypad.add(Box.createGlue());
-	    	JButton btn = new JButton("      ");
+	    	JButton btn = new JButton("  >>  ");
 	    	btn.setActionCommand(String.valueOf(i));	    	
 	    	leftKeypad.add(btn);
 
@@ -114,7 +114,7 @@ public class Keypad {
 		rightKeypad.add(Box.createGlue());
 	    for (int i = RIGHT_KEY1; i <= RIGHT_KEY4; i++) {
 	    	rightKeypad.add(Box.createGlue());
-	    	JButton btn = new JButton("      ");
+	    	JButton btn = new JButton("  <<  ");
 	    	btn.setActionCommand(String.valueOf(i));
 	    	rightKeypad.add(btn);
 	    	
@@ -145,6 +145,7 @@ public class Keypad {
 	    			digitKeyPressed(ATMUtils.parseInt(e.getActionCommand()));	    			
 	    		}
 	    	});
+	    	keyBtn.setForeground(Color.BLUE);
 	    }
 	    //null key
 	    numberKeypad.add(new JButton(""));
@@ -158,6 +159,7 @@ public class Keypad {
     			digitKeyPressed(ATMUtils.parseInt(e.getActionCommand()));
     		}
     	});
+	    keyBtn.setForeground(Color.BLUE);
 	    
 	    //null key
 	    numberKeypad.add(new JButton(""));
@@ -167,7 +169,7 @@ public class Keypad {
 		operationKeypad = new JPanel(new GridLayout(0, 1));
 		
 		//cancel key
-		JButton cancelBtn = new JButton("Cancel");
+		JButton cancelBtn = new JButton("Cancel");		
 		operationKeypad.add(cancelBtn);
 		cancelBtn.addActionListener(new ActionListener() {
 			@Override
@@ -175,6 +177,7 @@ public class Keypad {
 				cancelKeyPressed();				
 			}
 		});
+		cancelBtn.setBackground(Color.RED);
 		
 		//clear key
 		JButton clearBtn = new JButton("Clear");
@@ -185,6 +188,7 @@ public class Keypad {
 				clearKeyPressed();
 			}
 		});
+		clearBtn.setBackground(Color.YELLOW);
 		
 		//enter key
 		JButton enterBtn = new JButton("Enter");
@@ -195,6 +199,7 @@ public class Keypad {
 				enterKeyPressed();				
 			}
 		});
+		enterBtn.setBackground(Color.GREEN);
 		
 		//null key
 		operationKeypad.add(new JButton(""));

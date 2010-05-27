@@ -26,7 +26,7 @@ public class CardSlot extends JPanel implements ActionListener {
 		setLayout(new GridLayout(0, 1));
 		
 		cardNumberFld = new JTextField("12345");
-		cardSlot = new JButton("Insert your card");
+		cardSlot = new JButton("Đẩy thẻ vào");
 		cardSlot.addActionListener(this);
 		
 		add(cardNumberFld);

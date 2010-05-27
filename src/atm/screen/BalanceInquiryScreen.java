@@ -1,14 +1,16 @@
 package atm.screen;
 
 import java.awt.Color;
+
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class BalanceInquiryScreen extends ScreenType {
 	
-	private JTextField accountNumberFld;
-	private JTextField fullNameFld;
-	private JTextField balanceFld;
+	private JLabel accountNumberLbl;
+	private JLabel accountNameLbl;
+	private JLabel accountBalanceLbl;
 
 	@Override
 	public int getTypeCode() {
@@ -27,40 +29,37 @@ public class BalanceInquiryScreen extends ScreenType {
 	
 	@Override
 	public void addComponents() {
-		accountNumberFld = new JTextField();
-		fullNameFld = new JTextField();
-		balanceFld = new JTextField();
+		accountNumberLbl = new JLabel();
+		accountNameLbl = new JLabel();
+		accountBalanceLbl = new JLabel();
 		
-		add(accountNumberFld);
-		accountNumberFld.setBackground(Color.green);
-		accountNumberFld.setBounds(190, 107, 140, 26);
-		accountNumberFld.setForeground(Color.red);
-		accountNumberFld.setEditable(false);
+		add(accountNumberLbl);
+		accountNumberLbl.setBackground(Color.green);
+		accountNumberLbl.setBounds(190, 114, 200, 26);
+		accountNumberLbl.setForeground(Color.red);
 
-		add(fullNameFld);
-		fullNameFld.setBackground(Color.green);
-		fullNameFld.setBounds(190, 142, 140, 26);
-		fullNameFld.setForeground(Color.red);
-		fullNameFld.setEditable(false);
+		add(accountNameLbl);
+		accountNameLbl.setBackground(Color.green);
+		accountNameLbl.setBounds(190, 147, 200, 26);
+		accountNameLbl.setForeground(Color.red);
 		
-		add(balanceFld);
-		balanceFld.setBackground(Color.green);
-		balanceFld.setBounds(190, 177, 140, 26);
-		balanceFld.setForeground(Color.red);
-		balanceFld.setEditable(false);
+		add(accountBalanceLbl);
+		accountBalanceLbl.setBackground(Color.green);
+		accountBalanceLbl.setBounds(190, 182, 200, 26);
+		accountBalanceLbl.setForeground(Color.red);
 
 	}
 
 	private void printAccountNumber(String msg) {
-		accountNumberFld.setText(msg);
+		accountNumberLbl.setText(msg);
 	}
 	
 	private void printAccountName(String msg) {
-		fullNameFld.setText(msg);
+		accountNameLbl.setText(msg);
 	}
 	
 	private void printAccountBalance(String msg) {
-		balanceFld.setText(msg);
+		accountBalanceLbl.setText(msg);
 	}
 	
 	@Override

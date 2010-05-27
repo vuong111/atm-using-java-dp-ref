@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 
 public class ATMUtils {
 	
-	/** Returns an ImageIcon, or null if the path was invalid. */
+	/** Returns an Image, or null if the path was invalid. */
 	public static Image createImage(String path, String description) {
 	    java.net.URL imgURL = ClassLoader.getSystemResource(path);
 	    if (imgURL != null) {

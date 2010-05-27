@@ -36,13 +36,13 @@ class TransferScreen2 extends ScreenType {
 		//transfer account number
 	    add(accountNumberLbl);
 	    accountNumberLbl.setBackground(Color.green);
-	    accountNumberLbl.setBounds(190, 112, 140, 26);
+	    accountNumberLbl.setBounds(190, 112, 200, 26);
 	    accountNumberLbl.setForeground(Color.red);
 		
 		//transfer account full name
 		add(accountNameLbl);
 		accountNameLbl.setBackground(Color.green);
-		accountNameLbl.setBounds(190, 142, 140, 26);
+		accountNameLbl.setBounds(190, 142, 200, 26);
 		accountNameLbl.setForeground(Color.red);
 		
 		//transfer account money
