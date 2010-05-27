@@ -55,7 +55,7 @@ public class ATM extends JFrame {
 	
 	/** constructor **/
 	public ATM() {
-		super("ATM");
+		super("ATM Machine");
 		userAuthenticated = false;
 		currentAccountNumber = 0;
 		
@@ -81,7 +81,7 @@ public class ATM extends JFrame {
 		ioPanel.add(vPanel2);
 		ioPanel.setBackground(Color.BLUE);
 		
-		add(new JLabel("Welcome to my ATM"), BorderLayout.NORTH); //welcome
+		//add(new JLabel("Welcome to my ATM"), BorderLayout.NORTH); //welcome
 		add(keypad.getLeftKeypad(), BorderLayout.WEST);		//keypad - left side		
 		add(keypad.getRightKeypad(), BorderLayout.EAST); 	//keypad - right side		
 		add(screen, BorderLayout.CENTER); 				  	//screen		

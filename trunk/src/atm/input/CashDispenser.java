@@ -8,7 +8,7 @@ public class CashDispenser extends JButton {
 	private int count; // số tờ tiền có trong ATM..
    
 	public CashDispenser() {
-		super("Cash Dispenser");
+		super("Khay rút tiền");
 		count = INITIAL_COUNT;
 	}
 	
