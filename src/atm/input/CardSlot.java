@@ -3,20 +3,15 @@ package atm.input;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import atm.utils.ATMUtils;
-import atm.utils.Observable;
-import atm.utils.Observer;
 
 public class CardSlot extends JPanel implements ActionListener {
-	/**
-	 * observers list
-	 */
+
 	private JTextField cardNumberFld;
 	private JButton cardSlot;
 	
@@ -48,9 +43,6 @@ public class CardSlot extends JPanel implements ActionListener {
 		return ATMUtils.parseInt(cardNumberFld.getText());
 	}
 	
-	/**
-	 * implement ActionListener's method
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		isInserted = true;
@@ -58,7 +50,6 @@ public class CardSlot extends JPanel implements ActionListener {
 			notify();
 		}
 		updateVisibleStatus();
-		//notifyObservers();
 	}
 	
 	public void ejectCard() {

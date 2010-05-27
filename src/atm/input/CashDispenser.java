@@ -13,7 +13,7 @@ public class CashDispenser extends JButton {
 	}
 	
 	//cập nhập số tờ tiền trong ATM sau khi rút..
-	public void dispenseCash( int amount ) {
+	public void dispenseCash(int amount) {
 		int billsRequired = amount / CASH_TYPE; //số tờ tiền cần rút
 		count -= billsRequired;
 	} 
@@ -22,7 +22,7 @@ public class CashDispenser extends JButton {
 	public boolean isSufficientCashAvailable(int amount) {
 		int billsRequired = amount / CASH_TYPE; //số tờ tiền cần rút
 
-		if ( count >= billsRequired  )
+		if (count >= billsRequired )
 			return true;
 		else 
 			return false;
