@@ -27,16 +27,18 @@ public class BalanceInquiry extends Transaction
 		getScreen().printMessage(availableBalance + " VND", 3);
 		
 		//wait until enter/cancel key is clicked
-		waitForEscape(); //or call getKeypad().readInput(Keypad.BALANCE_INQUIRY_MODE);
+		getKeypad().readInput(Keypad.BALANCE_INQUIRY_MODE);
+		
+		//waitForEscape(); //click any button :-S
 	}
 	
-	private void waitForEscape() {
-		synchronized (getKeypad()) {
-			try {
-				getKeypad().wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+//	private void waitForEscape() {
+//		synchronized (getKeypad()) {
+//			try {
+//				getKeypad().wait();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }

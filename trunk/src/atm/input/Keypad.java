@@ -351,16 +351,11 @@ public class Keypad {
     	   break;
 
 	   case BALANCE_INQUIRY_MODE:
-		   if (keyCode == RIGHT_KEY3) {
-			   //...
+		   if (keyCode == RIGHT_KEY4) {
+			   //cancelled = true;
 			   notify();
 		   }
-		   else if (keyCode == RIGHT_KEY4) {
-			   cancelled = true;
-			   notify();
-		   }
-		   break;
-		   
+		   break;		   
 	   }
    }
 }
